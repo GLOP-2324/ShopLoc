@@ -1,0 +1,12 @@
+<form [formGroup]="accountForm " (ngSubmit)="createAccount()">
+  <label for="firstname">Firstname *</label>
+  <input type="text" id="firstname" placeholder="Enter your firstname" formControlName="firstname" required>
+
+  <label for="lastname">Lastname *</label>
+  <input type="text" id="lastname" placeholder="Enter your lastname" formControlName="lastname" required>
+
+  <label for="email">Email address *</label>
+  <input type="text" id="email" placeholder="Enter your email" formControlName="email" required>
+
+  <button type="submit">Create Account</button>
+</form>
