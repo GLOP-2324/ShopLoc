@@ -27,7 +27,7 @@ export class AccountCreationComponent {
   createAccount() {
     this.accountToCreate = this.accountForm.getRawValue();
     console.log(this.accountToCreate)
-    if (this.accountForm.get('firstname')?.value !== null && this.accountForm.get('lastname')?.value !== null && this.accountForm.get('email')?.value !== null) {
+    if (this.accountForm.get('firstname')?.value !== "" && this.accountForm.get('lastname')?.value !== "" && this.accountForm.get('email')?.value !== "") {
       this.accountService.createAccount(this.accountToCreate).subscribe((response) => {
         this.toastr.success("Le compte à été crée");
           this.accountForm.reset();
