@@ -1,12 +1,49 @@
-<form [formGroup]="accountForm " (ngSubmit)="createAccount()">
-  <label for="firstname">Firstname *</label>
-  <input type="text" id="firstname" placeholder="Enter your firstname" formControlName="firstname" required>
+<body>
+  <section class="login-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 login-sec">
+          <form class="w-100">
+            <div class="card ">
+              <div class="card-body">
+                <nav class="nav">
+                  <a class="nav-link"  routerLink="/signIn" routerLinkActive="active">Sign In</a>
+                  <a class="nav-link" routerLink="/signUp" routerLinkActive="active">Sign up</a>
+                </nav>
+                <div class="card-body">
+                  <h5 class="card-title">Register a new account</h5>
+                  <form  [formGroup]="accountForm " (ngSubmit)="createAccount()">
+                    <div class="form-group mb-3">
+                      <label for="firstname">Firstname *</label>
+                      <input class="form-control" type="text" id="firstname" placeholder="Enter your firstname" formControlName="firstname" required>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="lastname">Lastname *</label>
+                      <input class="form-control" type="text" id="lastname" placeholder="Enter your lastname" formControlName="lastname" required>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="email">Email address *</label>
+                      <input class="form-control" type="text" id="email" placeholder="Enter your email" formControlName="email" required>
+                    </div>
+                    <button type="submit"  class="btn btn-login float-end">Register</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-8 banner-sec">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item active">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
 
-  <label for="lastname">Lastname *</label>
-  <input type="text" id="lastname" placeholder="Enter your lastname" formControlName="lastname" required>
-
-  <label for="email">Email address *</label>
-  <input type="text" id="email" placeholder="Enter your email" formControlName="email" required>
-
-  <button type="submit">Create Account</button>
-</form>

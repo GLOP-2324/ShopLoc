@@ -1,0 +1,9 @@
+services:
+  web:
+    build:
+      dockerfile: Dockerfile  
+    ports:
+      - "4200:80"
+    volumes:
+      - ./ShopLoc:/project  
+      - /project/node_modules

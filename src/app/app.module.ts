@@ -9,11 +9,15 @@ import {AccountService} from "./shared/service/accountService";
 import {HttpClientModule} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { AccountLoginComponent } from './account-login/account-login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountCreationComponent
+    AccountCreationComponent,
+    AccountLoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
