@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
-import {AccountService} from "../shared/service/accountService"
+import {AccountService} from "../../shared/service/accountService"
 import {ToastrService} from "ngx-toastr";
 
 @Component({

@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "font-awesome/css/font-awesome.min.css";
 html,
 body {
   height: 100%;
@@ -9,8 +10,8 @@ body {
   justify-content: center;
 }
 .nav .nav-link {
-  border-bottom: 2px solid #fff;
-  color: #333;
+  /*border-bottom: 2px solid #fff;*/
+  color: #FFFFFF;
   padding: 0.5rem 0;
   margin-right: 1rem;
 }

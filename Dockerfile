@@ -20,7 +20,7 @@ EXPOSE 4200
 # Replace 'your_dockerhub_username' and 'repository_name' with your Docker Hub username and repository name
 # Replace 'tag' with the desired version/tag for your image
 # You can adjust the tag according to your versioning conventions
-RUN docker login
-
-# Pushing the image to Docker Hub
-RUN docker push koloina98/shoploc:latest
+#RUN docker login
+#
+## Pushing the image to Docker Hub
+#RUN docker push koloina98/shoploc:latest
