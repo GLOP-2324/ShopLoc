@@ -1,9 +1,26 @@
-# Stage 1
-FROM node:18.18.0 as node
+FROM node:20.8.1 AS build
+# set working directory
 WORKDIR /app
-COPY . .
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN npm install
-RUN npm run build --prod
-# Stage 2
-FROM nginx:alpine
-COPY --from=node /app/dist/ShopLoc /usr/share/nginx/html
+RUN npm install -g @angular/cli@16.2.7
+
+# add app
+COPY . /app
+
+# start app
+EXPOSE 4200
+
+# Tagging the local image
+# Replace 'your_dockerhub_username' and 'repository_name' with your Docker Hub username and repository name
+# Replace 'tag' with the desired version/tag for your image
+# You can adjust the tag according to your versioning conventions
+RUN docker login
+
+# Pushing the image to Docker Hub
+RUN docker push koloina98/shoploc:latest

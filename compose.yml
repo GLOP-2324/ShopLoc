@@ -1,9 +1,31 @@
+version: '3'
 services:
-  web:
-    build:
-      dockerfile: Dockerfile  
+  node:
+    container_name: ShopLocContainer_Front
+    build: ./.docker/node/
     ports:
-      - "4200:80"
+      - 4200:4200
     volumes:
-      - ./ShopLoc:/project  
-      - /project/node_modules
+      - "./:/var/www/html"
+    working_dir: /var/www/html
+    command: ng serve --host 0.0.0.0 --poll=2000
+
+  push:
+    image: docker:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DOCKER_CLI_ACI=1
+      - DOCKER_REPOSITORY=koloina98/shoploc
+      - DOCKER_USERNAME=koloina98
+      - DOCKER_PASSWORD=Glop2023!
+    command: >
+      sh -c 'docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+             docker-compose build node &&
+             docker-compose push node'
+
+  app:
+    build: .
+    command: [ "echo", "Application is running" ]
+    depends_on:
+      - push
