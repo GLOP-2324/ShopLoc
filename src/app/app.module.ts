@@ -11,9 +11,13 @@ import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { AccountLoginComponent } from './pages/account-login/account-login.component';
 import { HomeComponent } from './pages/home/home.component';
-import { CommercantComponent } from './pages/commercant/commercant.component';
+import { CommercantComponent } from './pages/vues/commercant/commercant-accueil/commercant.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FormComponent } from './components/form/form.component';
+import {DataTablesModule} from "angular-datatables";
+import { DatatableComponent } from './components/datatable/datatable.component';
+import { CommercantsProduitsComponent } from './pages/vues/commercant/commercants-produits/commercants-produits.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     HomeComponent,
     CommercantComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    FormComponent,
+    DatatableComponent,
+    CommercantsProduitsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +45,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
       countDuplicates: true,
       resetTimeoutOnDuplicate: true
     }),
+    DataTablesModule,
   ],
   providers: [AccountService],
   bootstrap: [AppComponent]

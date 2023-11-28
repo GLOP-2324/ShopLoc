@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="text-center" id="titre">Ajout d'un produit</div>
+  </div>
+  <div class="row justify-content-center">
+    <div class=" card p-4 w-50 ">
+      <span class="text-secondary text-center mb-4 fw-light">Merci de remplir tous les champs</span>
+      <form class="row g-3">
+        <div class="col sm-auto">
+          <label for="libelle" class="form-label">Libelle</label>
+          <input type="text" class="form-control" id="libelle">
+        </div>
+        <div class="col sm-auto">
+          <label for="prix" class="form-label">Prix</label>
+          <input type="number" class="form-control" id="prix">
+        </div>
+        <div class="col-sm-auto">
+          <label for="prix" class="form-label">Image</label>
+          <input type="file" class="form-control" id="image">
+        </div>
+        <div class="col-sm-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea type="text-area" class="form-control" id="description" placeholder=""></textarea>
+        </div>
+
+          <button type="submit" class="btn btn-form-save">
+            <i class="fa fa-save me-2"></i>
+            Enregistrer</button>
+      </form>
+    </div>
+  </div>
+</div>
+
