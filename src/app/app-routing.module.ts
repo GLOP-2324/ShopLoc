@@ -7,6 +7,7 @@ import {CommercantComponent} from "./pages/vues/commercant/commercant-accueil/co
 import {
   CommercantsProduitsComponent
 } from "./pages/vues/commercant/commercants-produits/commercants-produits.component";
+import {ProductsComponent} from "./pages/products/products.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,11 +17,10 @@ const routes: Routes = [
     path: 'commercant',
     component: CommercantComponent,
     children: [
-
       { path: 'produits' , component: CommercantsProduitsComponent },
     ]
   },
-
+  { path: 'produitsBoutique', component: ProductsComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,19 @@
+
+a{
+
+  text-decoration: none !important;
+}
+.card-img-top {
+  max-height: 20vh; /*not want to take all vertical space*/
+  object-fit: contain;/*show all image, autosized, no cut, in available space*/
+}
+.btn-add-card{
+ background: #1d1b31;
+  color: #FFFFFF;
+
+  width: 225px;
+}
+.card-img-actions {
+  min-height: 250px; /*not want to take all vertical space*/
+
+}

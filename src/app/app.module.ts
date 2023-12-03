@@ -18,6 +18,9 @@ import { FormComponent } from './components/form/form.component';
 import {DataTablesModule} from "angular-datatables";
 import { DatatableComponent } from './components/datatable/datatable.component';
 import { CommercantsProduitsComponent } from './pages/vues/commercant/commercants-produits/commercants-produits.component';
+import { SearchComponent } from './components/search/search.component';
+import { CarouselComponent } from './components/carousel/carousel.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { CommercantsProduitsComponent } from './pages/vues/commercant/commercant
     SidebarComponent,
     FormComponent,
     DatatableComponent,
-    CommercantsProduitsComponent
+    CommercantsProduitsComponent,
+    SearchComponent,
+    CarouselComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

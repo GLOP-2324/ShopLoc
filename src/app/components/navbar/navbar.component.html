@@ -9,16 +9,23 @@
       <ul class="navbar-nav ms-auto flex-nowrap">
 
         <li class="nav-item">
-          <a href="#" class="nav-link m-2 menu-item">Aide</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link m-2 menu-item">Blog</a>
-        </li>
-        <li class="nav-item">
           <a href="#" class="nav-link m-2 menu-item">Contact</a>
         </li>
         <li class="nav-item">
-          <a routerLink="signIn" routerLinkActive="active" class="nav-link m-2 menu-item nav-active">Connexion</a>
+          <a href="#" class="nav-link m-2 menu-item">
+            <i class="fa fa-heart"></i>
+            Wish List
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link m-2 menu-item">
+            <i class="fa fa-shopping-basket"></i>
+            Panier</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link m-2 menu-item nav-active " (click)="login()">
+            <i class="fa fa-user"></i>
+            Connexion</a>
         </li>
       </ul>
     </div>
