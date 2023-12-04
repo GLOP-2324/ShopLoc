@@ -4,13 +4,13 @@ import {environment} from "../../../environment/environment";
 import {Account} from "../model/Account";
 
 @Injectable()
-export class AccountService {
+export class storeService {
 
   constructor(private http: HttpClient) {
   }
 
 
-  public createAccount(account: Account) {
+  public createAccount(store: Store) {
     return this.http.post(environment.BACKEND_URL + '/account/', account);
   }
 }
