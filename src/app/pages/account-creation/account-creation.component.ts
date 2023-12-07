@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {AccountService} from "../../shared/service/accountService"
 import {ToastrService} from "ngx-toastr";
+import {Role} from "../../shared/model/Role";
 
 @Component({
   selector: 'app-account-creation',
@@ -23,12 +24,19 @@ export class AccountCreationComponent {
   });
 
   accountToCreate: any;
+  rightRole: number | undefined;
 
-  createAccount() {
+  createAccount(role: String) {
     this.accountToCreate = this.accountForm.getRawValue();
-    console.log(this.accountToCreate)
+    if (role === 'Client') {
+      this.rightRole = 3;
+    }
+    else {
+      this.rightRole = 2;
+    }
     if (this.accountForm.get('firstname')?.value !== "" && this.accountForm.get('lastname')?.value !== "" && this.accountForm.get('email')?.value !== "") {
-      this.accountService.createAccount(this.accountToCreate).subscribe((response) => {
+      this.accountService.createAccount(this.accountToCreate, this.rightRole).subscribe((response:any) => {
+        console.log('Success:', response);
         this.toastr.success("Le compte à été crée");
           this.accountForm.reset();
         })

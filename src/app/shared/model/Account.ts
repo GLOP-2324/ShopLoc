@@ -5,7 +5,6 @@ export class Account{
   public lastname: string | undefined;
   public email: string | undefined;
   public password: string | undefined;
-  public role: Role | undefined;
 }
 
 export class AccountSimplified{

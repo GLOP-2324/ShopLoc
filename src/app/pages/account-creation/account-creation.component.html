@@ -12,7 +12,7 @@
                 </nav>
                 <div class="card-body">
                   <h5 class="card-title">Register a new account</h5>
-                  <form  [formGroup]="accountForm " (ngSubmit)="createAccount()">
+                  <form  [formGroup]="accountForm " (ngSubmit)="createAccount('Client')">
                     <div class="form-group mb-3">
                       <label for="firstname">Firstname *</label>
                       <input class="form-control" type="text" id="firstname" placeholder="Enter your firstname" formControlName="firstname" required>
