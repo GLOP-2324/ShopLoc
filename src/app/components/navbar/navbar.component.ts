@@ -7,9 +7,13 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-constructor(private router: Router) {
-}
+  constructor(private router: Router) {
+  }
+
   login() {
     this.router.navigate(['/', 'signIn']);
   }
+
+  protected readonly localStorage = localStorage;
+
 }

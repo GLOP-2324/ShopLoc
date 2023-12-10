@@ -12,20 +12,21 @@
 
                 <div class="card-body">
                   <h5 class="card-title">Login with your email</h5>
-                  <form >
+
+                  <form [formGroup]="loginForm" (ngSubmit)="connexion()" >
                     <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"  required>
+                      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" formControlName="email" required>
                     </div>
                     <div class="form-group">
                       <label for="exampleInputPassword1">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"  required>
+                      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password"  required>
                     </div>
                     <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="exampleCheck1">
                       <label class="form-check-label" for="exampleCheck1">Remember me</label>
                     </div>
-                    <button type="button"  class="btn btn-login float-end">Submit</button>
+                    <button type="submit" class="btn btn-login float-end">Submit</button>
                   </form>
                   <button type="button" class="btn btn-link">Forgot password ?</button>
                 </div>

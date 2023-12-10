@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder} from "@angular/forms";
+import {AccountService} from "../../shared/service/accountService";
+import {ToastrService} from "ngx-toastr";
+
 @Component({
   selector: 'app-account-login',
   templateUrl: './account-login.component.html',
@@ -7,13 +11,53 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AccountLoginComponent {
 
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private accountService: AccountService,
+              private toastr: ToastrService) {
+  }
 
-constructor(private router: Router) {
-  this.router.events.subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      console.log('NavigationEnd:', event.url);
-    }
+  credentials: any;
+
+  loginForm = this.formBuilder.group({
+    email: '',
+    password: ''
   });
-}
 
+  connexion() {
+    this.credentials = this.loginForm.getRawValue();
+    if (this.loginForm.get("email")?.value !== null && this.loginForm.get("email")?.value !== ""
+      && this.loginForm.get("password")?.value !== null && this.loginForm.get("password")?.value !== "") {
+      this.accountService.signIn(this.credentials).subscribe((response: any) => {
+        console.log(response)
+        if (response != null) {
+          localStorage.setItem("token", response.token);
+          localStorage.setItem("firstname", response.firstname);
+          localStorage.setItem("lastname", response.lastname);
+          switch (response.roleId) {
+            case 1:
+              console.log("rediriger vers l'interface ADMIN");
+              break;
+            case 2:
+              this.router.navigateByUrl("/commercant");
+              break;
+            case 3:
+              console.log("rediriger vers l'interface CLIENT");
+              break;
+            default:
+              this.router.navigateByUrl("/error");
+              break;
+          }
+        }
+        else {
+          this.router.navigateByUrl("/error");
+        }
+      })
+    } else {
+      this.toastr.error(
+        "Veuillez remplir tous les champs requis"
+      );
+    }
+
+  }
 }

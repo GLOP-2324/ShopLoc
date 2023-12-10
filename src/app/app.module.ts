@@ -6,21 +6,25 @@ import {AppComponent} from './app.component';
 import {AccountCreationComponent} from './pages/account-creation/account-creation.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AccountService} from "./shared/service/accountService";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule,HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import { AccountLoginComponent } from './pages/account-login/account-login.component';
-import { HomeComponent } from './pages/home/home.component';
-import { CommercantComponent } from './pages/vues/commercant/commercant-accueil/commercant.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { FormComponent } from './components/form/form.component';
+import {AccountLoginComponent} from './pages/account-login/account-login.component';
+import {HomeComponent} from './pages/home/home.component';
+import {CommercantComponent} from './pages/vues/commercant/commercant-accueil/commercant.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {SidebarComponent} from './components/sidebar/sidebar.component';
+import {FormComponent} from './components/form/form.component';
 import {DataTablesModule} from "angular-datatables";
-import { DatatableComponent } from './components/datatable/datatable.component';
-import { CommercantsProduitsComponent } from './pages/vues/commercant/commercants-produits/commercants-produits.component';
-import { SearchComponent } from './components/search/search.component';
-import { CarouselComponent } from './components/carousel/carousel.component';
-import { ProductsComponent } from './pages/products/products.component';
+import {DatatableComponent} from './components/datatable/datatable.component';
+import {
+  CommercantsProduitsComponent
+} from './pages/vues/commercant/commercants-produits/commercants-produits.component';
+import {SearchComponent} from './components/search/search.component';
+import {CarouselComponent} from './components/carousel/carousel.component';
+import {ProductsComponent} from './pages/products/products.component';
+import {ErrorComponent} from './pages/error/error.component';
+import {AuthInterceptor} from "./shared/auth-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +40,8 @@ import { ProductsComponent } from './pages/products/products.component';
     CommercantsProduitsComponent,
     SearchComponent,
     CarouselComponent,
-    ProductsComponent
+    ProductsComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,14 @@ import { ProductsComponent } from './pages/products/products.component';
     }),
     DataTablesModule,
   ],
-  providers: [AccountService],
+  providers: [
+    AccountService,
+    /*{
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
