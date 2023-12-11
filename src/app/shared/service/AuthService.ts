@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import {environment} from "../../../environment/environment";
+import {Credentials} from "../model/Account";
 
 
 @Injectable({
@@ -12,8 +13,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  public signIn(credentials:Credentials) {
+    return this.http.post(environment.BACKEND_URL + '/auth/signIn', credentials);
+  }
+
   validateToken(token: string): Observable<boolean> {
-    const url = `${environment.BACKEND_URL}/account/validateToken?token=${token}`;
+    const url = `${environment.BACKEND_URL}/auth/validateToken?token=${token}`;
 
     return this.http.post<any>(url, {}).pipe(
       map((res:any) => {

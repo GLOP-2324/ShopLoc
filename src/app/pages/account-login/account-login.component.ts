@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {FormBuilder} from "@angular/forms";
 import {AccountService} from "../../shared/service/accountService";
 import {ToastrService} from "ngx-toastr";
+import {AuthService} from "../../shared/service/AuthService";
 
 @Component({
   selector: 'app-account-login',
@@ -13,7 +14,7 @@ export class AccountLoginComponent {
 
   constructor(private router: Router,
               private formBuilder: FormBuilder,
-              private accountService: AccountService,
+              private authService: AuthService,
               private toastr: ToastrService) {
   }
 
@@ -28,7 +29,7 @@ export class AccountLoginComponent {
     this.credentials = this.loginForm.getRawValue();
     if (this.loginForm.get("email")?.value !== null && this.loginForm.get("email")?.value !== ""
       && this.loginForm.get("password")?.value !== null && this.loginForm.get("password")?.value !== "") {
-      this.accountService.signIn(this.credentials).subscribe((response: any) => {
+      this.authService.signIn(this.credentials).subscribe((response: any) => {
         console.log(response)
         if (response != null) {
           localStorage.setItem("token", response.token);

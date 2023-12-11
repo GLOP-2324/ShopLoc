@@ -25,6 +25,7 @@ import {CarouselComponent} from './components/carousel/carousel.component';
 import {ProductsComponent} from './pages/products/products.component';
 import {ErrorComponent} from './pages/error/error.component';
 import {AuthInterceptor} from "./shared/auth-interceptor.service";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {AuthInterceptor} from "./shared/auth-interceptor.service";
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',
