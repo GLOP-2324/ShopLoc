@@ -1,0 +1,76 @@
+name: CI/CD
+
+on:
+    workflow_run:
+      workflows: [ "create-branch" ]
+      types:
+        - completed
+    push:
+      branches:
+        - "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/glop23-24:backend
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+      # Install VPN to access OpenStack with univ lille credentials
+      - name: Install OpenVPN Client
+        run: sudo apt-get update && sudo apt-get install openvpn
+
+      - name: Download VPN Configuration
+        run: |
+          wget https://infotuto.univ-lille.fr/fileadmin/user_upload/infotuto/images/DSI/Fichiers_telechargeables/Clients_VPN/ULILLE_VPN_ETUDIANT_Linux_v4.zip
+          unzip ULILLE_VPN_ETUDIANT_Linux_v4.zip
+
+      - name: OpenVPN-Connect
+        uses: kota65535/github-openvpn-connect-action@v2.1.0
+        with:
+          config_file: ULILLE_VPN_ETU_TCP_v4_Linux.ovpn
+          username: ${{ secrets.VPN_USERNAME }}
+          password: ${{ secrets.VPN_PASSWORD }}
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Login to docker hub.
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Set permissions for private key
+        run:
+          chmod 600 shoploc.pem
+
+      ## Deploy shoploc-fe on OpenStack instance.
+      - name: Pull shoploc-fe docker image
+        run: |
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker pull ${{ secrets.DOCKER_USERNAME }}/shoploc-fe:latest'
+      - name: Run new shoploc-fe-container
+        run: |
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d --name frontend -p 80:4200 bourahma/shoploc-fe:latest'
+
