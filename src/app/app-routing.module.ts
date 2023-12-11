@@ -24,18 +24,20 @@ const routes: Routes = [
     component: CommercantComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'produits' , component: CommercantsProduitsComponent, canActivate: [AuthGuard] },
-      { path: 'types' , component: CommercantTypeComponent, canActivate: [AuthGuard] },
+      { path: 'produits' , component: CommercantsProduitsComponent},
+      { path: 'types' , component: CommercantTypeComponent },
     ]
   },
   {
     path: 'admin',
-    component: AdminAccueilComponent, canActivate: [AuthGuard],
+    component: AdminAccueilComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
     ]
   },
-  { path: 'produitsBoutique', component: ProductsComponent, canActivate: [AuthGuard]},
+  { path: 'produitsBoutique', component: ProductsComponent,
+    canActivate: [AuthGuard]},
 ];
 
 @NgModule({

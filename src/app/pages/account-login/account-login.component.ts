@@ -37,7 +37,7 @@ export class AccountLoginComponent {
           localStorage.setItem("lastname", response.lastname);
           switch (response.roleId) {
             case 1:
-              console.log("rediriger vers l'interface ADMIN");
+              this.router.navigateByUrl("/admin");
               break;
             case 2:
               this.router.navigateByUrl("/commercant");
