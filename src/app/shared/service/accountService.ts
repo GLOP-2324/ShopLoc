@@ -3,7 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environment/environment";
 import {Account, Credentials} from "../model/Account";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AccountService {
 
   constructor(private http: HttpClient) {

@@ -25,6 +25,9 @@ import {CarouselComponent} from './components/carousel/carousel.component';
 import {ProductsComponent} from './pages/products/products.component';
 import {ErrorComponent} from './pages/error/error.component';
 import {AuthInterceptor} from "./shared/auth-interceptor.service";
+import { AdminAccueilComponent } from './pages/vues/admin/admin-accueil/admin-accueil.component';
+import { AdminUtilisateurComponent } from './pages/vues/admin/admin-utilisateur/admin-utilisateur.component';
+import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type/commercant-type.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import {AuthInterceptor} from "./shared/auth-interceptor.service";
     SearchComponent,
     CarouselComponent,
     ProductsComponent,
-    ErrorComponent
+    ErrorComponent,
+    AdminAccueilComponent,
+    AdminUtilisateurComponent,
+    CommercantTypeComponent
   ],
   imports: [
     BrowserModule,

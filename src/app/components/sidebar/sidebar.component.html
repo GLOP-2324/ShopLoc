@@ -4,48 +4,16 @@
     <div class="logo_name">Chez Fatima
       <hr class="text-white">
     </div>
-
   </div>
-  <ul class="nav-list mt-5">
-    <li>
-      <a href="#">
-        <i class="fa fa-dashboard"></i>
-        <span class="links_name">Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-user"></i>
-        <span class="links_name">Clients</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/commercant/produits">
-        <i class="fa fa-product-hunt"></i>
-        <span class="links_name" >Produits</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-gift"></i>
-        <span class="links_name">Avantages</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-pie-chart"></i>
-        <span class="links_name">Analyses</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class="fa fa-shopping-basket"></i>
-        <span class="links_name">Commandes</span>
-      </a>
-    </li>
-
-    <li class="profile">
-      <i class="fa fa-arrow-circle-right" id="log_out"></i>
-    </li>
-  </ul>
+    <ul class="nav-list mt-5">
+      <li *ngFor="let menuItem of menuItems">
+        <a [routerLink]="menuItem.path" routerLinkActive="active">
+          <i [class]="menuItem.iconClass"></i>
+          <span class="links_name">{{ menuItem.name }}</span>
+        </a>
+      </li>
+      <li class="profile">
+        <i class="fa fa-arrow-circle-right" id="log_out"></i>
+      </li>
+    </ul>
 </div>

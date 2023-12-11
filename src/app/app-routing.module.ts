@@ -9,6 +9,9 @@ import {
   CommercantsProduitsComponent
 } from "./pages/vues/commercant/commercants-produits/commercants-produits.component";
 import {ProductsComponent} from "./pages/products/products.component";
+import {AdminAccueilComponent} from "./pages/vues/admin/admin-accueil/admin-accueil.component";
+import {AdminUtilisateurComponent} from "./pages/vues/admin/admin-utilisateur/admin-utilisateur.component";
+import {CommercantTypeComponent} from "./pages/vues/commercant/commercant-type/commercant-type.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +23,14 @@ const routes: Routes = [
     component: CommercantComponent,
     children: [
       { path: 'produits' , component: CommercantsProduitsComponent },
+      { path: 'types' , component: CommercantTypeComponent },
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminAccueilComponent,
+    children: [
+      { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
     ]
   },
   { path: 'produitsBoutique', component: ProductsComponent },

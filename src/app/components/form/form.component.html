@@ -1,33 +1,35 @@
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="text-center" id="titre">Ajout d'un produit</div>
+    <div class="text-center" id="titre">{{titreForm}}</div>
   </div>
   <div class="row justify-content-center">
-    <div class=" card p-4 w-50 ">
+    <div class="card p-4 w-50">
       <span class="text-secondary text-center mb-4 fw-light">Merci de remplir tous les champs</span>
-      <form class="row g-3">
-        <div class="col sm-auto">
-          <label for="libelle" class="form-label">Libelle</label>
-          <input type="text" class="form-control" id="libelle">
-        </div>
-        <div class="col sm-auto">
-          <label for="prix" class="form-label">Prix</label>
-          <input type="number" class="form-control" id="prix">
-        </div>
-        <div class="col-sm-auto">
-          <label for="prix" class="form-label">Image</label>
-          <input type="file" class="form-control" id="image">
-        </div>
-        <div class="col-sm-12">
-          <label for="description" class="form-label">Description</label>
-          <textarea type="text-area" class="form-control" id="description" placeholder=""></textarea>
-        </div>
+      <div>
 
-          <button type="submit" class="btn btn-form-save">
-            <i class="fa fa-save me-2"></i>
-            Enregistrer</button>
+      <form  class="  "[formGroup]="form" (ngSubmit)="onSubmit()">
+        <ng-container *ngFor="let control of dynamicControls">
+          <div class="col sm-auto" >
+            <label for="{{ control.formControlName }}" class="form-label">{{ control.label }}</label>
+            <ng-container [ngSwitch]="control.type">
+              <select *ngSwitchCase="'select'" class="form-select" [id]="control.formControlName" [formControlName]="control.formControlName">
+                <option *ngFor="let type of typesProduits" [value]="type.id">{{ type.libelle }}</option>
+              </select>
+              <input *ngSwitchCase="'text'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
+              <input *ngSwitchCase="'number'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
+              <input *ngSwitchCase="'file'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
+              <input *ngSwitchCase="'email'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
+              <textarea *ngSwitchCase="'text-area'" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName"></textarea>
+            </ng-container>
+          </div>
+        </ng-container>
+
+        <button type="submit" class="btn btn-form-save  mt-2 float-end">
+          <i class="fa fa-save me-2"></i>
+          Enregistrer
+        </button>
       </form>
+      </div>
     </div>
   </div>
 </div>
-
