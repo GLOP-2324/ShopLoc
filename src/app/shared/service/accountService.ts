@@ -14,8 +14,4 @@ export class AccountService {
   public createAccount(account: Account, roleId:number) {
     return this.http.post(environment.BACKEND_URL + '/account/', account,{params: {roleId}});
   }
-
-  public signIn(credentials:Credentials) {
-    return this.http.post(environment.BACKEND_URL + '/account/signIn', credentials);
-  }
 }

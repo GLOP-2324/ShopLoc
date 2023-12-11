@@ -9,6 +9,7 @@ import {
   CommercantsProduitsComponent
 } from "./pages/vues/commercant/commercants-produits/commercants-produits.component";
 import {ProductsComponent} from "./pages/products/products.component";
+import {AuthGuard} from "./shared/guard/AuthGuard";
 import {AdminAccueilComponent} from "./pages/vues/admin/admin-accueil/admin-accueil.component";
 import {AdminUtilisateurComponent} from "./pages/vues/admin/admin-utilisateur/admin-utilisateur.component";
 import {CommercantTypeComponent} from "./pages/vues/commercant/commercant-type/commercant-type.component";
@@ -21,19 +22,20 @@ const routes: Routes = [
   {
     path: 'commercant',
     component: CommercantComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'produits' , component: CommercantsProduitsComponent },
-      { path: 'types' , component: CommercantTypeComponent },
+      { path: 'produits' , component: CommercantsProduitsComponent, canActivate: [AuthGuard] },
+      { path: 'types' , component: CommercantTypeComponent, canActivate: [AuthGuard] },
     ]
   },
   {
     path: 'admin',
-    component: AdminAccueilComponent,
+    component: AdminAccueilComponent, canActivate: [AuthGuard],
     children: [
       { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
     ]
   },
-  { path: 'produitsBoutique', component: ProductsComponent },
+  { path: 'produitsBoutique', component: ProductsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

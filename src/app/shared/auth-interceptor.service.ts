@@ -1,50 +1,25 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
-  HttpInterceptor,
-  HttpHandler,
   HttpRequest,
+  HttpHandler,
   HttpEvent,
+  HttpInterceptor
 } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
-import { AuthService } from  './service/AuthService'
-import {Router} from "@angular/router";
+import {AuthService} from './service/AuthService';
+import {Observable} from "rxjs";
 
-
+@Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router:Router) {}
+  constructor(public auth: AuthService) {
+  }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem("token");
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (token) {
-      return this.authService.validateToken(token).pipe(
-        switchMap((isValidToken) => {
-          if (isValidToken) {
-            req = req.clone({
-              setHeaders: {
-                Authorization: `Bearer ${token}`,
-              },
-            });
-          } else {
-            localStorage.setItem("token","");
-            window.location.href = "/signIn";
-            // Redirect to login or handle accordingly
-          }
-
-          return next.handle(req);
-        }),
-        catchError((error) => {
-          console.error('Error validating token:', error);
-          // Handle error (e.g., redirect to login)
-          return of(error);
-        })
-      );
-    } else {
-      return next.handle(req);
-    }
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+    return next.handle(request);
   }
 }

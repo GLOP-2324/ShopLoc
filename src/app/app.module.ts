@@ -28,6 +28,7 @@ import {AuthInterceptor} from "./shared/auth-interceptor.service";
 import { AdminAccueilComponent } from './pages/vues/admin/admin-accueil/admin-accueil.component';
 import { AdminUtilisateurComponent } from './pages/vues/admin/admin-utilisateur/admin-utilisateur.component';
 import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type/commercant-type.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       positionClass: 'toast-top-right',
@@ -66,11 +68,11 @@ import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type
   ],
   providers: [
     AccountService,
-    /*{
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },*/
+    },
   ],
   bootstrap: [AppComponent]
 })
