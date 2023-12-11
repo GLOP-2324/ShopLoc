@@ -49,8 +49,8 @@ export class FormComponent implements OnInit{
       this.route="admin"
       this.titreForm="Ajout d'un commerçant"
       this.dynamicControls = [
-        { label: 'Nom', formControlName: 'nom', type: 'text' },
-        { label: 'Prenom', formControlName: 'prenom', type: 'text' },
+        { label: 'Nom', formControlName: 'lastname', type: 'text' },
+        { label: 'Prenom', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
       ];
     }
