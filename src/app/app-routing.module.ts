@@ -9,6 +9,7 @@ import {
   CommercantsProduitsComponent
 } from "./pages/vues/commercant/commercants-produits/commercants-produits.component";
 import {ProductsComponent} from "./pages/products/products.component";
+import {AuthGuard} from "./shared/guard/AuthGuard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,11 +19,12 @@ const routes: Routes = [
   {
     path: 'commercant',
     component: CommercantComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: 'produits' , component: CommercantsProduitsComponent },
+      { path: 'produits' , component: CommercantsProduitsComponent, canActivate: [AuthGuard] },
     ]
   },
-  { path: 'produitsBoutique', component: ProductsComponent },
+  { path: 'produitsBoutique', component: ProductsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

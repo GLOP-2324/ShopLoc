@@ -60,11 +60,11 @@ import {AuthInterceptor} from "./shared/auth-interceptor.service";
   ],
   providers: [
     AccountService,
-    /*{
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },*/
+    },
   ],
   bootstrap: [AppComponent]
 })
