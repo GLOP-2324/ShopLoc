@@ -14,8 +14,7 @@ RUN npm install -g @angular/cli@16.2.7
 COPY . /app
 
 # start app
-EXPOSE 4200
-
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
 # Tagging the local image
 # Replace 'your_dockerhub_username' and 'repository_name' with your Docker Hub username and repository name
 # Replace 'tag' with the desired version/tag for your image
