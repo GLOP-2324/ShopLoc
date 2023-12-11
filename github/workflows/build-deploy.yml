@@ -31,7 +31,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/glop23-24:backend
+          tags: ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -69,8 +69,8 @@ jobs:
       ## Deploy shoploc-fe on OpenStack instance.
       - name: Pull shoploc-fe docker image
         run: |
-          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker pull ${{ secrets.DOCKER_USERNAME }}/shoploc-fe:latest'
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker pull ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend'
       - name: Run new shoploc-fe-container
         run: |
-          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d --name frontend -p 80:4200 bourahma/shoploc-fe:latest'
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d --name frontend -p 80:4200 ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend
 
