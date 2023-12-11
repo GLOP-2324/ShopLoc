@@ -69,4 +69,4 @@ jobs:
           ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker pull ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend'
       - name: Run new shoploc-fe-container
         run: |
-          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d frontend -p 80:4200 ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend'
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d -p 80:4200 ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend'
