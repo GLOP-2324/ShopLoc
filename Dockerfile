@@ -15,11 +15,3 @@ COPY . /app
 # start app
 CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
 
-# Tagging the local image
-# Replace 'your_dockerhub_username' and 'repository_name' with your Docker Hub username and repository name
-# Replace 'tag' with the desired version/tag for your image
-# You can adjust the tag according to your versioning conventions
-#RUN docker login
-#
-## Pushing the image to Docker Hub
-#RUN docker push koloina98/shoploc:latest
