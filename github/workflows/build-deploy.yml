@@ -65,6 +65,11 @@ jobs:
       - name: Set permissions for private key
         run:
           chmod 600 shoploc.pem
+          
+      - name: Stop and Remove Existing Container
+        run: |
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker stop frontend-container || true'
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker rm frontend-container || true'
 
       ## Deploy shoploc-fe on OpenStack instance.
       - name: Pull shoploc-fe docker image
@@ -72,5 +77,10 @@ jobs:
           ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker pull ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend'
       - name: Run new shoploc-fe-container
         run: |
-          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d --name frontend -p 80:4200 ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker run -d --name frontend_container -p 80:4200 ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend
+
+      #Delete unused images
+      - name: Delete unused images
+        run: |
+          ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker image prune -af '
 
