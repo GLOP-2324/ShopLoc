@@ -28,9 +28,7 @@ export class FormComponent implements OnInit{
     });
   }
   ngOnInit() {
-    this.storeService.getTypeProduct().subscribe((types) => {
-      this.typesProduits = types;
-    });
+
   }
     private initForm() {
         const formGroupConfig = {};
@@ -57,6 +55,9 @@ export class FormComponent implements OnInit{
     else if(currentRoute.startsWith('/commercant/produits')){
       this.route="commercant/produits"
       this.titreForm="Ajout d'un produit"
+      this.storeService.getTypeProduct().subscribe((types) => {
+        this.typesProduits = types;
+      });
       this.dynamicControls = [
         { label: 'Libelle', formControlName: 'libelle', type: 'text' },
         { label: 'Prix', formControlName: 'price', type: 'number' },
