@@ -72,7 +72,7 @@ jobs:
         run: |
           ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker stop frontend-container || true'
           ssh -i shoploc.pem -o StrictHostKeyChecking=no ubuntu@$IP_FE_ADDRESS 'sudo docker rm frontend-container || true'
-          continue-on-error: true
+        continue-on-error: true
 
       ## Deploy shoploc-fe on OpenStack instance.
       - name: Pull shoploc-fe docker image
