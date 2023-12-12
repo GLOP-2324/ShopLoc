@@ -4,6 +4,7 @@ import {FormBuilder} from "@angular/forms";
 import {AccountService} from "../../shared/service/accountService";
 import {ToastrService} from "ngx-toastr";
 import {AuthService} from "../../shared/service/AuthService";
+import {NgxPermissionsService} from "ngx-permissions";
 
 @Component({
   selector: 'app-account-login',
@@ -15,7 +16,8 @@ export class AccountLoginComponent {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private authService: AuthService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private permissionsService: NgxPermissionsService) {
   }
 
   credentials: any;
@@ -35,6 +37,7 @@ export class AccountLoginComponent {
           localStorage.setItem("token", response.token);
           localStorage.setItem("firstname", response.firstname);
           localStorage.setItem("lastname", response.lastname);
+          localStorage.setItem("roleId",response.roleId);
           switch (response.roleId) {
             case 1:
               this.router.navigateByUrl("/admin");

@@ -29,6 +29,8 @@ import { AdminAccueilComponent } from './pages/vues/admin/admin-accueil/admin-ac
 import { AdminUtilisateurComponent } from './pages/vues/admin/admin-utilisateur/admin-utilisateur.component';
 import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type/commercant-type.component';
 import {MatIconModule} from "@angular/material/icon";
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import {MatIconModule} from "@angular/material/icon";
     ErrorComponent,
     AdminAccueilComponent,
     AdminUtilisateurComponent,
-    CommercantTypeComponent
+    CommercantTypeComponent,
+    NotAllowedComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import {MatIconModule} from "@angular/material/icon";
       countDuplicates: true,
       resetTimeoutOnDuplicate: true
     }),
+    NgxPermissionsModule.forRoot(),
     DataTablesModule,
   ],
   providers: [
