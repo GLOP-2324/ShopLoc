@@ -24,6 +24,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   build:
+    if: github.ref == 'refs/heads/main'
     needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
@@ -45,6 +46,7 @@ jobs:
           tags: ${{ secrets.DOCKER_USERNAME }}/glop23-24:frontend
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     steps:
