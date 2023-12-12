@@ -12,7 +12,6 @@ on:
 jobs:
   build:
     if: github.ref == 'refs/heads/main'
-    needs: sonarcloud
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
