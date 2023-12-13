@@ -13,14 +13,18 @@ import {Store} from "../../shared/model/Store";
   styleUrls: ['./datatable.component.css']
 })
 export class DatatableComponent implements OnInit {
+  titreDatatable=""
   protected readonly localStorage = localStorage;
-
+  currentRoute: string = ''
   tableHeaders: string[] = [];
   products: any[] = [];
   dataRows: any[] = [];
   dtOptions: DataTables.Settings = {};
 
   ngOnInit() {
+    this.currentRoute = this.router.url;
+    this.updateDynamicControls(this.currentRoute);
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -53,7 +57,6 @@ export class DatatableComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd event:', localStorage);
         this.updateDynamicControls(event.url);
       }
     });
@@ -61,6 +64,7 @@ export class DatatableComponent implements OnInit {
 
   private updateDynamicControls(currentRoute: string): void {
     if (currentRoute.startsWith('/commercant/produits')) {
+      this.titreDatatable = "Liste des produits"
       const email = localStorage.getItem('email');
       if (email) {
         this.storeService.findSToreByEmail(email).subscribe(
@@ -69,7 +73,6 @@ export class DatatableComponent implements OnInit {
             // @ts-ignore
             this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
               this.dataRows = products;
-              console.log(this.dataRows,'hello')
             });
 
           },
@@ -81,11 +84,11 @@ export class DatatableComponent implements OnInit {
 
     }
     if (currentRoute.startsWith('/commercant/type')) {
+      this.titreDatatable = "Liste des types produits"
       this.tableHeaders=['Libelle'];
       // @ts-ignore
       this.storeService.getTypeProduct().subscribe((products:any[]) => {
         this.dataRows = products;
-        console.log(this.dataRows,'hello')
       });
 
 

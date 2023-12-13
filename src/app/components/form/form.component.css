@@ -1,11 +1,12 @@
 
 #titre {
-  color: white;
+  color: #2d2a2a;
+  font-weight: bolder;
   margin-top: 0px;
   margin-bottom: 40px;
   border-radius: 0.25rem;
   width: 180px;
-  background-color: #1d1b31;
+  /*background-color: #1d1b31;*/
   padding: 5px;
 }
 

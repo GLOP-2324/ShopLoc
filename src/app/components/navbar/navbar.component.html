@@ -28,7 +28,7 @@
 
                 </li>
                 <li class="nav-item cursor"*ngIf="loggedInUser">
-                    <a class="nav-link m-2 menu-item  " (click)="login()">
+                    <a class="nav-link m-2 menu-item  " (click)="goToAccount()">
                         <i class="fa fa-user"></i>
                         {{localStorage.getItem("firstname") + " " + localStorage.getItem("lastname")}}</a>
                 </li>

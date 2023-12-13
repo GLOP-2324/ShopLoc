@@ -1,12 +1,18 @@
-<table id="example" datatable [dtOptions]="dtOptions" class="table table-striped" style="width:100%" *ngIf="dataRows.length>0">
-  <thead>
-  <tr>
-    <th *ngFor="let header of tableHeaders">{{ header }}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let row of dataRows">
-    <td *ngFor="let header of tableHeaders">{{ row[header.toLowerCase()] }}</td>
-  </tr>
-  </tbody>
-</table>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="text-center" id="titre">{{titreDatatable}}</div>
+  </div>
+  <table id="example" datatable [dtOptions]="dtOptions" class="table table-striped" style="width:100%" *ngIf="dataRows.length>0">
+    <thead>
+    <tr>
+      <th *ngFor="let header of tableHeaders">{{ header }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of dataRows">
+      <td *ngFor="let header of tableHeaders">{{ row[header.toLowerCase()] }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+

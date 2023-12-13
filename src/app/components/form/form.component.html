@@ -20,12 +20,13 @@
               <input *ngSwitchCase="'file'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" (change)="onFileSelected($event)">
               <input *ngSwitchCase="'email'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
               <input *ngSwitchCase="'hidden'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" >
+              <input *ngSwitchCase="'password'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" >
               <textarea *ngSwitchCase="'text-area'" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName"></textarea>
             </ng-container>
           </div>
         </ng-container>
 
-        <button type="submit" class="btn btn-form-save  mt-2 float-end">
+        <button type="submit" class="btn btn-form-save  mt-3 float-end">
           <i class="fa fa-save me-2"></i>
           Enregistrer
         </button>

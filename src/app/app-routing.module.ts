@@ -17,6 +17,7 @@ import {NotAllowedComponent} from "./pages/not-allowed/not-allowed.component";
 import {ClientAccueilComponent} from "./pages/vues/client/client-accueil/client-accueil.component";
 import {ClientAvantagesComponent} from "./pages/vues/client/client-avantages/client-avantages.component";
 import {BasketComponent} from "./pages/basket/basket.component";
+import {ProfilComponent} from "./pages/vues/profil/profil.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'signIn', component: AccountLoginComponent },
   { path: 'signUp', component: AccountCreationComponent },
   { path: 'panier', component: BasketComponent },
+  { path: 'profile', component: ProfilComponent },
   {
     path: 'commercant',
     component: CommercantComponent,
@@ -56,6 +58,11 @@ const routes: Routes = [
     path: 'client',
     component: ClientAccueilComponent,
     canActivate: [AuthGuard],
+    data: {
+      permissions: {
+        only: ['CLIENT']
+      }
+    },
     children: [
       { path: 'Avantages' , component: ClientAvantagesComponent },
     ]

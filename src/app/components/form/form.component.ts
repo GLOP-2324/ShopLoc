@@ -1,75 +1,79 @@
+// form.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AccountService } from "../../shared/service/accountService";
+import { ToastrService } from "ngx-toastr";
+import { StoreService } from "../../shared/service/StoreService";
+import { SharedService } from "../../shared/service/SharedService";
 import { NavigationEnd, Router } from "@angular/router";
-import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
-import {AccountService} from "../../shared/service/accountService";
-import {ToastrService} from "ngx-toastr";
-import {StoreService} from "../../shared/service/StoreService";
-import {forkJoin} from "rxjs";
-import {Store} from "../../shared/model/Store";
+import { filter } from "rxjs";
 
 @Component({
-    selector: 'app-form',
-    templateUrl: './form.component.html',
-    styleUrls: ['./form.component.css']
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.css']
 })
-
-export class FormComponent implements OnInit{
+export class FormComponent implements OnInit {
   selectedFile: File | null = null;
-    form: FormGroup = this.fb.group({});
-    dynamicControls: { label: string, formControlName: string, type: string }[] = [];
-    titreForm="";
-    route="";
+  form: FormGroup = this.fb.group({});
+  dynamicControls: { label: string, formControlName: string, type: string }[] = [];
+  titreForm = "";
+  route = "";
   typesProduits: any = [];
-
+  currentRoute: string = ''; // Added variable to store current route
 
   protected readonly localStorage = localStorage;
-  constructor(private fb: FormBuilder,private router: Router, private accountService: AccountService,
-              private storeService:StoreService,
-              private toastr: ToastrService) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        console.log('NavigationEnd event:', event);
-        this.updateDynamicControls(event.url);
-        this.initForm();
-      }
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private accountService: AccountService,
+    private storeService: StoreService,
+    private toastr: ToastrService,
+    private sharedService: SharedService
+  ) {
+    // @ts-ignore
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+
+      this.currentRoute = event.url; // Update current route
+      this.updateDynamicControls(this.currentRoute);
     });
   }
+
   ngOnInit() {
-
+    this.currentRoute = this.router.url;
+    this.updateDynamicControls(this.currentRoute);
+    this.initForm();
   }
-    private initForm() {
-        const formGroupConfig = {};
-        this.dynamicControls.forEach(control => {
-            // @ts-ignore
-          if (control.type === 'hidden') {
 
-            // @ts-ignore
-            formGroupConfig[control.formControlName] = [localStorage.getItem("email") , Validators.required];
-          } else {
-            // @ts-ignore
-            formGroupConfig[control.formControlName] = [null, Validators.required];
-          }
-        });
+  private initForm() {
+    const formGroupConfig = {};
+    this.dynamicControls.forEach(control => {
+      if (control.type === 'hidden') {
+        // @ts-ignore
+        formGroupConfig[control.formControlName] = [localStorage.getItem("email"), Validators.required];
+      } else {
+        // @ts-ignore
+        formGroupConfig[control.formControlName] = [null, Validators.required];
+      }
+    });
 
-        this.form = this.fb.group(formGroupConfig);
-    }
+    this.form = this.fb.group(formGroupConfig);
+  }
 
   private updateDynamicControls(currentRoute: string): void {
-    console.log('Updating dynamic controls. Current route:', currentRoute);
     if (currentRoute.startsWith('/admin')) {
-      this.route="admin"
-      this.titreForm="Ajout d'un commerçant"
+      this.route = "admin"
+      this.titreForm = "Ajout d'un commerçant"
       this.dynamicControls = [
         { label: 'Nom', formControlName: 'lastname', type: 'text' },
         { label: 'Prenom', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
         { label: 'Image', formControlName: 'image', type: 'file' },
       ];
-    }
-    else if(currentRoute.startsWith('/commercant/produits')){
-
-      this.route="commercant/produits"
-      this.titreForm="Ajout d'un produit"
+    } else if (currentRoute.startsWith('/commercant/produits')) {
+      this.route = "commercant/produits"
+      this.titreForm = "Ajout d'un produit"
       this.storeService.getTypeProduct().subscribe((types) => {
         this.typesProduits = types;
       });
@@ -81,21 +85,28 @@ export class FormComponent implements OnInit{
         { label: 'Type', formControlName: 'type', type: 'select' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
       ];
-
-    }
-    else if(currentRoute.startsWith('/commercant/type')){
-      this.route="commercant/type"
-      this.titreForm="Ajout d'un type de produit"
+    } else if (currentRoute.startsWith('/commercant/type')) {
+      this.route = "commercant/type"
+      this.titreForm = "Ajout d'un type de produit"
       this.dynamicControls = [
         { label: 'Libelle', formControlName: 'libelle', type: 'text' },
       ];
     }
-    else {
-     this.route=""
+    else if (currentRoute.startsWith('/profile')) {
+      this.route = "/profile"
+      this.titreForm = "Modification du profile"
+      this.dynamicControls = [
+        { label: 'Nom', formControlName: 'lastname', type: 'text' },
+        { label: 'Prenom', formControlName: 'firstname', type: 'number' },
+        { label: 'Image', formControlName: 'image', type: 'file' },
+        { label: 'Mot de passe', formControlName: 'password', type: 'password' },
+
+      ];
+    }else {
+      this.route = ""
       this.dynamicControls = [];
     }
   }
-
 
   onSubmit() {
     const formData = this.form.value;
@@ -120,7 +131,6 @@ export class FormComponent implements OnInit{
     }
     if (this.route == "commercant/produits") {
       this.storeService.findSToreByEmail(formData.store).subscribe((storeData: any) => {
-        this.storeService.getTypeProductById(formData.type).subscribe((typeProduct: any) => {
           newFormData.append('store',  storeData.id);
           newFormData.append('libelle', formData.libelle);
           newFormData.append('description', formData.description);
@@ -135,29 +145,26 @@ export class FormComponent implements OnInit{
             console.error('Error creating product:', error);
             this.toastr.error("Une erreur s'est produite lors de la création du produit");
           });
-        }, (error: any) => {
-          console.error('Error fetching typeProduct by id:', error);
-          this.toastr.error("Une erreur s'est produite lors de la recherche de l'objet TypeProduct par l'id");
-        });
+
       }, (error: any) => {
         console.error('Error fetching store by email:', error);
         this.toastr.error("Une erreur s'est produite lors de la recherche du magasin par e-mail");
       });
     }
 
-
     if (this.route == "commercant/type") {
       this.storeService.createTypeProduct(formData).subscribe((response: any) => {
         console.log('Success:', response);
         this.toastr.success("Le type à été crée");
         this.form.reset();
+
       })
     }
-    else {
-      this.toastr.error("Veuillez remplir tous les champs requis");
+    if (this.route == "/profile") {
+      console.log("Updating User : prendre directement le Formdata (s'inspirer de la ligne 155)")
     }
-
   }
+
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files?.[0] || null;
   }

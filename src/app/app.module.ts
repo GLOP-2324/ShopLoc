@@ -34,6 +34,7 @@ import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
 import { ClientAccueilComponent } from './pages/vues/client/client-accueil/client-accueil.component';
 import { ClientAvantagesComponent } from './pages/vues/client/client-avantages/client-avantages.component';
 import { BasketComponent } from './pages/basket/basket.component';
+import { ProfilComponent } from './pages/vues/profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +55,11 @@ import { BasketComponent } from './pages/basket/basket.component';
     AdminAccueilComponent,
     AdminUtilisateurComponent,
     CommercantTypeComponent,
-    NotAllowedComponent
+    NotAllowedComponent,
     ClientAccueilComponent,
     ClientAvantagesComponent,
-    BasketComponent
+    BasketComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
