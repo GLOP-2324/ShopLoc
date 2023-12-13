@@ -1,10 +1,9 @@
-// form.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AccountService } from "../../shared/service/accountService";
 import { ToastrService } from "ngx-toastr";
 import { StoreService } from "../../shared/service/StoreService";
-import { SharedService } from "../../shared/service/SharedService";
+
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 
@@ -20,7 +19,7 @@ export class FormComponent implements OnInit {
   titreForm = "";
   route = "";
   typesProduits: any = [];
-  currentRoute: string = ''; // Added variable to store current route
+  currentRoute: string = '';
 
   protected readonly localStorage = localStorage;
 
@@ -30,7 +29,6 @@ export class FormComponent implements OnInit {
     private accountService: AccountService,
     private storeService: StoreService,
     private toastr: ToastrService,
-    private sharedService: SharedService
   ) {
     // @ts-ignore
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
@@ -120,7 +118,7 @@ export class FormComponent implements OnInit {
       newFormData.append('firstname', formData.firstname);
       newFormData.append('lastname', formData.lastname);
       newFormData.append('email', formData.email);
-      // Append roleId to FormData
+  
       newFormData.append('roleId', role.toString());
       this.accountService.createAccount(newFormData).subscribe((response: any) => {
 
