@@ -13,12 +13,16 @@ import {AuthGuard} from "./shared/guard/AuthGuard";
 import {AdminAccueilComponent} from "./pages/vues/admin/admin-accueil/admin-accueil.component";
 import {AdminUtilisateurComponent} from "./pages/vues/admin/admin-utilisateur/admin-utilisateur.component";
 import {CommercantTypeComponent} from "./pages/vues/commercant/commercant-type/commercant-type.component";
+import {ClientAccueilComponent} from "./pages/vues/client/client-accueil/client-accueil.component";
+import {ClientAvantagesComponent} from "./pages/vues/client/client-avantages/client-avantages.component";
+import {BasketComponent} from "./pages/basket/basket.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'signIn', component: AccountLoginComponent },
   { path: 'signUp', component: AccountCreationComponent },
+  { path: 'panier', component: BasketComponent },
   {
     path: 'commercant',
     component: CommercantComponent,
@@ -36,7 +40,15 @@ const routes: Routes = [
       { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
     ]
   },
-  { path: 'produitsBoutique', component: ProductsComponent,
+  {
+    path: 'client',
+    component: ClientAccueilComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'Avantages' , component: ClientAvantagesComponent },
+    ]
+  },
+  { path: 'produitsBoutique/:id', component: ProductsComponent,
     canActivate: [AuthGuard]},
 ];
 

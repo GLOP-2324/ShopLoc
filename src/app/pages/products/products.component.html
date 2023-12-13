@@ -1,132 +1,23 @@
 <app-navbar></app-navbar>
-<div class="container d-flex justify-content-center mt-50 mb-50 p-5">
-
+<div class="container d-flex justify-content-center mt-50 mb-50 p-5" *ngIf="products.length>0">
   <div class="row">
-    <div class="col-md-4 mt-2">
-
+    <div *ngFor="let product of products" class="col mt-2">
       <div class="card">
         <div class="card-body">
-          <span class="badge bg-danger ms-auto float-end m-2">-33%</span>
+          <span *ngIf="product.discount" class="badge bg-danger ms-auto float-end m-2">{{ product.discount }}</span>
           <div class="card-img-actions">
-            <img alt="" class="card-img-top img-fluid" src="assets/baguette.jpg" >
+            <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
           </div>
         </div>
         <div class="card-body bg-light text-center">
           <div class="mb-2">
             <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#"> Baguette</a>
+              <a class="text-secondary mb-2" data-abc="true" href="#">{{ product.libelle }}</a>
             </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
+            <a class="text-muted" data-abc="true" href="#">{{ product.type.libelle }}</a>
           </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 mt-2">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-            <span class="badge bg-danger ms-auto float-end m-2"></span>
-            <img alt="" class="card-img-top img-fluid" src="assets/chocolatine.jpg" >
-          </div>
-        </div>
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#">Pain au chocolat</a>
-            </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
-          </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 mt-2">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-            <span class="badge bg-danger ms-auto float-end m-2">-33%</span>
-            <img alt="" class="card-img-top img-fluid" src="assets/lait.png" >
-          </div>
-        </div>
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#">Lait Fermier</a>
-            </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
-          </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 mt-2">
-      <div class="card">
-        <div class="card-body">
-
-          <div class="card-img-actions">
-            <span class="badge bg-danger ms-auto float-end m-2">-33%</span>
-            <img alt="" class="card-img-top img-fluid" src="assets/chocolatine.jpg" >
-          </div>
-        </div>
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#">Pain au chocolat</a>
-            </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
-          </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 mt-2">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-img-actions">
-            <span class="badge bg-danger ms-auto float-end m-2"></span>
-            <img alt="" class="card-img-top img-fluid" src="assets/lait.png" >
-          </div>
-        </div>
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#"> Lait</a>
-            </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
-          </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4 mt-2">
-      <div class="card">
-        <div class="card-body">
-
-          <div class="card-img-actions">
-            <span class="badge bg-danger ms-auto float-end m-2">-33%</span>
-            <img alt="" class="card-img-top img-fluid" src="assets/baguette.jpg" >
-          </div>
-        </div>
-        <div class="card-body bg-light text-center">
-          <div class="mb-2">
-            <h6 class="font-weight-semibold mb-2">
-              <a class="text-secondary mb-2" data-abc="true" href="#">Description Baguette</a>
-            </h6>
-            <a class="text-muted" data-abc="true" href="#">Categorie</a>
-          </div>
-          <h5 class="mb-2 font-weight-semibold">1 €</h5>
-          <button class="btn btn-add-card btn-sm" type="button"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
+          <h5 class="mb-2 font-weight-semibold">{{ product.price }} €</h5>
+          <button class="btn btn-add-card btn-sm" type="button"  (click)="addToCart(product)"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
         </div>
       </div>
     </div>

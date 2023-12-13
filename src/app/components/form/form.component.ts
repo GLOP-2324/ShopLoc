@@ -4,18 +4,25 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/fo
 import {AccountService} from "../../shared/service/accountService";
 import {ToastrService} from "ngx-toastr";
 import {StoreService} from "../../shared/service/StoreService";
+import {forkJoin} from "rxjs";
+import {Store} from "../../shared/model/Store";
 
 @Component({
     selector: 'app-form',
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.css']
 })
+
 export class FormComponent implements OnInit{
+  selectedFile: File | null = null;
     form: FormGroup = this.fb.group({});
     dynamicControls: { label: string, formControlName: string, type: string }[] = [];
     titreForm="";
     route="";
   typesProduits: any = [];
+
+
+  protected readonly localStorage = localStorage;
   constructor(private fb: FormBuilder,private router: Router, private accountService: AccountService,
               private storeService:StoreService,
               private toastr: ToastrService) {
@@ -34,10 +41,16 @@ export class FormComponent implements OnInit{
         const formGroupConfig = {};
         this.dynamicControls.forEach(control => {
             // @ts-ignore
+          if (control.type === 'hidden') {
+
+            // @ts-ignore
+            formGroupConfig[control.formControlName] = [localStorage.getItem("email") , Validators.required];
+          } else {
+            // @ts-ignore
             formGroupConfig[control.formControlName] = [null, Validators.required];
+          }
         });
-        // @ts-ignore
-      formGroupConfig['typeProduit'] = [null, Validators.required];
+
         this.form = this.fb.group(formGroupConfig);
     }
 
@@ -50,9 +63,11 @@ export class FormComponent implements OnInit{
         { label: 'Nom', formControlName: 'lastname', type: 'text' },
         { label: 'Prenom', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
+        { label: 'Image', formControlName: 'image', type: 'file' },
       ];
     }
     else if(currentRoute.startsWith('/commercant/produits')){
+
       this.route="commercant/produits"
       this.titreForm="Ajout d'un produit"
       this.storeService.getTypeProduct().subscribe((types) => {
@@ -63,7 +78,8 @@ export class FormComponent implements OnInit{
         { label: 'Prix', formControlName: 'price', type: 'number' },
         { label: 'Image', formControlName: 'image', type: 'file' },
         { label: 'Description', formControlName: 'description', type: 'text-area' },
-        { label: 'Type', formControlName: 'types', type: 'select' },
+        { label: 'Type', formControlName: 'type', type: 'select' },
+        { label: 'Store', formControlName: 'store', type: 'hidden' },
       ];
 
     }
@@ -83,21 +99,53 @@ export class FormComponent implements OnInit{
 
   onSubmit() {
     const formData = this.form.value;
+    const newFormData = new FormData();
+
+    if (this.selectedFile) {
+      newFormData.append('image', this.selectedFile);
+    }
     if (this.route == "admin") {
       var role = 2
-      this.accountService.createAccount(formData, role).subscribe((response: any) => {
+      newFormData.append('firstname', formData.firstname);
+      newFormData.append('lastname', formData.lastname);
+      newFormData.append('email', formData.email);
+      // Append roleId to FormData
+      newFormData.append('roleId', role.toString());
+      this.accountService.createAccount(newFormData).subscribe((response: any) => {
+
         console.log('Success:', response);
         this.toastr.success("Le compte à été crée");
         this.form.reset();
       })
     }
     if (this.route == "commercant/produits") {
-      this.storeService.createProduct(formData).subscribe((response: any) => {
-        console.log('Success:', response);
-        this.toastr.success("Le produit à été crée");
-        this.form.reset();
-      })
+      this.storeService.findSToreByEmail(formData.store).subscribe((storeData: any) => {
+        this.storeService.getTypeProductById(formData.type).subscribe((typeProduct: any) => {
+          newFormData.append('store',  storeData.id);
+          newFormData.append('libelle', formData.libelle);
+          newFormData.append('description', formData.description);
+          newFormData.append('price', formData.price);
+          newFormData.append('type', formData.type);
+          console.log('value:',  newFormData);
+          this.storeService.createProduct(newFormData).subscribe((response: any) => {
+            console.log('Success:', response);
+            this.toastr.success("Le produit a été créé");
+
+          }, (error: any) => {
+            console.error('Error creating product:', error);
+            this.toastr.error("Une erreur s'est produite lors de la création du produit");
+          });
+        }, (error: any) => {
+          console.error('Error fetching typeProduct by id:', error);
+          this.toastr.error("Une erreur s'est produite lors de la recherche de l'objet TypeProduct par l'id");
+        });
+      }, (error: any) => {
+        console.error('Error fetching store by email:', error);
+        this.toastr.error("Une erreur s'est produite lors de la recherche du magasin par e-mail");
+      });
     }
+
+
     if (this.route == "commercant/type") {
       this.storeService.createTypeProduct(formData).subscribe((response: any) => {
         console.log('Success:', response);
@@ -109,5 +157,8 @@ export class FormComponent implements OnInit{
       this.toastr.error("Veuillez remplir tous les champs requis");
     }
 
+  }
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files?.[0] || null;
   }
 }

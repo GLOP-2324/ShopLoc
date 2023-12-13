@@ -12,13 +12,26 @@ export class StoreService {
 
   constructor(private http: HttpClient) {
   }
-  public getTypeProduct() {
-    return this.http.get(environment.BACKEND_URL + '/typeProduct');
+  public findSToreByEmail(email:string) {
+    return this.http.get(`${environment.BACKEND_URL}/store/email/${email}`);
+}
+
+  public getTypeProductById(id:number) {
+    return this.http.get(`${environment.BACKEND_URL}/typeProduct/${id}`);
   }
-  public createProduct(product: Product) {
+  public getTypeProduct() {
+    return this.http.get(environment.BACKEND_URL + '/typeProduct/');
+  }
+  public getProduct(id:number) {
+    return this.http.get(`${environment.BACKEND_URL}/product/allProducts/${id}`);
+  }
+  public createProduct(product: FormData) {
     return this.http.post(environment.BACKEND_URL + '/product/', product,);
   }
   public createTypeProduct(typeProduct: TypeProduct) {
     return this.http.post(environment.BACKEND_URL + '/typeProduct/', typeProduct);
+  }
+  public getStore() {
+    return this.http.get(environment.BACKEND_URL + '/store/');
   }
 }

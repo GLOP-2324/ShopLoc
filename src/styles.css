@@ -45,7 +45,7 @@ body {
 .login-sec .copy-text a{color:#E36262;}
 .login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #DE6262;}
 .login-sec h2:after{content:" "; width:100px; height:5px; background:#FEB58A; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
-.btn-login{background: #DE6262; color:#fff; font-weight:600;}
+.btn-signIn{background: #DE6262!important; color:#fff!important; font-weight:600;}
 .banner-text{width:70%; position:absolute; bottom:40px; padding-left:20px;}
 .banner-text h2{color:#fff; font-weight:600;}
 .banner-text h2:after{content:" "; width:100px; height:5px; background:#FFF; display:block; margin-top:20px; border-radius:3px;}
@@ -55,6 +55,22 @@ body {
   background: #296f69 !important;
   color: #FFFFFF !important;
 }
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8' width='10' height='10'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+  width:16px !important;
+  height: 16px !important;
+}
+
+
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8' width='16' height='16'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5'/%3E%3C/svg%3E") !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.cursor{
+  cursor: pointer;
+}

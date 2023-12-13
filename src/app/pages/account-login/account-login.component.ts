@@ -35,6 +35,7 @@ export class AccountLoginComponent {
           localStorage.setItem("token", response.token);
           localStorage.setItem("firstname", response.firstname);
           localStorage.setItem("lastname", response.lastname);
+          localStorage.setItem("email", response.email);
           switch (response.roleId) {
             case 1:
               this.router.navigateByUrl("/admin");
@@ -43,7 +44,7 @@ export class AccountLoginComponent {
               this.router.navigateByUrl("/commercant");
               break;
             case 3:
-              console.log("rediriger vers l'interface CLIENT");
+              this.router.navigateByUrl("/client");
               break;
             default:
               this.router.navigateByUrl("/error");

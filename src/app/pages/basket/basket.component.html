@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<div>
+  <div class="container d-flex justify-content-center mt-50 mb-50 p-5" *ngIf="cartItems.length>0">
+    <div class="row">
+      <div *ngFor="let product of cartItems" class="col mt-2">
+        <div class="card">
+          <div class="card-body">
+            <span *ngIf="product.discount" class="badge bg-danger ms-auto float-end m-2">{{ product.discount }}</span>
+            <div class="card-img-actions">
+              <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
+            </div>
+          </div>
+          <div class="card-body bg-light text-center">
+            <div class="mb-2">
+              <h6 class="font-weight-semibold mb-2">
+                <a class="text-secondary mb-2" data-abc="true" href="#">{{ product.libelle }}</a>
+              </h6>
+              <a class="text-muted" data-abc="true" href="#">{{ product.type.libelle }}</a>
+            </div>
+            <h5 class="mb-2 font-weight-semibold">{{ product.price }} €</h5>
+            <button class="btn btn-dark btn-sm float-end" (click)="removeFromCart(product)">
+              <i class="fa fa-trash"></i>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {CartService} from "../../shared/service/cartService";
 
 @Component({
   selector: 'app-navbar',
@@ -7,13 +8,23 @@ import {Router} from "@angular/router";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private router: Router) {
+  cartItems: any[] = [];
+  protected readonly localStorage = localStorage;
+  loggedInUser=false;
+  constructor(private router: Router,private cartService: CartService) {
+    this.cartItems = this.cartService.getCartItems();
+    if(localStorage.getItem("firstname")!==null&&localStorage.getItem("lastname")!==null){
+      this.loggedInUser=true
+    }
+
   }
 
   login() {
     this.router.navigate(['/', 'signIn']);
   }
+  panier() {
+    this.router.navigate(['/', 'panier']);
+  }
 
-  protected readonly localStorage = localStorage;
 
 }

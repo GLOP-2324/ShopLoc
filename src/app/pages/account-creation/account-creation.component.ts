@@ -16,11 +16,12 @@ export class AccountCreationComponent {
                 private accountService: AccountService,
                 private toastr: ToastrService) {
     }
-
+    newFormData= new FormData();
     accountForm = this.formBuilder.group({
         firstname: '',
         lastname: '',
-        email: ''
+        email: '',
+        role:''
     });
 
     accountToCreate: any;
@@ -29,12 +30,12 @@ export class AccountCreationComponent {
     createAccount(role: String) {
         this.accountToCreate = this.accountForm.getRawValue();
         if (role === 'Client') {
-            this.rightRole = 3;
+            this.accountToCreate.role=this.rightRole = 3;
         } else {
-            this.rightRole = 2;
+          this.accountToCreate.role = 2;
         }
         if (this.accountForm.get('firstname')?.value !== "" && this.accountForm.get('lastname')?.value !== "" && this.accountForm.get('email')?.value !== "") {
-            this.accountService.createAccount(this.accountToCreate, this.rightRole).subscribe((response: any) => {
+            this.accountService.createAccount(this.accountToCreate).subscribe((response: any) => {
                 this.toastr.success("Le compte à été crée");
                 this.accountForm.reset();
             })

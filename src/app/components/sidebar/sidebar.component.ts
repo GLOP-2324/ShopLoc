@@ -8,6 +8,7 @@ import {filter} from "rxjs";
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
+  protected readonly localStorage = localStorage;
   menuItems: { path: string, name: string, iconClass: string }[] = [];
 
   constructor(private router: Router) {
@@ -24,7 +25,7 @@ export class SidebarComponent {
         { path: '/admin/dashboard', name: 'Dashboard', iconClass: 'fa fa-dashboard' },
         { path: '/admin/Utilisateurs', name: 'Utilisateurs', iconClass: 'fa fa-user' },
       ];
-    } else {
+    } else if (currentRoute.startsWith('/commercant')) {
       this.menuItems = [
         { path: '/commercant/dashboard', name: 'Dashboard', iconClass: 'fa fa-dashboard' },
         { path: '/commercant/clients', name: 'Clients', iconClass: 'fa fa-user' },
@@ -36,5 +37,15 @@ export class SidebarComponent {
 
       ];
     }
+    else  {
+      this.menuItems = [
+        { path: '/client', name: 'Achats', iconClass: 'fa fa-shopping-basket' },
+        { path: '/client/Avantages', name: 'Avantages', iconClass: 'fa fa-plus' },
+
+
+      ];
+    }
   }
+
+
 }

@@ -29,6 +29,9 @@ import { AdminAccueilComponent } from './pages/vues/admin/admin-accueil/admin-ac
 import { AdminUtilisateurComponent } from './pages/vues/admin/admin-utilisateur/admin-utilisateur.component';
 import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type/commercant-type.component';
 import {MatIconModule} from "@angular/material/icon";
+import { ClientAccueilComponent } from './pages/vues/client/client-accueil/client-accueil.component';
+import { ClientAvantagesComponent } from './pages/vues/client/client-avantages/client-avantages.component';
+import { BasketComponent } from './pages/basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import {MatIconModule} from "@angular/material/icon";
     ErrorComponent,
     AdminAccueilComponent,
     AdminUtilisateurComponent,
-    CommercantTypeComponent
+    CommercantTypeComponent,
+    ClientAccueilComponent,
+    ClientAvantagesComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
