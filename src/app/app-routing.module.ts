@@ -13,6 +13,7 @@ import {AuthGuard} from "./shared/guard/AuthGuard";
 import {AdminAccueilComponent} from "./pages/vues/admin/admin-accueil/admin-accueil.component";
 import {AdminUtilisateurComponent} from "./pages/vues/admin/admin-utilisateur/admin-utilisateur.component";
 import {CommercantTypeComponent} from "./pages/vues/commercant/commercant-type/commercant-type.component";
+import {NotAllowedComponent} from "./pages/not-allowed/not-allowed.component";
 import {ClientAccueilComponent} from "./pages/vues/client/client-accueil/client-accueil.component";
 import {ClientAvantagesComponent} from "./pages/vues/client/client-avantages/client-avantages.component";
 import {BasketComponent} from "./pages/basket/basket.component";
@@ -20,6 +21,7 @@ import {BasketComponent} from "./pages/basket/basket.component";
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'error', component: ErrorComponent },
+  { path: 'unauthorized', component: NotAllowedComponent },
   { path: 'signIn', component: AccountLoginComponent },
   { path: 'signUp', component: AccountCreationComponent },
   { path: 'panier', component: BasketComponent },
@@ -27,6 +29,11 @@ const routes: Routes = [
     path: 'commercant',
     component: CommercantComponent,
     canActivate: [AuthGuard],
+    data: {
+      permissions: {
+        only: ['COMMERCANT']
+      }
+    },
     children: [
       { path: 'produits' , component: CommercantsProduitsComponent},
       { path: 'types' , component: CommercantTypeComponent },
@@ -36,6 +43,11 @@ const routes: Routes = [
     path: 'admin',
     component: AdminAccueilComponent,
     canActivate: [AuthGuard],
+    data: {
+      permissions: {
+        only: ['ADMIN']
+      }
+    },
     children: [
       { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
     ]
@@ -50,6 +62,10 @@ const routes: Routes = [
   },
   { path: 'produitsBoutique/:id', component: ProductsComponent,
     canActivate: [AuthGuard]},
+  { path: 'produitsBoutique', component: ProductsComponent,
+    canActivate: [AuthGuard]
+  },
+
 ];
 
 @NgModule({

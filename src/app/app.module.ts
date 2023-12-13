@@ -29,6 +29,8 @@ import { AdminAccueilComponent } from './pages/vues/admin/admin-accueil/admin-ac
 import { AdminUtilisateurComponent } from './pages/vues/admin/admin-utilisateur/admin-utilisateur.component';
 import { CommercantTypeComponent } from './pages/vues/commercant/commercant-type/commercant-type.component';
 import {MatIconModule} from "@angular/material/icon";
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { NotAllowedComponent } from './pages/not-allowed/not-allowed.component';
 import { ClientAccueilComponent } from './pages/vues/client/client-accueil/client-accueil.component';
 import { ClientAvantagesComponent } from './pages/vues/client/client-avantages/client-avantages.component';
 import { BasketComponent } from './pages/basket/basket.component';
@@ -52,6 +54,7 @@ import { BasketComponent } from './pages/basket/basket.component';
     AdminAccueilComponent,
     AdminUtilisateurComponent,
     CommercantTypeComponent,
+    NotAllowedComponent
     ClientAccueilComponent,
     ClientAvantagesComponent,
     BasketComponent
@@ -70,6 +73,7 @@ import { BasketComponent } from './pages/basket/basket.component';
       countDuplicates: true,
       resetTimeoutOnDuplicate: true
     }),
+    NgxPermissionsModule.forRoot(),
     DataTablesModule,
   ],
   providers: [
