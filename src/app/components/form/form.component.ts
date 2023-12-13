@@ -118,7 +118,7 @@ export class FormComponent implements OnInit {
       newFormData.append('firstname', formData.firstname);
       newFormData.append('lastname', formData.lastname);
       newFormData.append('email', formData.email);
-  
+
       newFormData.append('roleId', role.toString());
       this.accountService.createAccount(newFormData).subscribe((response: any) => {
 

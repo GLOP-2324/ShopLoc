@@ -1,9 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
-import {filter} from "rxjs";
-import {SharedService} from "../../shared/service/SharedService";
-
-
 
 
 @Component({
@@ -15,12 +11,12 @@ export class SidebarComponent {
   protected readonly localStorage = localStorage;
   menuItems: { path: string, name: string, iconClass: string }[] = [];
 
-  constructor(private router: Router, private sharedService: SharedService) {
+  constructor(private router: Router) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const currentRoute = event.url;
         this.updateMenuItems(currentRoute);
-        this.sharedService.updateCurrentRoute(currentRoute);
+
       }
     });
   }
@@ -34,7 +30,6 @@ export class SidebarComponent {
       ];
     } else { // @ts-ignore
       if (localStorage.getItem('roleId') == 2) {
-
         this.menuItems = [
           {path: '/commercant/dashboard', name: 'Dashboard', iconClass: 'fa fa-dashboard'},
           {path: '/commercant/clients', name: 'Clients', iconClass: 'fa fa-user'},
