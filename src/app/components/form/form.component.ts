@@ -6,6 +6,7 @@ import { StoreService } from "../../shared/service/StoreService";
 
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
+import {Account} from "../../shared/model/Account";
 
 @Component({
   selector: 'app-form',
@@ -94,10 +95,7 @@ export class FormComponent implements OnInit {
       this.route = "/profile"
       this.titreForm = "Modification du profile"
       this.dynamicControls = [
-        { label: 'Nom', formControlName: 'lastname', type: 'text' },
-        { label: 'Prenom', formControlName: 'firstname', type: 'number' },
-        { label: 'Image', formControlName: 'image', type: 'file' },
-        { label: 'Mot de passe', formControlName: 'password', type: 'password' },
+        { label: 'Nouveau mot de passe', formControlName: 'password', type: 'password' }
 
       ];
     }else {
@@ -159,7 +157,12 @@ export class FormComponent implements OnInit {
       })
     }
     if (this.route == "/profile") {
-      console.log("Updating User : prendre directement le Formdata (s'inspirer de la ligne 155)")
+      const account = new Account();
+      account.password = this.form.get("password")?.value;
+      account.email=this.localStorage.getItem("email") || undefined;
+      this.accountService.modifyPassword(account).subscribe((response:any)=>{
+
+      })
     }
   }
 

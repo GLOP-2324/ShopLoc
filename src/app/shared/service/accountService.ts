@@ -15,4 +15,8 @@ export class AccountService {
     return this.http.post(environment.BACKEND_URL + '/account/', formdata,);
   }
 
+
+  modifyPassword(account: Account) {
+    return this.http.post(environment.BACKEND_URL + '/account/password', account);
+  }
 }
