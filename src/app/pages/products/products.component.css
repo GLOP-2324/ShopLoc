@@ -13,7 +13,7 @@ a{
 
   width: 225px;
 }
-/*.card-img-actions {*/
-/*  //min-height: 250px;*/
+.card-img-actions {
+  min-height: 250px;
 
-/*}*/
+}

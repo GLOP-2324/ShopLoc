@@ -18,6 +18,9 @@ import {ClientAccueilComponent} from "./pages/vues/client/client-accueil/client-
 import {ClientAvantagesComponent} from "./pages/vues/client/client-avantages/client-avantages.component";
 import {BasketComponent} from "./pages/basket/basket.component";
 import {ProfilComponent} from "./pages/vues/profil/profil.component";
+import {ClientCardComponent} from "./pages/vues/client/client-card/client-card.component";
+import {ClientAchatsComponent} from "./pages/vues/client/client-achats/client-achats.component";
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -65,6 +68,8 @@ const routes: Routes = [
     },
     children: [
       { path: 'Avantages' , component: ClientAvantagesComponent },
+      { path: 'Card' , component: ClientCardComponent },
+      { path: 'Achats' , component: ClientAchatsComponent },
     ]
   },
   { path: 'produitsBoutique/:id', component: ProductsComponent,

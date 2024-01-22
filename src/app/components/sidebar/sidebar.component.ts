@@ -35,7 +35,6 @@ export class SidebarComponent {
           {path: '/commercant/clients', name: 'Clients', iconClass: 'fa fa-user'},
           {path: '/commercant/types', name: 'Types', iconClass: 'fa fa-gear'},
           {path: '/commercant/produits', name: 'Produits', iconClass: 'fa fa-product-hunt'},
-          {path: '/commercant/avantages', name: 'Avantages', iconClass: 'fa fa-gift'},
           {path: '/commercant/analyses', name: 'Analyses', iconClass: 'fa fa-pie-chart'},
           {path: '/commercant/commandes', name: 'Commandes', iconClass: 'fa fa-shopping-basket'}
 
@@ -45,9 +44,9 @@ export class SidebarComponent {
       else if (localStorage.getItem('roleId') == 3) {
         {
           this.menuItems = [
-            {path: '/client', name: 'Achats', iconClass: 'fa fa-shopping-basket'},
+            {path: '/client/Achats', name: 'Achats', iconClass: 'fa fa-shopping-basket'},
             {path: '/client/Avantages', name: 'Avantages', iconClass: 'fa fa-plus'},
-
+            {path: '/client/Card', name: 'Carte de fidélité', iconClass: 'fa fa-credit-card'},
 
           ];
         }

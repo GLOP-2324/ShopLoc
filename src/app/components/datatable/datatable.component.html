@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let row of dataRows">
+    <tr *ngFor="let row of dataRows; let i = index" (click)="navigateToForm(row)">
       <td *ngFor="let header of tableHeaders">{{ row[header.toLowerCase()] }}</td>
     </tr>
     </tbody>

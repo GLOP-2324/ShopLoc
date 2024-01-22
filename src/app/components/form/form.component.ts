@@ -7,6 +7,7 @@ import { StoreService } from "../../shared/service/StoreService";
 import { NavigationEnd, Router } from "@angular/router";
 import { filter } from "rxjs";
 import {Account} from "../../shared/model/Account";
+import {SharedService} from "../../shared/service/SharedService";
 
 @Component({
   selector: 'app-form',
@@ -30,6 +31,7 @@ export class FormComponent implements OnInit {
     private accountService: AccountService,
     private storeService: StoreService,
     private toastr: ToastrService,
+    private sharedService: SharedService
   ) {
     // @ts-ignore
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
@@ -43,6 +45,35 @@ export class FormComponent implements OnInit {
     this.currentRoute = this.router.url;
     this.updateDynamicControls(this.currentRoute);
     this.initForm();
+    this.sharedService.getCurrentObject().subscribe((currentObject) => {
+      if (currentObject) {
+        this.updateFormWithObject(currentObject);
+
+      }
+    });
+
+  }
+  updateFormWithObject(object: any): void {
+    if (object) {
+
+      Object.keys(object).forEach((key) => {
+        const control = this.form.get(key);
+
+        const selectedTypeId = object.type.id;
+        const selectedTypeObj = this.typesProduits.find((type: { id: any }) => type.id === selectedTypeId);
+        if (selectedTypeObj) {
+          // @ts-ignore
+          this.form.get('type').setValue(selectedTypeObj.id);
+        }
+
+
+        if (control) {
+          control.setValue(object[key]);
+        }
+
+
+      });
+    }
   }
 
   private initForm() {
@@ -80,8 +111,9 @@ export class FormComponent implements OnInit {
         { label: 'Libelle', formControlName: 'libelle', type: 'text' },
         { label: 'Prix', formControlName: 'price', type: 'number' },
         { label: 'Image', formControlName: 'image', type: 'file' },
-        { label: 'Description', formControlName: 'description', type: 'text-area' },
+        { label: 'Description', formControlName: 'description', type: 'textarea' },
         { label: 'Type', formControlName: 'type', type: 'select' },
+        { label: 'Points', formControlName: 'points', type: 'number' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
       ];
     } else if (currentRoute.startsWith('/commercant/type')) {
@@ -98,7 +130,16 @@ export class FormComponent implements OnInit {
         { label: 'Nouveau mot de passe', formControlName: 'password', type: 'password' }
 
       ];
-    }else {
+    }
+    else if (currentRoute.startsWith('/client/Card')) {
+      this.route = "/client/Card"
+      this.titreForm = "Recharger la carte"
+      this.dynamicControls = [
+        { label: 'Montant', formControlName: 'montant', type: 'text' }
+
+      ];
+    }
+    else {
       this.route = ""
       this.dynamicControls = [];
     }
@@ -132,6 +173,7 @@ export class FormComponent implements OnInit {
           newFormData.append('description', formData.description);
           newFormData.append('price', formData.price);
           newFormData.append('type', formData.type);
+          newFormData.append('points', formData.points);
           console.log('value:',  newFormData);
           this.storeService.createProduct(newFormData).subscribe((response: any) => {
             console.log('Success:', response);

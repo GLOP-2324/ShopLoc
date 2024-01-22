@@ -35,6 +35,9 @@ import { ClientAccueilComponent } from './pages/vues/client/client-accueil/clien
 import { ClientAvantagesComponent } from './pages/vues/client/client-avantages/client-avantages.component';
 import { BasketComponent } from './pages/basket/basket.component';
 import { ProfilComponent } from './pages/vues/profil/profil.component';
+import { ClientCardComponent } from './pages/vues/client/client-card/client-card.component';
+import { ClientAchatsComponent } from './pages/vues/client/client-achats/client-achats.component';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { ProfilComponent } from './pages/vues/profil/profil.component';
     ClientAccueilComponent,
     ClientAvantagesComponent,
     BasketComponent,
-    ProfilComponent
+    ProfilComponent,
+    ClientCardComponent,
+    ClientAchatsComponent,
+
   ],
   imports: [
     BrowserModule,

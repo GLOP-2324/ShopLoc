@@ -6,6 +6,7 @@ import {StoreService} from "../../shared/service/StoreService";
 import {ToastrService} from "ngx-toastr";
 import {Product} from "../../shared/model/Product";
 import {Store} from "../../shared/model/Store";
+import {SharedService} from "../../shared/service/SharedService";
 
 @Component({
   selector: 'app-datatable',
@@ -54,6 +55,7 @@ export class DatatableComponent implements OnInit {
 
   constructor(private router: Router,
               private storeService: StoreService,
+              private sharedService: SharedService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -69,7 +71,7 @@ export class DatatableComponent implements OnInit {
       if (email) {
         this.storeService.findSToreByEmail(email).subscribe(
           (store: any) => {
-            this.tableHeaders=['Libelle', 'Description', 'Price'];
+            this.tableHeaders=['Libelle', 'Description', 'Price','Description','Points'];
             // @ts-ignore
             this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
               this.dataRows = products;
@@ -90,10 +92,20 @@ export class DatatableComponent implements OnInit {
       this.storeService.getTypeProduct().subscribe((products:any[]) => {
         this.dataRows = products;
       });
-
-
+    }
+    if (currentRoute.startsWith('/client')) {
+      this.titreDatatable = "Liste des achats"
+      this.tableHeaders=['Date', 'Commercant', 'Produit','Prix']
+      // @ts-ignore
+      this.storeService.getTypeProduct().subscribe((products:any[]) => {
+        this.dataRows = products;
+      });
     }
     }
+  navigateToForm(object:any) {
+    this.sharedService.setCurrentObject(object);
+    console.log(object)
+  }
 
 }
 
