@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "font-awesome/css/font-awesome.min.css";
+@import "~leaflet/dist/leaflet.css";
 
 /*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');*/
 /** {*/
