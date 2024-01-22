@@ -175,7 +175,10 @@ export class FormComponent implements OnInit {
             console.log(`Field: ${fieldName}, Value: ${fieldValue}`);
           }
         }
-          newFormData.append('id',  formData.id);
+        if (formData.id !== null && formData.id !== undefined) {
+          newFormData.append('id', formData.id);
+        }
+
           newFormData.append('store',  storeData.id);
           newFormData.append('libelle', formData.libelle);
           newFormData.append('description', formData.description);
@@ -183,17 +186,19 @@ export class FormComponent implements OnInit {
           newFormData.append('type', formData.type);
           newFormData.append('points', formData.points);
           console.log('value:',  newFormData);
-          // this.storeService.createProduct(newFormData).subscribe((response: any) => {
-          //   console.log('Success:', response);
-          //   this.form.reset();
-          //   this.toastr.success("Le produit a été créé");
-          //
-          // }, (error: any) => {
-          //   console.error('Error creating product:', error);
-          //   this.toastr.error("Une erreur s'est produite lors de la création du produit");
-          // });
+          this.storeService.createProduct(newFormData).subscribe((response: any) => {
+            console.log('Success:', response);
+            this.form.reset();
+            this.toastr.success("Le produit a été créé");
+
+          }, (error: any) => {
+            console.error('Error creating product:', error);
+            this.form.reset();
+            this.toastr.error("Une erreur s'est produite lors de la création du produit");
+          });
 
       }, (error: any) => {
+        this.form.reset();
         console.error('Error fetching store by email:', error);
         this.toastr.error("Une erreur s'est produite lors de la recherche du magasin par e-mail");
       });
