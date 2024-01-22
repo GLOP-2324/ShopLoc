@@ -79,7 +79,7 @@ export class FormComponent implements OnInit {
   private initForm() {
     const formGroupConfig = {};
     this.dynamicControls.forEach(control => {
-      if (control.type === 'hidden') {
+      if (control.type === 'hidden'&& control.formControlName === 'store') {
         // @ts-ignore
         formGroupConfig[control.formControlName] = [localStorage.getItem("email"), Validators.required];
       } else {
@@ -169,6 +169,12 @@ export class FormComponent implements OnInit {
     }
     if (this.route == "commercant/produits") {
       this.storeService.findSToreByEmail(formData.store).subscribe((storeData: any) => {
+        for (const fieldName in formData) {
+          if (formData.hasOwnProperty(fieldName)) {
+            const fieldValue = formData[fieldName];
+            console.log(`Field: ${fieldName}, Value: ${fieldValue}`);
+          }
+        }
           newFormData.append('id',  formData.id);
           newFormData.append('store',  storeData.id);
           newFormData.append('libelle', formData.libelle);
@@ -177,14 +183,15 @@ export class FormComponent implements OnInit {
           newFormData.append('type', formData.type);
           newFormData.append('points', formData.points);
           console.log('value:',  newFormData);
-          this.storeService.createProduct(newFormData).subscribe((response: any) => {
-            console.log('Success:', response);
-            this.toastr.success("Le produit a été créé");
-
-          }, (error: any) => {
-            console.error('Error creating product:', error);
-            this.toastr.error("Une erreur s'est produite lors de la création du produit");
-          });
+          // this.storeService.createProduct(newFormData).subscribe((response: any) => {
+          //   console.log('Success:', response);
+          //   this.form.reset();
+          //   this.toastr.success("Le produit a été créé");
+          //
+          // }, (error: any) => {
+          //   console.error('Error creating product:', error);
+          //   this.toastr.error("Une erreur s'est produite lors de la création du produit");
+          // });
 
       }, (error: any) => {
         console.error('Error fetching store by email:', error);
@@ -205,7 +212,7 @@ export class FormComponent implements OnInit {
       account.password = this.form.get("password")?.value;
       account.email=this.localStorage.getItem("email") || undefined;
       this.accountService.modifyPassword(account).subscribe((response:any)=>{
-
+        this.form.reset();
       })
     }
   }
