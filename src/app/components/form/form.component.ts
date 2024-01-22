@@ -115,6 +115,7 @@ export class FormComponent implements OnInit {
         { label: 'Type', formControlName: 'type', type: 'select' },
         { label: 'Points', formControlName: 'points', type: 'number' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
+        { label: 'Id', formControlName: 'id', type: 'hidden' },
       ];
     } else if (currentRoute.startsWith('/commercant/type')) {
       this.route = "commercant/type"
@@ -168,6 +169,7 @@ export class FormComponent implements OnInit {
     }
     if (this.route == "commercant/produits") {
       this.storeService.findSToreByEmail(formData.store).subscribe((storeData: any) => {
+          newFormData.append('id',  formData.id);
           newFormData.append('store',  storeData.id);
           newFormData.append('libelle', formData.libelle);
           newFormData.append('description', formData.description);
