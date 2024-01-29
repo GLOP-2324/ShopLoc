@@ -71,10 +71,11 @@ export class DatatableComponent implements OnInit {
       if (email) {
         this.storeService.findSToreByEmail(email).subscribe(
           (store: any) => {
-            this.tableHeaders=['Libelle', 'Price','Description','Points'];
+            this.tableHeaders=['libelle', 'price','description','points','benefitsActivated'];
             // @ts-ignore
             this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
               this.dataRows = products;
+              console.log(products,'jjjj')
             });
 
           },

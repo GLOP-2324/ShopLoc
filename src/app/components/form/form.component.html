@@ -10,7 +10,7 @@
       <div>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <ng-container *ngFor="let control of dynamicControls">
-            <div class="col sm-auto">
+            <div class="col sm-auto mt-3">
               <label *ngIf="control.type !== 'hidden'" for="{{ control.formControlName }}" class="form-label">
                 {{ control.label }}
               </label>
@@ -18,6 +18,7 @@
                 <select *ngSwitchCase="'select'" class="form-select" [id]="control.formControlName" [formControlName]="control.formControlName">
                   <option *ngFor="let type of typesProduits" [value]="type.id">{{ type.libelle }}</option>
                 </select>
+                <input *ngSwitchCase="'checkbox'" [type]="control.type" class="form-check-input ms-3" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'text'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'number'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'file'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" (change)="onFileSelected($event)">
@@ -25,6 +26,9 @@
                 <input *ngSwitchCase="'hidden'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'password'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <textarea *ngSwitchCase="'textarea'" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName"></textarea>
+
+
+
               </ng-container>
             </div>
           </ng-container>

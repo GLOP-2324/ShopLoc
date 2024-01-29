@@ -55,40 +55,55 @@ export class FormComponent implements OnInit {
   }
   updateFormWithObject(object: any): void {
     if (object) {
-
       Object.keys(object).forEach((key) => {
         const control = this.form.get(key);
 
-        const selectedTypeId = object.type.id;
-        const selectedTypeObj = this.typesProduits.find((type: { id: any }) => type.id === selectedTypeId);
-        if (selectedTypeObj) {
+        // Special handling for 'type'
+        if (key === 'type' && this.typesProduits) {
+          const selectedTypeId = object.type.id;
+          const selectedTypeObj = this.typesProduits.find((type: { id: any }) => type.id === selectedTypeId);
+          if (selectedTypeObj) {
+            // @ts-ignore
+            control.setValue(selectedTypeObj.id);
+          }
+        } else if (key === 'benefitsActivated') {
+          // Special handling for 'benefitsActivated' checkbox
           // @ts-ignore
-          this.form.get('type').setValue(selectedTypeObj.id);
-        }
-
-
-        if (control) {
+          control.setValue(object[key]);
+        } else if (control) {
+          // Set the value for other form controls
           control.setValue(object[key]);
         }
-
-
       });
     }
   }
 
+
   private initForm() {
     const formGroupConfig = {};
+    // @ts-ignore
     this.dynamicControls.forEach(control => {
+      console.log(control)
       if (control.type === 'hidden'&& control.formControlName === 'store') {
         // @ts-ignore
         formGroupConfig[control.formControlName] = [localStorage.getItem("email"), Validators.required];
-      } else {
+      }
+      else if (control.type === 'checkbox') {
+        // @ts-ignore
+        formGroupConfig[control.formControlName] = [false]}
+      else {
         // @ts-ignore
         formGroupConfig[control.formControlName] = [null, Validators.required];
       }
     });
 
     this.form = this.fb.group(formGroupConfig);
+    const checkboxControl = this.form.get('benefitsActivated');
+    if (checkboxControl) {
+      checkboxControl.valueChanges.subscribe(value => {
+        checkboxControl.setValue(!!value, { emitEvent: false });
+      });
+    }
   }
 
   private updateDynamicControls(currentRoute: string): void {
@@ -108,6 +123,7 @@ export class FormComponent implements OnInit {
         this.typesProduits = types;
       });
       this.dynamicControls = [
+        { label: 'Avantage', formControlName: 'benefitsActivated', type: 'checkbox' },
         { label: 'Libelle', formControlName: 'libelle', type: 'text' },
         { label: 'Prix', formControlName: 'price', type: 'number' },
         { label: 'Image', formControlName: 'image', type: 'file' },
@@ -115,6 +131,7 @@ export class FormComponent implements OnInit {
         { label: 'Type', formControlName: 'type', type: 'select' },
         { label: 'Points', formControlName: 'points', type: 'number' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
+
         { label: 'Id', formControlName: 'id', type: 'hidden' },
       ];
     } else if (currentRoute.startsWith('/commercant/type')) {
@@ -168,7 +185,8 @@ export class FormComponent implements OnInit {
       })
     }
     if (this.route == "commercant/produits") {
-      this.storeService.findSToreByEmail(formData.store).subscribe((storeData: any) => {
+      // @ts-ignore
+      this.storeService.findSToreByEmail(localStorage.getItem("email")).subscribe((storeData: any) => {
         for (const fieldName in formData) {
           if (formData.hasOwnProperty(fieldName)) {
             const fieldValue = formData[fieldName];
@@ -179,12 +197,13 @@ export class FormComponent implements OnInit {
           newFormData.append('id', formData.id);
         }
 
-          newFormData.append('store',  storeData.id);
-          newFormData.append('libelle', formData.libelle);
+         newFormData.append('store',  storeData.id);
+         newFormData.append('libelle', formData.libelle);
           newFormData.append('description', formData.description);
           newFormData.append('price', formData.price);
           newFormData.append('type', formData.type);
           newFormData.append('points', formData.points);
+          newFormData.append('benefitsActivated', formData.benefitsActivated);
           console.log('value:',  newFormData);
           this.storeService.createProduct(newFormData).subscribe((response: any) => {
             console.log('Success:', response);

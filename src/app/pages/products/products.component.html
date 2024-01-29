@@ -4,7 +4,7 @@
     <div *ngFor="let product of products" class="col mt-2">
       <div class="card">
         <div class="card-body">
-          <span *ngIf="product.discount" class="badge bg-danger ms-auto float-end m-2">{{ product.discount }}</span>
+          <span *ngIf="product.benefitsActivated" class="badge bg-danger ms-auto float-end m-2 cursor" (click)="buyWithPoints()">{{ product.points }} Points</span>
           <div class="card-img-actions">
             <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
           </div>
@@ -18,6 +18,7 @@
           </div>
           <h5 class="mb-2 font-weight-semibold">{{ product.price }} €</h5>
           <button class="btn btn-add-card btn-sm" type="button"  (click)="addToCart(product)"><i class="fa fa-shopping-basket me-2"></i> Panier</button>
+
         </div>
       </div>
     </div>
