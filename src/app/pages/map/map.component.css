@@ -1,0 +1,13 @@
+#map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: bottom;
+  justify-content: flex-end;
+  height: 100vh; 
+}
+
+#map {
+  flex: 1;
+  height: 70%; 
+  width: 100%; 
+}
