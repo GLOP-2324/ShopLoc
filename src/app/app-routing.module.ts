@@ -8,6 +8,7 @@ import {CommercantComponent} from "./pages/vues/commercant/commercant-accueil/co
 import {
   CommercantsProduitsComponent
 } from "./pages/vues/commercant/commercants-produits/commercants-produits.component";
+import { PaymentsComponent } from './pages/payments/payments.component';
 import {ProductsComponent} from "./pages/products/products.component";
 import {AuthGuard} from "./shared/guard/AuthGuard";
 import {AdminAccueilComponent} from "./pages/vues/admin/admin-accueil/admin-accueil.component";
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'signUp', component: AccountCreationComponent },
   { path: 'panier', component: BasketComponent },
   { path: 'profile', component: ProfilComponent },
+  { path: 'payment', component: PaymentsComponent },
   {
     path: 'commercant',
     component: CommercantComponent,

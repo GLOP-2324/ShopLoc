@@ -38,6 +38,7 @@ import { ProfilComponent } from './pages/vues/profil/profil.component';
 import { ClientCardComponent } from './pages/vues/client/client-card/client-card.component';
 import { ClientAchatsComponent } from './pages/vues/client/client-achats/client-achats.component';
 import { MapComponent } from './pages/map/map.component';
+import { PaymentsComponent } from './pages/payments/payments.component';
 
 
 
@@ -69,6 +70,7 @@ import { MapComponent } from './pages/map/map.component';
     ClientCardComponent,
     ClientAchatsComponent,
     MapComponent,
+    PaymentsComponent,
 
   ],
   imports: [

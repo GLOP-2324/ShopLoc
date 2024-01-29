@@ -1,0 +1,68 @@
+.payment-container {
+    max-width: 500px;
+    margin: auto;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .credit-card {
+    background-size: cover;
+    border-radius: 8px;
+    height: 200px;
+    color: white;
+    padding: 20px;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .credit-card-number,
+  .credit-card-holder,
+  .credit-card-expiration {
+    position: absolute;
+  }
+  
+  .credit-card-number {
+    top: 30px;
+    left: 100px;
+    
+    font-size: 1.5em; /* Adjust size as needed */
+    letter-spacing: 2px; /* Spacing between characters */
+    margin-bottom: 0.5em; /* Space below the card number */
+      
+  }
+  
+  .credit-card-holder {
+    bottom: 45px;
+    left: 20px;
+  }
+  
+  .credit-card-expiration {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .payment-form label {
+    font-weight: bold;
+  }
+  
+  .payment-form input,
+  .payment-form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .payment-form button {
+    background-color: #0041c4;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
