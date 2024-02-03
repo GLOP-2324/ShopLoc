@@ -39,6 +39,7 @@ import { ClientCardComponent } from './pages/vues/client/client-card/client-card
 import { ClientAchatsComponent } from './pages/vues/client/client-achats/client-achats.component';
 import { MapComponent } from './pages/map/map.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 
@@ -71,6 +72,7 @@ import { PaymentsComponent } from './pages/payments/payments.component';
     ClientAchatsComponent,
     MapComponent,
     PaymentsComponent,
+    FooterComponent,
 
   ],
   imports: [

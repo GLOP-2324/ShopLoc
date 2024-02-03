@@ -1,4 +1,11 @@
+.card-img-actions {
+  min-height: 250px;
 
+}
+.card-img-top {
+  max-height: 20vh; /*not want to take all vertical space*/
+  object-fit: contain;/*show all image, autosized, no cut, in available space*/
+}
 a{
 
   text-decoration: none !important;

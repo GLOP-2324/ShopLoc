@@ -12,6 +12,7 @@
   transition: all 0.3s;
 }
 .card {
+  max-width: 500px;
   background-color: #fff;
   border-radius: 10px;
   border: none;

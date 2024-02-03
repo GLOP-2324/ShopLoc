@@ -54,25 +54,33 @@ export class FormComponent implements OnInit {
 
   }
   updateFormWithObject(object: any): void {
+    console.log('Value of benefitsActivated:', object.benefitsActivated);
+
+    // Mettre à jour le champ benefitsActivated
+    const benefitsActivatedControl = this.form.get('benefitsActivated');
+    if (benefitsActivatedControl) {
+      benefitsActivatedControl.setValue(object.benefitsActivated);
+    }
+
+    // Mettre à jour les autres champs
     if (object) {
       Object.keys(object).forEach((key) => {
-        const control = this.form.get(key);
+        // Ignorer le champ benefitsActivated car il a déjà été mis à jour
+        if (key !== 'benefitsActivated') {
+          const control = this.form.get(key);
 
-        // Special handling for 'type'
-        if (key === 'type' && this.typesProduits) {
-          const selectedTypeId = object.type.id;
-          const selectedTypeObj = this.typesProduits.find((type: { id: any }) => type.id === selectedTypeId);
-          if (selectedTypeObj) {
-            // @ts-ignore
-            control.setValue(selectedTypeObj.id);
+          // Special handling for 'type'
+          if (key === 'type' && this.typesProduits) {
+            const selectedTypeId = object.type.id;
+            const selectedTypeObj = this.typesProduits.find((type: { id: any }) => type.id === selectedTypeId);
+            if (selectedTypeObj) {
+              // @ts-ignore
+              control.setValue(selectedTypeObj.id);
+            }
+          } else if (control) {
+            // Set the value for other form controls
+            control.setValue(object[key]);
           }
-        } else if (key === 'benefitsActivated') {
-          // Special handling for 'benefitsActivated' checkbox
-          // @ts-ignore
-          control.setValue(object[key]);
-        } else if (control) {
-          // Set the value for other form controls
-          control.setValue(object[key]);
         }
       });
     }
@@ -115,6 +123,8 @@ export class FormComponent implements OnInit {
         { label: 'Prenom', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
         { label: 'Image', formControlName: 'image', type: 'file' },
+        { label: 'Longitude', formControlName: 'longitude', type: 'text' },
+        { label: 'Latitude', formControlName: 'Latitude', type: 'text' },
       ];
     } else if (currentRoute.startsWith('/commercant/produits')) {
       this.route = "commercant/produits"
@@ -162,7 +172,10 @@ export class FormComponent implements OnInit {
       this.dynamicControls = [];
     }
   }
-
+  onCheckboxChange(event: any): void {
+    const isChecked = event.target.checked;
+    this.form.get('benefitsActivated')?.setValue(isChecked);
+  }
   onSubmit() {
     const formData = this.form.value;
     const newFormData = new FormData();
@@ -209,6 +222,7 @@ export class FormComponent implements OnInit {
             console.log('Success:', response);
             this.form.reset();
             this.toastr.success("Le produit a été créé");
+            window.location.reload()
 
           }, (error: any) => {
             console.error('Error creating product:', error);

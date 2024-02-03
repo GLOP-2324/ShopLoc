@@ -21,18 +21,18 @@ export class CartService {
     }
   }
 
-  addToCart(product: any) {
-    // Update cart items count
+  addToCart(product: any, quantity: number = 1) {
+    const existingProductIndex = this.cart.findIndex((item) => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+      this.cart[existingProductIndex].quantity += quantity;
+    } else {
+      this.cart.push({ ...product, quantity });
+    }
+
     const currentCount = this.cartItemsSubject.value;
-    this.cartItemsSubject.next(currentCount + 1);
-
-    // Add the product to the cart
-    this.cart.push(product);
-
-    // Save updated cart to localStorage
+    this.cartItemsSubject.next(currentCount + quantity);
     this.saveCartToLocalStorage();
-
-    // Log the updated cart
     console.log('Updated Cart:', this.cart);
   }
 

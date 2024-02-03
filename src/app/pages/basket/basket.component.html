@@ -1,30 +1,87 @@
 <app-navbar></app-navbar>
-<div>
-  <div class="container d-flex justify-content-center mt-50 mb-50 p-5" *ngIf="cartItems.length>0">
-    <div class="row">
-      <div *ngFor="let product of cartItems" class="col mt-2">
-        <div class="card">
-          <div class="card-body">
-            <span *ngIf="product.discount" class="badge bg-danger ms-auto float-end m-2">{{ product.discount }}</span>
-            <div class="card-img-actions">
-              <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
+<div class="container">
+  <div>
+    <div class="container d-flex justify-content-center mt-50 mb-50 p-5" *ngIf="cartItems.length>0">
+      <div class="row">
+        <div *ngFor="let product of cartItems" class="col mt-2">
+          <div class="card">
+            <div class="card">
+              <div class="card-header">
+                <span>Avantage</span>
+                <span *ngIf="product.benefitsActivated" class="badge bg-danger ms-auto float-end ">{{ product.points }} Points</span>
+              </div>
+            <div class="card-body">
+              <span class="badge bg-secondary ms-auto float-end m-1 rounded-circle" data-abc="true" href="#">{{ product.quantity }}</span>
+              <div class="card-img-actions">
+                <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
+              </div>
             </div>
-          </div>
-          <div class="card-body bg-light text-center">
-            <div class="mb-2">
-              <h6 class="font-weight-semibold mb-2">
-                <a class="text-secondary mb-2" data-abc="true" href="#">{{ product.libelle }}</a>
-              </h6>
-              <a class="text-muted" data-abc="true" href="#">{{ product.type.libelle }}</a>
+            <div class="card-body bg-light text-center">
+
+              <div class="mb-2">
+
+                <h6 class="font-weight-semibold mb-2">
+                  <a class="text-secondary mb-2" data-abc="true" href="#">{{ product.libelle }}</a>
+                </h6>
+                <a class="text-muted" data-abc="true" href="#">{{ product.type.libelle }}</a>
+              </div>
+              <h5 class="mb-2 font-weight-semibold">{{ product.price }} €</h5>
+              <span class=" float-end cursor" (click)="removeFromCart(product)">
+                <i class="fa fa-trash"></i>
+              </span>
             </div>
-            <h5 class="mb-2 font-weight-semibold">{{ product.price }} €</h5>
-            <button class="btn btn-dark btn-sm float-end" (click)="removeFromCart(product)">
-              <i class="fa fa-trash"></i>
-              </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
+  <button type="button" class="btn btn-primary float-end m-2" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="cartItems.length>0">
+    Payer par carte bancaire
+  </button>
+
+  <button type="button" class="btn btn-secondary float-end m-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"*ngIf="cartItems.length>0">
+    Payer par carte de fidelité
+  </button>
 </div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Renseigner les informations de votre carte</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-payments></app-payments>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-form-save" (click)="validateBasket()" >Payer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">Paiement par carte de fidélité</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-client-card></app-client-card>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" >Recharger</button>
+        <button type="button" class="btn btn-form-save" (click)="validateBasket()">Payer</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+

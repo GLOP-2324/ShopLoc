@@ -3,7 +3,7 @@
     <div class="mb-5">
       <div class="mt-5">
         <div class="row justify-content-center">
-          <div class="col-xl-6 col-lg-6">
+          <div class="">
             <div class="card l-bg-blue-dark">
               <div class="card-statistic-3 p-4">
                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
@@ -28,8 +28,7 @@
           </div>
         </div>
       </div>
-      <app-form></app-form>
-
+      <app-form *ngIf="route !== '/panier'"></app-form>
     </div>
   </div>
 </div>

@@ -75,7 +75,6 @@ export class DatatableComponent implements OnInit {
             // @ts-ignore
             this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
               this.dataRows = products;
-              console.log(products,'jjjj')
             });
 
           },

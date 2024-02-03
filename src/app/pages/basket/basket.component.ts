@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../shared/service/cartService";
+import {ToastrService} from "ngx-toastr";
+import {SharedService} from "../../shared/service/SharedService";
+import { BasketService } from 'src/app/shared/service/basketService';
 
 @Component({
   selector: 'app-basket',
@@ -9,8 +12,11 @@ import {CartService} from "../../shared/service/cartService";
 export class BasketComponent implements OnInit {
 
   cartItems: any[] = [];
-
-  constructor(private cartService: CartService) {
+  emailUser="";
+  constructor(private cartService: CartService,  private toastr: ToastrService,
+  private basketService: BasketService) {
+    // @ts-ignore
+    this.emailUser = localStorage.getItem('email');
   }
 
   ngOnInit() {
@@ -20,5 +26,18 @@ export class BasketComponent implements OnInit {
     this.cartService.removeFromCart(product);
 
     this.cartItems = this.cartService.getCartItems();
+  }
+  validateBasket() {
+    const newFormData = new FormData();
+    newFormData.append('store', this.cartItems[0].store.id);
+    newFormData.append('client', this.emailUser);
+    // @ts-ignore
+    newFormData.append('produits', this.cartItems);
+    this.basketService.validateBasket(newFormData).subscribe((response: any) => {
+      console.log('Success:', response);
+      this.toastr.success("Merci pour l'achat");
+      this.cartItems =[]
+    })
+
   }
 }
