@@ -1,3 +1,20 @@
-<div id="map-container">
-    <div id="map"></div>
-  </div>
+<div>
+  <input type="text" placeholder="Adresse de départ" #originInput>
+  <button (click)="useCurrentLocation()">Utiliser ma position actuelle</button>
+</div>
+<div>
+  <input type="text" placeholder="Adresse d'arrivée" #destinationInput>
+</div>
+<div>
+  <select #mode>
+    <option value="DRIVING">Voiture</option>
+    <option value="WALKING">À pied</option>
+  </select>
+</div>
+<div>
+  <button (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
+</div>
+<div id="map" style="height: 500px;"></div>
+<div id="right-panel">
+  <p>Temps estimé de trajet: <span id="duration"></span></p>
+</div>
