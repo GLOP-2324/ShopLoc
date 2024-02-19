@@ -1,32 +1,32 @@
 <div class="payment-container">
-    <div class="credit-card" style="background-image: url('/assets/payment.jpg');">
-      <!-- ... -->
-      <div class="credit-card-number">{{ maskedCardNumber() }}</div>
-      <div class="credit-card-holder">{{ cardInfo.cardHolder || 'FULL NAME' }}</div>
-      <div class="credit-card-expiration">{{ cardInfo.expirationMonth || 'MM' }}/{{ cardInfo.expirationYear || 'YY' }}</div>
-    </div>
-
-    <form class="payment-form">
-      <label for="cardNumber">Card Number</label>
-      <input id="cardNumber" type="text" [(ngModel)]="cardInfo.cardNumber" (input)="onCardNumberInput($any($event.target).value)" placeholder="Card Number" maxlength="19"/>
-
-      <label for="cardHolder">Card Holders</label>
-      <input id="cardHolder" type="text" [(ngModel)]="cardInfo.cardHolder" (input)="onCardHolderInput($any($event.target).value)" placeholder="Card Holder" />
-
-      <label for="expirationMonth">Expiration Date</label>
-      <select id="expirationMonth" [(ngModel)]="cardInfo.expirationMonth" name="expirationMonth">
-        <option value="" disabled selected>Month</option>
-        <option *ngFor="let month of months" [value]="month">{{ month }}</option>
-      </select>
-
-      <select id="expirationYear" [(ngModel)]="cardInfo.expirationYear" name="expirationYear">
-        <option value="" disabled selected>Year</option>
-        <option *ngFor="let year of years" [value]="year">{{ year }}</option>
-      </select>
-
-      <label for="cvv">CVV</label>
-      <input id="cvv" type="text" [(ngModel)]="cardInfo.cvv" (input)="onCVVInput($any($event.target).value)" placeholder="CVV" maxlength="3" />
-
-<!--      <button type="submit">Submit</button>-->
-    </form>
+  <div class="credit-card" style="background-image: url('/assets/payment.jpg');">
+    <!-- ... -->
+    <div class="credit-card-number">{{ maskedCardNumber() }}</div>
+    <div class="credit-card-holder">{{ cardInfo.cardHolder || 'FULL NAME' }}</div>
+    <div class="credit-card-expiration">{{ cardInfo.expirationMonth || 'MM' }}/{{ cardInfo.expirationYear || 'YY' }}</div>
   </div>
+
+  <form class="payment-form">
+    <label for="cardNumber">Card Number</label>
+    <input #cardNumberInput id="cardNumber" type="text" (input)="onCardNumberInput(cardNumberInput.value)" [value]="cardInfo.cardNumber" placeholder="Card Number" maxlength="19"/>
+
+    <label for="cardHolder">Card Holder</label>
+    <input #cardHolderInput id="cardHolder" type="text" (input)="onCardHolderInput(cardHolderInput.value)" [value]="cardInfo.cardHolder" placeholder="Card Holder" />
+
+    <label for="expirationMonth">Expiration Date</label>
+    <select #expirationMonthInput id="expirationMonth" (change)="onExpirationMonthChange(expirationMonthInput.value)">
+      <option value="" disabled selected>Month</option>
+      <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+    </select>
+
+    <select #expirationYearInput id="expirationYear" (change)="onExpirationYearChange(expirationYearInput.value)">
+      <option value="" disabled selected>Year</option>
+      <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+    </select>
+
+    <label for="cvv">CVV</label>
+    <input #cvvInput id="cvv" type="text" (input)="onCVVInput(cvvInput.value)" [value]="cardInfo.cvv" placeholder="CVV" maxlength="3" />
+
+    <!--      <button type="submit">Submit</button>-->
+  </form>
+</div>

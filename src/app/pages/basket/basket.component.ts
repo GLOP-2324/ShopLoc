@@ -3,6 +3,9 @@ import {CartService} from "../../shared/service/cartService";
 import {ToastrService} from "ngx-toastr";
 import {SharedService} from "../../shared/service/SharedService";
 import { BasketService } from 'src/app/shared/service/basketService';
+import {Product} from "../../shared/model/Product";
+import {Achat} from "../../shared/model/Achat";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-basket',
@@ -11,10 +14,12 @@ import { BasketService } from 'src/app/shared/service/basketService';
 })
 export class BasketComponent implements OnInit {
 
-  cartItems: any[] = [];
+  cartItems: Product[] = [];
   emailUser="";
-  constructor(private cartService: CartService,  private toastr: ToastrService,
-  private basketService: BasketService) {
+  constructor(private cartService: CartService,
+              private toastr: ToastrService,
+              private basketService: BasketService,
+              private router:Router) {
     // @ts-ignore
     this.emailUser = localStorage.getItem('email');
   }
@@ -29,15 +34,20 @@ export class BasketComponent implements OnInit {
   }
   validateBasket() {
     const newFormData = new FormData();
-    newFormData.append('store', this.cartItems[0].store.id);
-    newFormData.append('client', this.emailUser);
+    const product = new Product();
+    const achat = new Achat();
     // @ts-ignore
-    newFormData.append('produits', this.cartItems);
-    this.basketService.validateBasket(newFormData).subscribe((response: any) => {
+    achat.storeId = this.cartItems[0].store.id;
+    achat.emailUser = this.emailUser;
+    achat.cartItems = this.cartItems;
+    this.basketService.validateBasket(this.emailUser,achat).subscribe((response: any) => {
       console.log('Success:', response);
       this.toastr.success("Merci pour l'achat");
       this.cartItems =[]
     })
-
   }
+  recharger(){
+    this.router.navigate(['/client/Card']);
+    window.location.reload()
+}
 }

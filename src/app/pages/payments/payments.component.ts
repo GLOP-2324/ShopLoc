@@ -18,9 +18,7 @@ export class PaymentsComponent {
   years = Array.from({ length: 10 }, (v, k) => new Date().getFullYear() + k);
 
   onCardNumberInput(value: string) {
-    // Ensure to remove spaces and limit length to 16 digits
     const sanitizedValue = value.replace(/\D/g, '').slice(0, 16);
-    // Format as '#### #### #### ####'
     this.cardInfo.cardNumber = sanitizedValue.replace(/(.{4})/g, '$1 ').trim();
   }
 
@@ -28,11 +26,18 @@ export class PaymentsComponent {
     this.cardInfo.cardHolder = value.toUpperCase();
   }
 
-  onCVVInput(value: string) {
-    this.cardInfo.cvv = value.slice(0, 3);  // CVV max length is 3
+  onExpirationMonthChange(value: string) {
+    this.cardInfo.expirationMonth = value;
   }
 
-  // Function to mask all but the last four digits of the card number
+  onExpirationYearChange(value: string) {
+    this.cardInfo.expirationYear = value;
+  }
+
+  onCVVInput(value: string) {
+    this.cardInfo.cvv = value.slice(0, 3);
+  }
+
   maskedCardNumber(): string {
     const visibleDigits = 4;
     const maskedSection = this.cardInfo.cardNumber.slice(0, -visibleDigits).replace(/\d/g, '*');

@@ -1,14 +1,14 @@
-<div class="row">
-  <div class=" justify-content-center">
+
+  <div class=" container">
     <div class="mb-5">
       <div class="mt-5">
-        <div class="row justify-content-center">
-          <div class="">
-            <div class="card l-bg-blue-dark">
+        <div class=" justify-content-center">
+
+            <div class="card l-bg-blue-dark m-auto text-center">
               <div class="card-statistic-3 p-4">
                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
-                <div class="mb-4">
-                  <h3 class="card-title mb-0">Lorem Ipsum</h3>
+                <div class="mb-2 mt-0">
+                  <h5 class="card-title mb-0">{{firstname}} {{lastname}}</h5>
                 </div>
                 <div class="row align-items-center mb-2 d-flex">
                   <div class="col-8">
@@ -25,11 +25,49 @@
                 </div>
               </div>
             </div>
+        </div>
+      </div>
+      <div class="mt-5">
+        <div class="container" *ngIf="route!=='/panier'">
+          <div class="row justify-content-center mb-5">
+            <div class="text-center" id="titre">{{ titreForm }}</div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="card p-4 w-50">
+              <span class="text-secondary text-center mb-4 fw-light">Merci de remplir tous les champs</span>
+              <div>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                  <div class="col sm-auto mt-3">
+                    <label for="montant" class="form-label">Montant</label>
+                    <input type="number" class="form-control" id="montant" formControlName="montant">
+                  </div>
+                  <button type="submit" class="btn btn-form-save float-end mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="route=='/client/Card'">
+                    Enregistrer
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <app-form *ngIf="route !== '/panier'"></app-form>
     </div>
   </div>
-</div>
+  <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Renseigner les informations de votre carte</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <app-payments></app-payments>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-form-save" (click)="recharger()" >Payer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 

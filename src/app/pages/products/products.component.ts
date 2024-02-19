@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit {
   }
   addToCart(product: any) {
     this.cartService.addToCart(product);
+    window.location.reload()
   }
   buyWithPoints(){
 

@@ -101,6 +101,15 @@ export class DatatableComponent implements OnInit {
         this.dataRows = products;
       });
     }
+    if (currentRoute.startsWith('/admin')) {
+      this.titreDatatable = "Liste des commercçants"
+      this.tableHeaders=['name', 'email']
+      // @ts-ignore
+      this.storeService.getStore().subscribe((commercants:any[]) => {
+        console.log(commercants,'kk')
+        this.dataRows = commercants;
+      });
+    }
     }
   navigateToForm(object:any) {
     this.sharedService.setCurrentObject(object);

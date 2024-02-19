@@ -15,6 +15,7 @@ import {SharedService} from "../../shared/service/SharedService";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  modal: boolean | undefined;
   selectedFile: File | null = null;
   form: FormGroup = this.fb.group({});
   dynamicControls: { label: string, formControlName: string, type: string }[] = [];
@@ -22,6 +23,7 @@ export class FormComponent implements OnInit {
   route = "";
   typesProduits: any = [];
   currentRoute: string = '';
+  montantCredit:any;
 
   protected readonly localStorage = localStorage;
 
@@ -119,12 +121,12 @@ export class FormComponent implements OnInit {
       this.route = "admin"
       this.titreForm = "Ajout d'un commerçant"
       this.dynamicControls = [
-        { label: 'Nom', formControlName: 'lastname', type: 'text' },
-        { label: 'Prenom', formControlName: 'firstname', type: 'text' },
+        { label: 'Name', formControlName: 'lastname', type: 'text' },
+        { label: 'Ville', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
         { label: 'Image', formControlName: 'image', type: 'file' },
-        { label: 'Longitude', formControlName: 'longitude', type: 'text' },
-        { label: 'Latitude', formControlName: 'Latitude', type: 'text' },
+        { label: 'Adresse', formControlName: 'adresse', type: 'text' },
+
       ];
     } else if (currentRoute.startsWith('/commercant/produits')) {
       this.route = "commercant/produits"
@@ -253,9 +255,17 @@ export class FormComponent implements OnInit {
         this.form.reset();
       })
     }
+    if(this.route=='/client/Card'){
+      this.modal= true
+      this.montantCredit=formData.montant
+      alert(this.modal)
+    }
   }
 
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files?.[0] || null;
+  }
+  recharger(){
+    alert(this.montantCredit);
   }
 }

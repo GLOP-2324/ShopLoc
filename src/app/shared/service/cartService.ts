@@ -1,4 +1,3 @@
-// cart.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -14,10 +13,9 @@ export class CartService {
   constructor() {
     // Retrieve cart data from localStorage on service initialization
     const storedCart = localStorage.getItem('cart');
-    console.log(localStorage,'jeee')
     if (storedCart) {
       this.cart = JSON.parse(storedCart);
-      this.cartItemsSubject.next(this.cart.length);
+      this.updateCartItemCount();
     }
   }
 
@@ -30,10 +28,9 @@ export class CartService {
       this.cart.push({ ...product, quantity });
     }
 
-    const currentCount = this.cartItemsSubject.value;
-    this.cartItemsSubject.next(currentCount + quantity);
+    this.updateCartItemCount();
     this.saveCartToLocalStorage();
-    console.log('Updated Cart:', this.cart);
+    window.location.reload();
   }
 
   getCartItems() {
@@ -45,14 +42,26 @@ export class CartService {
   }
 
   removeFromCart(product: any) {
-    const index = this.cart.indexOf(product);
+    const index = this.cart.findIndex((item) => item.id === product.id);
     if (index !== -1) {
-      this.cart.splice(index, 1);
+      if (this.cart[index].quantity > 1) {
+        this.cart[index].quantity--;
+      } else {
+        this.cart.splice(index, 1);
+      }
 
-      const currentCount = this.cartItemsSubject.value;
-      this.cartItemsSubject.next(currentCount - 1);
-
+      this.updateCartItemCount();
       this.saveCartToLocalStorage();
+      window.location.reload();
     }
+  }
+
+  private updateCartItemCount() {
+    let totalCount = 0;
+    this.cart.forEach((item) => {
+      totalCount += item.quantity;
+    });
+    this.cartItemsSubject.next(totalCount);
+
   }
 }

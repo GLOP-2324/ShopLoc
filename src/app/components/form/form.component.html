@@ -1,6 +1,6 @@
 <!-- ... autres imports ... -->
 
-<div class="container-fluid" >
+<div class="container" >
   <div class="row justify-content-center">
     <div class="text-center" id="titre">{{ titreForm }}</div>
   </div>
@@ -26,17 +26,15 @@
                 <input *ngSwitchCase="'hidden'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'password'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <textarea *ngSwitchCase="'textarea'" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName"></textarea>
-
-
-
               </ng-container>
             </div>
           </ng-container>
 
-          <button type="submit" class="btn btn-form-save mt-3 float-end">
+          <button type="submit" class="btn btn-form-save mt-3 float-end" *ngIf="route!=='/client/Card'">
             <i class="fa fa-save me-2"></i>
             Enregistrer
           </button>
+
         </form>
       </div>
     </div>

@@ -23,3 +23,9 @@ a{
 
 
 }
+.card{
+  min-height: 500px;
+}
+.card-header{
+  min-height: 50px;
+}
