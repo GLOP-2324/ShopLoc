@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CartService} from "../../shared/service/cartService";
 import {ToastrService} from "ngx-toastr";
 import {SharedService} from "../../shared/service/SharedService";
@@ -12,14 +12,24 @@ import {Router} from "@angular/router";
   templateUrl: './basket.component.html',
   styleUrls: ['./basket.component.css']
 })
-export class BasketComponent implements OnInit {
-
+export class BasketComponent implements AfterViewInit  {
+  @ViewChild('exampleModal') exampleModal: ElementRef | undefined;
+  @ViewChild('exampleModal2') exampleModal2: ElementRef | undefined;
+  ngAfterViewInit(): void {
+    console.log(localStorage)
+    console.log('ngAfterViewInit called');
+    console.log('exampleModal element:', this.exampleModal);
+    console.log('exampleModal2 element:', this.exampleModal2);
+  }
   cartItems: Product[] = [];
   emailUser="";
   constructor(private cartService: CartService,
               private toastr: ToastrService,
               private basketService: BasketService,
-              private router:Router) {
+              private router:Router,
+              private elementRef: ElementRef
+              ) {
+
     // @ts-ignore
     this.emailUser = localStorage.getItem('email');
   }
@@ -41,13 +51,67 @@ export class BasketComponent implements OnInit {
     achat.emailUser = this.emailUser;
     achat.cartItems = this.cartItems;
     this.basketService.validateBasket(this.emailUser,achat).subscribe((response: any) => {
+
       console.log('Success:', response);
       this.toastr.success("Merci pour l'achat");
-      this.cartItems =[]
+      // @ts-ignore
+      this.cartService.clearCart();
+      // @ts-ignore
+      const modalElement = document.getElementById('exampleModal2');
+      if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.setAttribute('aria-modal', 'false');
+        modalElement.setAttribute('style', 'display: none');
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        if (modalBackdrop) {
+          modalBackdrop.remove();
+        }
+      }
+      this.router.navigate(['/']);
+    }, (error: any) => {
+      this.toastr.error("Votre solde est insuffisant, recharger votre carte");
     })
   }
-  recharger(){
-    this.router.navigate(['/client/Card']);
-    window.location.reload()
-}
+  validateBasketByCreditCard() {
+    const achat = new Achat();
+    // @ts-ignore
+    achat.storeId = this.cartItems[0].store.id;
+    achat.emailUser = this.emailUser;
+    achat.cartItems = this.cartItems;
+    this.basketService.validateBasketByCreditCard(this.emailUser,achat).subscribe((response: any) => {
+      console.log('Success:', response);
+      this.toastr.success("Merci pour l'achat");
+
+      // @ts-ignore
+      this.cartService.clearCart();
+      // @ts-ignore
+      const modalElement = document.getElementById('exampleModal');
+      if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.setAttribute('aria-modal', 'false');
+        modalElement.setAttribute('style', 'display: none');
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        if (modalBackdrop) {
+          modalBackdrop.remove();
+        }
+      }
+      this.router.navigate(['/']);
+    }, (error: any) => {
+      this.toastr.error("Une erreur s'est produite");
+    })
+  }
+  recharger() {
+    const modalElement = document.getElementById('exampleModal2');
+
+    if (modalElement) {
+      modalElement.classList.remove('show');
+      modalElement.setAttribute('aria-modal', 'false');
+      modalElement.setAttribute('style', 'display: none');
+      const modalBackdrop = document.querySelector('.modal-backdrop');
+      if (modalBackdrop) {
+        modalBackdrop.remove();
+      }
+      this.router.navigate(['/client/Card']);
+    }
+  }
 }

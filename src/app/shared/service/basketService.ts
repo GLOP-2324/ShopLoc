@@ -17,5 +17,9 @@ export class BasketService {
     return this.http.post(`${environment.BACKEND_URL}/client/${email}/card`, achat);
 
   }
+  public validateBasketByCreditCard(email: string, achat : Achat) {
 
+    return this.http.post(`${environment.BACKEND_URL}/client/${email}/card?creditCard=true`, achat);
+
+  }
 }

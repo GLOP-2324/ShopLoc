@@ -125,7 +125,7 @@ export class FormComponent implements OnInit {
         { label: 'Ville', formControlName: 'firstname', type: 'text' },
         { label: 'Email', formControlName: 'email', type: 'email' },
         { label: 'Image', formControlName: 'image', type: 'file' },
-        { label: 'Adresse', formControlName: 'adresse', type: 'text' },
+        { label: 'Adresse', formControlName: 'address', type: 'text' },
 
       ];
     } else if (currentRoute.startsWith('/commercant/produits')) {
@@ -190,8 +190,9 @@ export class FormComponent implements OnInit {
       newFormData.append('firstname', formData.firstname);
       newFormData.append('lastname', formData.lastname);
       newFormData.append('email', formData.email);
-
+      newFormData.append('firstname', formData.firstname)
       newFormData.append('roleId', role.toString());
+      newFormData.append('address', formData.address);
       this.accountService.createAccount(newFormData).subscribe((response: any) => {
 
         console.log('Success:', response);

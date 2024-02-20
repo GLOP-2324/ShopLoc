@@ -3,6 +3,8 @@ import {Router} from "@angular/router";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Account} from "../../../../shared/model/Account";
 import {ClientCardService} from "../../../../shared/service/clientCardService";
+import {ToastrService} from "ngx-toastr";
+import {clientCard} from "../../../../shared/model/clientCard";
 
 @Component({
   selector: 'app-client-card',
@@ -10,6 +12,7 @@ import {ClientCardService} from "../../../../shared/service/clientCardService";
   styleUrls: ['./client-card.component.css']
 })
 export class ClientCardComponent {
+  cardInformation: clientCard | undefined;
   montantCredit:any;
   route: string;
   protected readonly localStorage = localStorage;
@@ -17,7 +20,8 @@ export class ClientCardComponent {
   public lastname="";
   titreForm = 'Ajout d\'un montant';
   form: FormGroup;
-  constructor(private router: Router,private clientCardService:ClientCardService) {
+  constructor(private router: Router,private clientCardService:ClientCardService,private toastService:ToastrService) {
+    this.getClientCardInfo();
     this.route = this.router.url;
     this.form = new FormGroup({
       montant: new FormControl('', [Validators.required, Validators.min(1)])
@@ -28,13 +32,41 @@ export class ClientCardComponent {
     this.lastname=this.localStorage.getItem("lastname");
   }
   recharger(){
-    alert(this.montantCredit);
+    // @ts-ignore
+    this.clientCardService.creditCard(this.localStorage.getItem("email"),this.montantCredit).subscribe((response: any)  => {
+      console.log('Success:', response);
+      this.toastService.success("Le montant a été ajouté");
+      const modalElement = document.getElementById('exampleModal');
+      if (modalElement) {
+        modalElement.classList.remove('show');
+        modalElement.setAttribute('aria-modal', 'false');
+        modalElement.setAttribute('style', 'display: none');
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        if (modalBackdrop) {
+          modalBackdrop.remove();
+        }
+        window.location.reload();
+
+    }
+      this.form.reset();
+    }, (error: any) => {
+      console.error('Error creating product:', error);
+      this.form.reset();
+    });
+
   }
   onSubmit() {
     const formData = this.form.value;
       this.montantCredit=formData.montant
       // @ts-ignore
-    this.clientCardService.creditCard(this.localStorage.getItem("email"),this.montantCredit);
+
+  }
+  getClientCardInfo(){
+    // @ts-ignore
+    this.clientCardService.getFidelityCardMontant(this.localStorage.getItem("email")).subscribe((response:any)=>{
+      this.cardInformation=response;
+      console.log(this.cardInformation,'hereeeeeeeeee')
+    })
   }
 }
 

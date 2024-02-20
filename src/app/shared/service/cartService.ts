@@ -30,15 +30,10 @@ export class CartService {
 
     this.updateCartItemCount();
     this.saveCartToLocalStorage();
-    window.location.reload();
   }
 
   getCartItems() {
     return [...this.cart];
-  }
-
-  private saveCartToLocalStorage() {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   removeFromCart(product: any) {
@@ -52,8 +47,17 @@ export class CartService {
 
       this.updateCartItemCount();
       this.saveCartToLocalStorage();
-      window.location.reload();
     }
+  }
+
+  clearCart() {
+    this.cart = [];
+    this.updateCartItemCount();
+    this.saveCartToLocalStorage();
+  }
+
+  private saveCartToLocalStorage() {
+    localStorage.setItem('cart', JSON.stringify(this.cart));
   }
 
   private updateCartItemCount() {
@@ -62,6 +66,5 @@ export class CartService {
       totalCount += item.quantity;
     });
     this.cartItemsSubject.next(totalCount);
-
   }
 }
