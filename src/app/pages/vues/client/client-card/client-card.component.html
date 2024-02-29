@@ -39,7 +39,7 @@
                 <form [formGroup]="form" (ngSubmit)="onSubmit()">
                   <div class="col sm-auto mt-3">
                     <label for="montant" class="form-label">Montant</label>
-                    <input type="number" class="form-control" id="montant" formControlName="montant">
+                    <input type="number" class="form-control" id="montant" formControlName="montant" min="0">
                   </div>
                   <button type="submit" class="btn btn-form-save float-end mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="route=='/client/Card'">
                     Enregistrer

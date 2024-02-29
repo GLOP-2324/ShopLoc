@@ -1,10 +1,10 @@
 <div class="container">
   <div id="carouselExampleDark" class="carousel carousel-dark slide">
     <div class="carousel-indicators">
-      <button *ngFor="let set of storeSets; let i = index" type="button" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i" [class.active]="i === 0"></button>
+      <button *ngFor="let set of filteredStoreSets; let i = index" type="button" data-bs-target="#carouselExampleDark" [attr.data-bs-slide-to]="i" [class.active]="i === 0"></button>
     </div>
     <div class="carousel-inner">
-      <div *ngFor="let set of storeSets; let i = index" class="item carousel-item" [class.active]="i === 0">
+      <div *ngFor="let set of filteredStoreSets; let i = index" class="item carousel-item" [class.active]="i === 0">
         <div class="row justify-content-center">
           <div *ngFor="let item of set" class="col-sm-4">
             <div class="thumb-wrapper">

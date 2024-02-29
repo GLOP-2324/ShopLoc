@@ -2,23 +2,20 @@
   <br/>
   <div class="row justify-content-center">
     <div class="col-12 col-md-10 col-lg-8">
-      <form class="card card-sm">
-        <div class="card-body row  align-items-center">
-          <div class="col-auto">
-            <i class="fa fa-search text-secondary"></i>
-          </div>
-          <!--end of col-->
+      <form class="card card-sm" (ngSubmit)="onSubmit(searchInput.value)">
+        <div class="card-body row align-items-center">
           <div class="col">
-            <input class="form-control  form-control-borderless text" type="search" placeholder="Rechercher un magasin">
+            <input #searchInput class="form-control form-control-borderless" type="search" placeholder="Rechercher un magasin" (input)="onSearchInput(searchInput.value)">
+
           </div>
-          <!--end of col-->
           <div class="col-auto">
+             <span class="clear-icon m-2" (click)="clearSearchInput(searchInput)">
+              <i class="fa fa-times-circle"></i>
+            </span>
             <button class="btn btn-md bg-dark text-white" type="submit">Rechercher</button>
           </div>
-          <!--end of col-->
         </div>
       </form>
     </div>
-    <!--end of col-->
   </div>
 </div>
