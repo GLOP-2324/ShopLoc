@@ -1,11 +1,11 @@
 <div class="row">
   <div class=" justify-content-center">
     <div class="mb-5">
-      <app-form></app-form>
+      <button class="btn custom-button" (click)="toggleForm()">Ajouter un produit</button>
+      <app-form *ngIf="showForm"></app-form>
     </div>
     <div class="mb-5">
       <app-datatable></app-datatable>
     </div>
   </div>
 </div>
-

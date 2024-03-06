@@ -1,12 +1,46 @@
-
-#titre {
-  color: #2d2a2a;
-  font-weight: bolder;
-  margin-top: 0px;
-  margin-bottom: 40px;
-  border-radius: 0.25rem;
-  width: 180px;
-  /*background-color: #1d1b31;*/
-  padding: 5px;
+.container {
+  margin-top: 20px;
 }
 
+#titre {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+
+.card {
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.text-secondary {
+  color: #6c757d;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.btn-form-save {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.btn-form-save:hover {
+  background-color: #0056b3;
+}
+
+/* Optional: Adjust form controls */
+.form-control {
+  margin-top: 5px;
+}
+
+.form-select {
+  margin-top: 5px;
+}
+
+textarea.form-control {
+  resize: vertical;
+}

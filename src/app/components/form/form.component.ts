@@ -143,7 +143,6 @@ export class FormComponent implements OnInit {
         { label: 'Type', formControlName: 'type', type: 'select' },
         { label: 'Points', formControlName: 'points', type: 'number' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
-
         { label: 'Id', formControlName: 'id', type: 'hidden' },
       ];
     } else if (currentRoute.startsWith('/commercant/type')) {
@@ -181,7 +180,6 @@ export class FormComponent implements OnInit {
   onSubmit() {
     const formData = this.form.value;
     const newFormData = new FormData();
-
     if (this.selectedFile) {
       newFormData.append('image', this.selectedFile);
     }
@@ -244,6 +242,7 @@ export class FormComponent implements OnInit {
       this.storeService.createTypeProduct(formData).subscribe((response: any) => {
         console.log('Success:', response);
         this.toastr.success("Le type à été crée");
+        window.location.reload()
         this.form.reset();
 
       })
