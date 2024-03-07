@@ -12,7 +12,7 @@ export class ClientCardService {
 
   public creditCard(email: string, amount : number) {
     // @ts-ignore
-    return this.http.post(`${environment.BACKEND_URL}/client/${email}/card?amount=${amount}`);
+    return this.http.post(`${environment.BACKEND_URL}/client/${email}/card?amount=${amount}&creditCard=true`);
   }
   public getFidelityCardMontant(email: string) {
     // @ts-ignore

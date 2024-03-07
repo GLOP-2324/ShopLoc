@@ -22,6 +22,7 @@ export class BasketComponent implements AfterViewInit  {
     console.log('exampleModal2 element:', this.exampleModal2);
   }
   cartItems: Product[] = [];
+  achatsItems:any=[]
   emailUser="";
   constructor(private cartService: CartService,
               private toastr: ToastrService,
@@ -36,6 +37,8 @@ export class BasketComponent implements AfterViewInit  {
 
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems();
+    this.achatsItems = this.cartService.getAchats()
+    console.log("achat***********",this.achatsItems)
   }
   removeFromCart(product: any) {
     this.cartService.removeFromCart(product);
@@ -49,7 +52,9 @@ export class BasketComponent implements AfterViewInit  {
     // @ts-ignore
     achat.storeId = this.cartItems[0].store.id;
     achat.emailUser = this.emailUser;
-    achat.cartItems = this.cartItems;
+    achat.cartItems = this.achatsItems;
+
+    console.log("achat***********",this.achatsItems)
     this.basketService.validateBasket(this.emailUser,achat).subscribe((response: any) => {
 
       console.log('Success:', response);
