@@ -87,9 +87,10 @@ export class DatatableComponent implements OnInit {
     }
     if (currentRoute.startsWith('/commercant/type')) {
       this.titreDatatable = "Liste des types produits"
-      this.tableHeaders=['Libelle'];
+      this.tableHeaders=['libelle'];
       // @ts-ignore
       this.storeService.getTypeProduct().subscribe((products:any[]) => {
+        console.log(products)
         this.dataRows = products;
       });
     }
