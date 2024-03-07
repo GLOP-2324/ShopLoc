@@ -71,7 +71,7 @@ export class DatatableComponent implements OnInit {
       if (email) {
         this.storeService.findSToreByEmail(email).subscribe(
           (store: any) => {
-            this.tableHeaders=['libelle', 'price','description','points','benefitsActivated'];
+            this.tableHeaders=['libelle', 'price','description','points','benefitsActivated','stock'];
             // @ts-ignore
             this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
               this.dataRows = products;

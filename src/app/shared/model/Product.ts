@@ -13,4 +13,5 @@ export class Product{
   public points: number | undefined
   public benefitsActivated : boolean | undefined
   public quantity : number | undefined
+  public stock : number | undefined
 }

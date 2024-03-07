@@ -144,6 +144,7 @@ export class FormComponent implements OnInit {
         { label: 'Points', formControlName: 'points', type: 'number' },
         { label: 'Store', formControlName: 'store', type: 'hidden' },
         { label: 'Id', formControlName: 'id', type: 'hidden' },
+        { label: 'Stock', formControlName:'stock', type:'number'},
       ];
     } else if (currentRoute.startsWith('/commercant/type')) {
       this.route = "commercant/type"
@@ -217,6 +218,7 @@ export class FormComponent implements OnInit {
           newFormData.append('type', formData.type);
           newFormData.append('points', formData.points);
           newFormData.append('benefitsActivated', formData.benefitsActivated);
+          newFormData.append('stock', formData.stock);
           console.log('value:',  newFormData);
           this.storeService.createProduct(newFormData).subscribe((response: any) => {
             console.log('Success:', response);
