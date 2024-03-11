@@ -38,7 +38,7 @@ export class MapComponent implements OnInit {
     this.directionsService = new google.maps.DirectionsService();
     this.directionsRenderer = new google.maps.DirectionsRenderer({
       map: this.map,
-      panel: document.getElementById('instructionsPanel') // Ajoutez cette ligne pour lier le panel.
+      panel: document.getElementById('instructionsPanel')
     });
 
   }
@@ -137,7 +137,7 @@ export class MapComponent implements OnInit {
     }, (response, status) => {
       if (status === google.maps.DirectionsStatus.OK && response) {
         this.directionsRenderer.setDirections(response);
-        // Optionnel : Affichez le temps estimé de trajet mis à jour
+
         const durationElement = document.getElementById('duration');
         if (durationElement && response.routes[0]?.legs[0]?.duration) {
           durationElement.innerText = response.routes[0].legs[0].duration.text;

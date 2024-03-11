@@ -1,8 +1,23 @@
+/* Styles globaux pour les inputs et les boutons */
+input[type="text"], button, select {
+  padding: 10px;
+  margin: 5px 0; /* Ajoute un espace vertical entre les éléments */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Styles spécifiques pour les champs de saisie */
+input[type="text"] {
+  display: block; /* Assure que l'input occupe sa propre ligne */
+  width: 100%; /* Utilise toute la largeur du conteneur parent */
+  max-width: 500px; /* Agrandit la largeur maximale des inputs */
+  margin-left: 0; /* Alignement à gauche sans centrage */
+}
+
 #map-container {
   display: flex;
   flex-direction: column;
-  align-items: bottom;
-  justify-content: flex-end;
+  align-items: flex-start; /* Alignement à gauche */
   height: 100vh;
 }
 
@@ -10,4 +25,16 @@
   flex: 1;
   height: 70%;
   width: 100%;
+}
+
+.form-container {
+  padding: 20px;
+}
+
+/* Style pour le panneau de droite */
+#right-panel {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ccc;
+  overflow-y: auto; /* Permet le défilement si le contenu est trop long */
 }
