@@ -17,6 +17,11 @@ export class BasketService {
     return this.http.post(`${environment.BACKEND_URL}/client/${email}/card`, achat);
 
   }
+  public validateBasketFidelitypoints(email: string, achat : Achat) {
+    buyWithfidelityPoints:true
+    return this.http.patch(`${environment.BACKEND_URL}/client/${email}/card?buyWithfidelityPoints=true`, achat);
+
+  }
   public validateBasketByCreditCard(email: string, achat : Achat) {
 
     return this.http.post(`${environment.BACKEND_URL}/client/${email}/card?creditCard=true`, achat);

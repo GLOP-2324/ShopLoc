@@ -8,91 +8,95 @@ export class CartService {
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
 
-  private cart: any[] = [];
-  private achats: any[] = [];
+  constructor() {}
 
-  constructor() {
-    const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      this.cart = JSON.parse(storedCart);
-      this.updateCartItemCount();
-    }
-
-    const storedAchats = localStorage.getItem('achats');
-    if (storedAchats) {
-      this.achats = JSON.parse(storedAchats);
-    }
-  }
-
-  addToCart(product: any, quantity: number = 1) {
-    const existingProductIndex = this.cart.findIndex((item) => item.id === product.id);
-    this.addToCartForAchat(product);
+  addToCart(product: any, userEmail: string, quantity: number = 1) {
+    const userCart = this.loadCartFromLocalStorage(userEmail);
+    const existingProductIndex = userCart.findIndex((item) => item.id === product.id);
     if (existingProductIndex !== -1) {
-      this.cart[existingProductIndex].quantity += quantity;
+      userCart[existingProductIndex].quantity += quantity;
     } else {
-      this.cart.push({ ...product, quantity });
+      userCart.push({ ...product, quantity });
     }
 
-    this.updateCartItemCount();
-    this.saveCartToLocalStorage();
+    this.updateCartItemCount(userCart);
+    this.addToCartForAchat(product,userEmail);
+    this.saveCartToLocalStorage(userCart, userEmail);
   }
 
-  addToCartForAchat(product: any) {
-    this.achats.push(product);
-    this.saveAchatsToLocalStorage();
+  addToCartForAchat(product: any, userEmail: string) {
+    let userAchats = this.loadAchatsFromLocalStorage(userEmail);
+    if (!userAchats) {
+      userAchats = []; // Initialize userAchats to an empty array if it's null
+    }
+    userAchats.push(product);
+    this.saveAchatsToLocalStorage(userAchats, userEmail);
   }
 
-  getCartItems() {
-    return [...this.cart];
+
+  getCartItems(userEmail: string) {
+    return this.loadCartFromLocalStorage(userEmail);
   }
 
-  getAchats() {
-    return [...this.achats];
+  getAchats(userEmail: string) {
+    return this.loadAchatsFromLocalStorage(userEmail);
   }
 
-  removeFromCart(product: any) {
-    this.removeFromAchats(product);
-    const index = this.cart.findIndex((item) => item.id === product.id);
+  removeFromCart(product: any, userEmail: string) {
+    this.removeFromAchats(product,userEmail)
+    const userCart = this.loadCartFromLocalStorage(userEmail);
+    const index = userCart.findIndex((item) => item.id === product.id);
     if (index !== -1) {
-      if (this.cart[index].quantity > 1) {
-        this.cart[index].quantity--;
+      if (userCart[index].quantity > 1) {
+        userCart[index].quantity--;
       } else {
-        this.cart.splice(index, 1);
+        userCart.splice(index, 1);
       }
 
-      this.updateCartItemCount();
-      this.saveCartToLocalStorage();
+      this.updateCartItemCount(userCart);
+      this.saveCartToLocalStorage(userCart, userEmail);
     }
   }
 
-  removeFromAchats(product: any) {
-    const index = this.achats.findIndex((item) => item.id === product.id);
+  removeFromAchats(product: any, userEmail: string) {
+    const userAchats = this.loadAchatsFromLocalStorage(userEmail);
+    const index = userAchats.findIndex((item) => item.id === product.id);
     if (index !== -1) {
-      this.achats.splice(index, 1);
-      this.saveAchatsToLocalStorage();
+      userAchats.splice(index, 1);
+      this.saveAchatsToLocalStorage(userAchats, userEmail);
     }
   }
 
-  clearCart() {
-    this.cart = [];
-    this.achats=[]
-    this.updateCartItemCount();
-    this.saveCartToLocalStorage();
-    this.saveAchatsToLocalStorage();
+  clearCart(userEmail: string) {
+    // @ts-ignore
+    localStorage.setItem(`cart_${userEmail}`,[]);
+    // @ts-ignore
+    localStorage.removeItem(`achats_${userEmail}`,[]);
+    this.updateCartItemCount([]);
+    this.cartItemsSubject.next(0);
   }
 
-  private saveCartToLocalStorage() {
-    localStorage.setItem('cart', JSON.stringify(this.cart));
-
+  private loadCartFromLocalStorage(userEmail: string): any[] {
+    const storedCart = localStorage.getItem(`cart_${userEmail}`);
+    return storedCart ? JSON.parse(storedCart) : [];
   }
 
-  private saveAchatsToLocalStorage() {
-    localStorage.setItem('achats', JSON.stringify(this.achats));
+  private saveCartToLocalStorage(cart: any[], userEmail: string) {
+    localStorage.setItem(`cart_${userEmail}`, JSON.stringify(cart));
   }
 
-  private updateCartItemCount() {
+  private loadAchatsFromLocalStorage(userEmail: string): any[] {
+    const storedAchats = localStorage.getItem(`achats_${userEmail}`);
+    return storedAchats ? JSON.parse(storedAchats) : [];
+  }
+
+  private saveAchatsToLocalStorage(achats: any[], userEmail: string) {
+    localStorage.setItem(`achats_${userEmail}`, JSON.stringify(achats));
+  }
+
+  private updateCartItemCount(cart: any[]) {
     let totalCount = 0;
-    this.cart.forEach((item) => {
+    cart.forEach((item) => {
       totalCount += item.quantity;
     });
     this.cartItemsSubject.next(totalCount);

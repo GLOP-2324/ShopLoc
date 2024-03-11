@@ -38,7 +38,7 @@
                  Connexion</a>
               </li>
                 <li class="nav-item cursor" *ngIf="loggedInUser">
-                    <a class="nav-link m-2 menu-item nav-active" routerLink="/signIn" (click)="localStorage.clear()">
+                    <a class="nav-link m-2 menu-item nav-active"  (click)="logout()">
                         <mat-icon>exit_to_app</mat-icon>
                     </a>
                 </li>

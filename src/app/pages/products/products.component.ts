@@ -24,7 +24,8 @@ export class ProductsComponent implements OnInit {
 
   }
   addToCart(product: any) {
-    this.cartService.addToCart(product);
+    // @ts-ignore
+    this.cartService.addToCart(product,this.localStorage.getItem('email'));
     window.location.reload()
   }
   buyWithPoints(){
