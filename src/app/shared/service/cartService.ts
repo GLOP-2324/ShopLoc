@@ -55,6 +55,7 @@ export class CartService {
 
       this.updateCartItemCount(userCart);
       this.saveCartToLocalStorage(userCart, userEmail);
+      window.location.reload()
     }
   }
 

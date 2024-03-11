@@ -12,6 +12,7 @@ import {clientCard} from "../../../../shared/model/clientCard";
   styleUrls: ['./client-card.component.css']
 })
 export class ClientCardComponent {
+
   cardInformation: clientCard | undefined;
   montantCredit:any;
   route: string;
@@ -58,15 +59,13 @@ export class ClientCardComponent {
   onSubmit() {
     const formData = this.form.value;
       this.montantCredit=formData.montant
-      // @ts-ignore
-
   }
   getClientCardInfo(){
     // @ts-ignore
     this.clientCardService.getFidelityCardMontant(this.localStorage.getItem("email")).subscribe((response:any)=>{
       this.cardInformation=response;
-      console.log(this.cardInformation,'hereeeeeeeeee')
     })
   }
+
 }
 

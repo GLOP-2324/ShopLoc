@@ -16,11 +16,9 @@ export class BasketComponent implements AfterViewInit  {
   @ViewChild('exampleModal') exampleModal: ElementRef | undefined;
   @ViewChild('exampleModal2') exampleModal2: ElementRef | undefined;
   ngAfterViewInit(): void {
-    console.log(localStorage,'eeeeeeeeee')
-    console.log('ngAfterViewInit called');
-    console.log('exampleModal element:', this.exampleModal);
-    console.log('exampleModal2 element:', this.exampleModal2);
+
   }
+  reduction: Boolean | undefined;
   cartItems: Product[] = [];
   achatsItems:any=[]
   emailUser="";
@@ -38,7 +36,6 @@ export class BasketComponent implements AfterViewInit  {
   ngOnInit() {
     this.cartItems = this.cartService.getCartItems(this.emailUser);
     this.achatsItems = this.cartService.getAchats(this.emailUser)
-    console.log("achat***********",this.achatsItems)
   }
   removeFromCart(product: any) {
     this.cartService.removeFromCart(product,this.emailUser);
@@ -55,27 +52,51 @@ export class BasketComponent implements AfterViewInit  {
     achat.emailUser = this.emailUser;
     achat.cartItems = this.achatsItems;
 
-    console.log("achat***********",achat)
-    this.basketService.validateBasket(this.emailUser,achat).subscribe((response: any) => {
+    if(this.reduction == true){
+      this.basketService.validateBasketFidelitypoints(this.emailUser,achat).subscribe((response: any) => {
 
-      console.log('Success:', response);
-      this.toastr.success("Merci pour l'achat");
+        console.log('Success:', response);
+        this.toastr.success("Merci pour l'achat");
 
-      this.cartService.clearCart(this.emailUser);
-      const modalElement = document.getElementById('exampleModal2');
-      if (modalElement) {
-        modalElement.classList.remove('show');
-        modalElement.setAttribute('aria-modal', 'false');
-        modalElement.setAttribute('style', 'display: none');
-        const modalBackdrop = document.querySelector('.modal-backdrop');
-        if (modalBackdrop) {
-          modalBackdrop.remove();
+        this.cartService.clearCart(this.emailUser);
+        const modalElement = document.getElementById('exampleModal2');
+        if (modalElement) {
+          modalElement.classList.remove('show');
+          modalElement.setAttribute('aria-modal', 'false');
+          modalElement.setAttribute('style', 'display: none');
+          const modalBackdrop = document.querySelector('.modal-backdrop');
+          if (modalBackdrop) {
+            modalBackdrop.remove();
+          }
         }
-      }
-      this.router.navigate(['/']);
-    }, (error: any) => {
-      this.toastr.error("Votre solde est insuffisant, recharger votre carte");
-    })
+        this.router.navigate(['/']);
+      }, (error: any) => {
+        this.toastr.error("Votre solde est insuffisant, recharger votre carte");
+      })
+    }
+    else{
+      this.basketService.validateBasket(this.emailUser,achat).subscribe((response: any) => {
+
+        console.log('Success:', response);
+        this.toastr.success("Merci pour l'achat");
+
+        this.cartService.clearCart(this.emailUser);
+        const modalElement = document.getElementById('exampleModal2');
+        if (modalElement) {
+          modalElement.classList.remove('show');
+          modalElement.setAttribute('aria-modal', 'false');
+          modalElement.setAttribute('style', 'display: none');
+          const modalBackdrop = document.querySelector('.modal-backdrop');
+          if (modalBackdrop) {
+            modalBackdrop.remove();
+          }
+        }
+        this.router.navigate(['/']);
+      }, (error: any) => {
+        this.toastr.error("Votre solde est insuffisant, recharger votre carte");
+      })
+    }
+
   }
   validateBasketByCreditCard() {
     const achat = new Achat();
@@ -88,8 +109,8 @@ export class BasketComponent implements AfterViewInit  {
       console.log('Success:', response);
       this.toastr.success("Merci pour l'achat");
 
-      // @ts-ignore
-      this.cartService.clearCart();
+
+      this.cartService.clearCart(this.emailUser);
       // @ts-ignore
       const modalElement = document.getElementById('exampleModal');
       if (modalElement) {
@@ -119,5 +140,8 @@ export class BasketComponent implements AfterViewInit  {
       }
       this.router.navigate(['/client/Card']);
     }
+  }
+  Reduction(){
+    this.reduction=true;
   }
 }
