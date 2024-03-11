@@ -20,7 +20,7 @@
                 </select>
                 <input *ngSwitchCase="'checkbox'" [type]="control.type" class="form-check-input ms-3" [id]="control.formControlName" [formControlName]="control.formControlName" (change)="onCheckboxChange($event)" [checked]="form.get(control.formControlName)?.value">
                 <input *ngSwitchCase="'text'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
-                <input *ngSwitchCase="'number'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
+                <input *ngSwitchCase="'number'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" min="0">
                 <input *ngSwitchCase="'file'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName" (change)="onFileSelected($event)">
                 <input *ngSwitchCase="'email'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">
                 <input *ngSwitchCase="'hidden'" [type]="control.type" class="form-control" [id]="control.formControlName" [formControlName]="control.formControlName">

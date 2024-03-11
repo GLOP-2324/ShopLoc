@@ -36,6 +36,7 @@ export class CartService {
 
   getCartItems(userEmail: string) {
     return this.loadCartFromLocalStorage(userEmail);
+
   }
 
   getAchats(userEmail: string) {
@@ -76,10 +77,16 @@ export class CartService {
     this.updateCartItemCount([]);
     this.cartItemsSubject.next(0);
   }
+  isCartEmpty(userEmail:string): boolean {
+    const cartItems = this.getCartItems(userEmail);
+    return cartItems.length === 0;
+  }
 
   private loadCartFromLocalStorage(userEmail: string): any[] {
     const storedCart = localStorage.getItem(`cart_${userEmail}`);
+    // @ts-ignore
     return storedCart ? JSON.parse(storedCart) : [];
+
   }
 
   private saveCartToLocalStorage(cart: any[], userEmail: string) {
