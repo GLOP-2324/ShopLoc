@@ -13,8 +13,11 @@
 </div>
 <div>
   <button (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
+  <button (click)="startNavigation()">Démarrer</button>
 </div>
 <div id="map" style="height: 500px;"></div>
 <div id="right-panel">
   <p>Temps estimé de trajet: <span id="duration"></span></p>
+  <div id="instructionsPanel"></div>
+
 </div>
