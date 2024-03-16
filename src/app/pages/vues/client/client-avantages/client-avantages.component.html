@@ -1,1 +1,34 @@
-<p>client-avantages works!</p>
+<div *ngIf="!status_vfp" class="text-center">Vous ne disposez d'aucun avantage</div>
+<div *ngIf="status_vfp" class="cards ">
+  <div class="mb-5">
+      <h2 class="text-center">Vos Avantages VFP</h2>
+      <p class="text-center">Grâce à vos fréquences d'achat, vous devenez VFP (Very Faithfull Person). Vous aurez chaque jour le choix de choisir quel avantage vous convient le mieux</p>
+    <div class="borderTitle mt-3"></div>
+  </div>
+  <article class="information [ card ]">
+    <span class="tag">Avantage 1</span>
+    <h2 class="title">Parking gratuit</h2>
+    <p class="info">Vous bénéficiez d'une place de parking gratuite pendant 30mn tous les jours</p>
+    <button class="button">
+      <span>Choisir</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+      </svg>
+    </button>
+  </article>
+  <article class="information [ card ]">
+    <span class="tag2">Avantage 2</span>
+    <h2 class="title">Transport gratuit</h2>
+    <p class="info">Vous bénéficiez de la gratuité des transports en commun pour un de vos trajets journaliers</p>
+    <button class="button2">
+      <span>Choisir</span>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="none">
+        <path d="M0 0h24v24H0V0z" fill="none" />
+        <path d="M16.01 11H4v2h12.01v3L20 12l-3.99-4v3z" fill="currentColor" />
+      </svg>
+    </button>
+  </article>
+
+</div>
+
