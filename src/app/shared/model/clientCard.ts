@@ -3,6 +3,7 @@ export class clientCard{
   public id: number | undefined;
   public date: Date | undefined;
   public montant: number | undefined;
+  public fidelity_points: number | undefined;
 }
 
 

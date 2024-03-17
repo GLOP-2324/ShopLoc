@@ -32,7 +32,7 @@
   gap: 2.5rem;
   width: 90%;
   max-width: 1000px;
-  margin: 10vh auto;
+  margin: 3vh auto;
 }
 
 .card {
@@ -142,11 +142,5 @@
   color: #FEB58A;
   font-weight: 600;
   font-size: 1.25rem;
-}
-
-.borderTitle {
-  border-top: 1px solid #c0b7b7;
-  width: 20%;
-  margin: 0 auto;
 }
 

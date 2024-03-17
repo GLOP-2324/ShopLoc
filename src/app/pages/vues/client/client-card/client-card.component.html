@@ -1,56 +1,69 @@
 
   <div class=" container">
-    <div class="mb-5">
+    <div>
+      <h2 class="text-center mb-4">Votre carte de fidelité</h2>
+      <div class="borderTitle"></div>
+    </div>
+    <div class="">
       <div class="mt-5">
         <div class=" justify-content-center">
+          <div class="mt-5">
+            <div class="container" *ngIf="route!=='/panier'">
+              <div class="row justify-content-center mb-2">
+                <div class="text-center" id="titre">{{ titreForm }}</div>
+              </div>
+              <div class="row justify-content-center w-50 m-auto">
+                <div class="card p-3 w-50">
+                  <span class="text-secondary text-center mb-4 fw-light">Merci de remplir tous les champs</span>
+                  <div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                      <div class="col sm-auto ">
+                        <label for="montant" class="form-label">Montant</label>
+                        <input type="number" class="form-control" id="montant" formControlName="montant" min="0">
+                      </div>
+                      <button type="submit" class="btn btn-form-save float-end mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="route=='/client/Card'">
+                        Enregistrer
+                      </button>
+                    </form>
 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
             <div class="card l-bg-blue-dark m-auto text-center">
               <div class="card-statistic-3 p-4">
                 <div class="card-icon card-icon-large"><i class="fas fa-users"></i></div>
                 <div class="mb-2 mt-0">
-                  <h5 class="card-title mb-0">{{firstname}} {{lastname}}</h5>
+                  <h4 class="card-title mb-4">{{firstname}} {{lastname}}</h4>
                 </div>
                 <div class="row align-items-center mb-2 d-flex">
-                  <div class="col-8">
-                    <h5 class="d-flex align-items-center mb-0">
-                      Fréquence
-                    </h5>
+                  <div class="col-sm-6">
+                    <p>Points</p>
+                    <h1>10</h1>
                   </div>
-                  <div class="col-4 text-right">
+                  <div class="col-sm-6">
+                    <p>Solde</p>
                     <h1>{{cardInformation?.montant}} <i class="fa fa-euro"></i></h1>
                   </div>
                 </div>
+                <p class="d-flex align-items-center mt-4">
+                  Fréquence d'achat
+                </p>
                 <div class="progress mt-1 " data-height="8" style="height: 8px;">
                   <div class="progress-bar l-bg-green" role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width: 25%;"></div>
                 </div>
               </div>
-            </div>
-        </div>
-      </div>
-      <div class="mt-5">
-        <div class="container" *ngIf="route!=='/panier'">
-          <div class="row justify-content-center mb-5">
-            <div class="text-center" id="titre">{{ titreForm }}</div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="card p-4 w-50">
-              <span class="text-secondary text-center mb-4 fw-light">Merci de remplir tous les champs</span>
-              <div>
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                  <div class="col sm-auto mt-3">
-                    <label for="montant" class="form-label">Montant</label>
-                    <input type="number" class="form-control" id="montant" formControlName="montant" min="0">
-                  </div>
-                  <button type="submit" class="btn btn-form-save float-end mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="route=='/client/Card'">
-                    Enregistrer
-                  </button>
-                </form>
+              <i class="fa fa-angle-down cursor mb-2 "  data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
+              </i>
+              <div class="collapse mt-2" id="collapseExample">
+                 <img src="assets/bar.png" class="w-75">
               </div>
             </div>
-          </div>
         </div>
       </div>
+
     </div>
   </div>
   <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

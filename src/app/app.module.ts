@@ -40,9 +40,6 @@ import { ClientAchatsComponent } from './pages/vues/client/client-achats/client-
 import { MapComponent } from './pages/map/map.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
 import { FooterComponent } from './components/footer/footer.component';
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +75,7 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -90,7 +88,7 @@ import { FooterComponent } from './components/footer/footer.component';
       resetTimeoutOnDuplicate: true
     }),
     NgxPermissionsModule.forRoot(),
-    DataTablesModule,
+    DataTablesModule
   ],
   providers: [
     AccountService,
