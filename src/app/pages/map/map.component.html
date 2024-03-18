@@ -1,23 +1,29 @@
-<div>
-  <input type="text" placeholder="Adresse de départ" #originInput>
-  <button (click)="useCurrentLocation()">Utiliser ma position actuelle</button>
-</div>
-<div>
-  <input type="text" placeholder="Adresse d'arrivée" #destinationInput>
-</div>
-<div>
-  <select #mode>
-    <option value="DRIVING">Voiture</option>
-    <option value="WALKING">À pied</option>
-  </select>
-</div>
-<div>
-  <button (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
-  <button (click)="startNavigation()">Démarrer</button>
-</div>
-<div id="map" style="height: 500px;"></div>
-<div id="right-panel">
-  <p>Temps estimé de trajet: <span id="duration"></span></p>
-  <div id="instructionsPanel"></div>
 
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-6 text-center justify-content-center">
+      <div>
+        <div class="d-flex justify-content-center">
+          <div class="input-group mb-3 me-2">
+            <input type="text" class="form-control-sm  text-center" placeholder="Adresse de départ" #originInput>
+          </div>
+          <div class="input-group mb-3 me-2">
+            <input type="text" class="form-control-sm  text-center" placeholder="Adresse d'arrivée" #destinationInput>
+          </div>
+          <select class="form-select-sm me-5 text-center h-50" #mode>
+            <option value="DRIVING">Voiture</option>
+            <option value="WALKING">À pied</option>
+          </select>
+          <button class="btn-sm btn me-2 h-25 w-75 itineraire" (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
+          <button class="btn-sm btn h-50 demarrer" (click)="startNavigation()">Démarrer</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="map" style="height: 500px;"></div>
+  <div id="right-panel">
+    <p>Temps estimé de trajet: <span id="duration"></span></p>
+    <div id="instructionsPanel"></div>
+  </div>
 </div>
