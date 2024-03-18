@@ -40,6 +40,7 @@ import { ClientAchatsComponent } from './pages/vues/client/client-achats/client-
 import { MapComponent } from './pages/map/map.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 
@@ -73,6 +74,7 @@ import { FooterComponent } from './components/footer/footer.component';
     MapComponent,
     PaymentsComponent,
     FooterComponent,
+    DashboardComponent,
 
   ],
   imports: [
