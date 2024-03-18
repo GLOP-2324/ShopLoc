@@ -12,13 +12,14 @@ import {clientCard} from "../../../../shared/model/clientCard";
   styleUrls: ['./client-card.component.css']
 })
 export class ClientCardComponent {
+  cardNumber: string = "1234567890"
   cardInformation: clientCard | undefined;
   montantCredit:any;
   route: string;
   protected readonly localStorage = localStorage;
   public firstname="";
   public lastname="";
-  titreForm = 'Ajout d\'un montant';
+  titreForm = 'Recharger la carte';
   form: FormGroup;
   constructor(private router: Router,private clientCardService:ClientCardService,private toastService:ToastrService) {
     this.getClientCardInfo();
@@ -58,15 +59,15 @@ export class ClientCardComponent {
   onSubmit() {
     const formData = this.form.value;
       this.montantCredit=formData.montant
-      // @ts-ignore
-
   }
   getClientCardInfo(){
     // @ts-ignore
     this.clientCardService.getFidelityCardMontant(this.localStorage.getItem("email")).subscribe((response:any)=>{
       this.cardInformation=response;
-      console.log(this.cardInformation,'hereeeeeeeeee')
     })
+  }
+  generateBarcode(cardNumber: string): void {
+    this.cardNumber = cardNumber;
   }
 }
 

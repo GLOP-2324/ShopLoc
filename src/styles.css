@@ -53,8 +53,10 @@ body {
 .banner-text p{color:#fff;}
 
 .btn-form-save{
-  background: #296f69 !important;
+  background: #1fa8a5 !important;
   color: #FFFFFF !important;
+  padding:0;
+  height:40px;
 }
 .carousel-control-next-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='' viewBox='0 0 8 8' width='10' height='10'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
@@ -75,3 +77,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor{
   cursor: pointer;
 }
+.borderTitle {
+  border-top: 1px solid #c0b7b7;
+  width: 20%;
+  margin: 0 auto;
+}
+

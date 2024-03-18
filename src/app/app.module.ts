@@ -80,6 +80,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -92,7 +93,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
       resetTimeoutOnDuplicate: true
     }),
     NgxPermissionsModule.forRoot(),
-    DataTablesModule,
+    DataTablesModule
   ],
   providers: [
     AccountService,

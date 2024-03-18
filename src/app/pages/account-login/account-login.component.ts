@@ -39,6 +39,8 @@ export class AccountLoginComponent {
           localStorage.setItem("lastname", response.lastname);
           localStorage.setItem("roleId",response.roleId);
           localStorage.setItem("email", response.email);
+          // localStorage.setItem("status_vfp",response.status_vfp)
+          console.log(localStorage)
           switch (response.roleId) {
             case 1:
               this.router.navigateByUrl("/admin");

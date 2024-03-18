@@ -93,7 +93,11 @@ export class FormComponent implements OnInit {
     const formGroupConfig = {};
     // @ts-ignore
     this.dynamicControls.forEach(control => {
+      const validators = [];
       console.log(control)
+      if (control.type !== 'hidden') {
+        validators.push(Validators.required);
+      }
       if (control.type === 'hidden'&& control.formControlName === 'store') {
         // @ts-ignore
         formGroupConfig[control.formControlName] = [localStorage.getItem("email"), Validators.required];
@@ -101,9 +105,12 @@ export class FormComponent implements OnInit {
       else if (control.type === 'checkbox') {
         // @ts-ignore
         formGroupConfig[control.formControlName] = [false]}
+      else if (control.type === 'file') {
+        // @ts-ignore
+        formGroupConfig[control.formControlName] = []}
       else {
         // @ts-ignore
-        formGroupConfig[control.formControlName] = [null, Validators.required];
+        formGroupConfig[control.formControlName] = [null, ...validators];
       }
     });
 
@@ -220,6 +227,7 @@ export class FormComponent implements OnInit {
           newFormData.append('benefitsActivated', formData.benefitsActivated);
           newFormData.append('stock', formData.stock);
           console.log('value:',  newFormData);
+
           this.storeService.createProduct(newFormData).subscribe((response: any) => {
             console.log('Success:', response);
             this.form.reset();
@@ -268,5 +276,8 @@ export class FormComponent implements OnInit {
   }
   recharger(){
     alert(this.montantCredit);
+  }
+  resetFormulaire(){
+    this.form.reset();
   }
 }

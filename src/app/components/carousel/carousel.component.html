@@ -23,7 +23,7 @@
                   </ul>
                 </div>
                 <p class="item-localisation"><b>{{ item.location }}</b></p>
-                <a href="#" class="btn btn-primary" [routerLink]="['/produitsBoutique', item.id]">Voir</a>
+                <button href="#" class="btn btn-primary" [routerLink]="['/produitsBoutique', item.id]" [disabled]="item.disabled">Voir</button>
               </div>
             </div>
           </div>

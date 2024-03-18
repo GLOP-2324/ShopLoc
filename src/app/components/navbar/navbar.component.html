@@ -4,10 +4,9 @@
         <img src="/assets/logo.png" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="">
         ShopLoc
       </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
         <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
             <ul class="navbar-nav ms-auto flex-nowrap">
                 <li class="nav-item cursor">
@@ -38,7 +37,7 @@
                  Connexion</a>
               </li>
                 <li class="nav-item cursor" *ngIf="loggedInUser">
-                    <a class="nav-link m-2 menu-item nav-active" routerLink="/signIn" (click)="localStorage.clear()">
+                    <a class="nav-link m-2 menu-item nav-active"  (click)="logout()">
                         <mat-icon>exit_to_app</mat-icon>
                     </a>
                 </li>

@@ -13,7 +13,8 @@ export class NavbarComponent {
   protected readonly localStorage = localStorage;
   loggedInUser=false;
   constructor(private router: Router,private cartService: CartService) {
-    this.cartItems = this.cartService.getCartItems();
+    // @ts-ignore
+    this.cartItems = this.cartService.getCartItems(localStorage.getItem("email"));
     if(localStorage.getItem("firstname")!==null&&localStorage.getItem("lastname")!==null){
       this.loggedInUser=true
     }
@@ -41,6 +42,17 @@ export class NavbarComponent {
     else{
       this.router.navigate(['/', 'client']);
     }
+  }
+  logout() {
+    const userEmail = localStorage.getItem("email");
+    const userCart = localStorage.getItem(`cart_${userEmail}`);
+    const userAchats = localStorage.getItem(`achats_${userEmail}`);
+    localStorage.clear();
+    // @ts-ignore
+    localStorage.setItem(`cart_${userEmail}`, userCart);
+    // @ts-ignore
+    localStorage.setItem(`achats_${userEmail}`, userAchats);
+    this.router.navigate(['/', 'signIn']);
   }
 
 }
