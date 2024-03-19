@@ -1,25 +1,25 @@
 
 <div class="container-fluid">
   <div class="row justify-content-center">
-    <div class="col-6 text-center justify-content-center">
-      <div>
-        <div class="d-flex justify-content-center">
-          <div class="input-group mb-3 me-2">
-            <input type="text" class="form-control-sm  text-center" placeholder="Adresse de départ" #originInput>
-          </div>
-          <div class="input-group mb-3 me-2">
-            <input type="text" class="form-control-sm  text-center" placeholder="Adresse d'arrivée" #destinationInput>
-          </div>
-          <select class="form-select-sm me-5 text-center h-50" #mode>
-            <option value="DRIVING">Voiture</option>
-            <option value="WALKING">À pied</option>
-          </select>
-          <button class="btn-sm btn me-2 h-25 w-75 itineraire" (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
-          <button class="btn-sm btn h-50 demarrer" (click)="startNavigation()">Démarrer</button>
+    <div class="col-12 text-center d-flex align-items-center justify-content-center flex-wrap">
+      <div class="d-flex justify-content-center flex-wrap">
+        <div class="input-group-sm heightItemMap mb-3 me-2">
+          <input type="text" class="form-control form-control-sm text-center" placeholder="Adresse de départ" #originInput>
         </div>
-
+        <div class="input-group-sm heightItemMap mb-3 me-5">
+          <input type="text" class="form-control form-control-sm text-center" placeholder="Adresse d'arrivée" #destinationInput>
+        </div>
+        <select class="form-select-sm heightItemMap form-select-sm me-2 text-center" #mode>
+          <option value="DRIVING">Voiture</option>
+          <option value="WALKING">À pied</option>
+        </select>
+        <button class="btn btn-sm me-2 itineraire heightItemMap">Calculer l'itinéraire</button>
+        <button class="btn btn-sm demarrer heightItemMap">Démarrer</button>
       </div>
     </div>
+
+
+
   </div>
   <div id="map" style="height: 500px;"></div>
   <div id="right-panel">

@@ -10,3 +10,7 @@ a{
 
   text-decoration: none !important;
 }
+.fidelityCard{
+  border:1px solid #DE6262;
+  color:#DE6262
+}

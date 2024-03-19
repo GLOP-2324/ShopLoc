@@ -5,6 +5,7 @@ import {Account} from "../../../../shared/model/Account";
 import {ClientCardService} from "../../../../shared/service/clientCardService";
 import {ToastrService} from "ngx-toastr";
 import {clientCard} from "../../../../shared/model/clientCard";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-client-card',
@@ -12,6 +13,7 @@ import {clientCard} from "../../../../shared/model/clientCard";
   styleUrls: ['./client-card.component.css']
 })
 export class ClientCardComponent {
+  fidelityPoints: any ;
   cardNumber: string = "1234567890"
   cardInformation: clientCard | undefined;
   montantCredit:any;
@@ -22,6 +24,11 @@ export class ClientCardComponent {
   titreForm = 'Recharger la carte';
   form: FormGroup;
   constructor(private router: Router,private clientCardService:ClientCardService,private toastService:ToastrService) {
+    // @ts-ignore
+    clientCardService.getFidelityPoints(localStorage.getItem("email")).subscribe((points)=>{
+      this.fidelityPoints=points;
+    console.log(points)
+    });
     this.getClientCardInfo();
     this.route = this.router.url;
     this.form = new FormGroup({

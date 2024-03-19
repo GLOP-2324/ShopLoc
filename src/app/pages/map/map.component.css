@@ -56,3 +56,8 @@ input[type="text"] {
   background-color: #000000;
   color: white;
 }
+.heightItemMap{
+  height: 40px;
+  margin-bottom: 25px;
+  align-items: center;
+}

@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
 
   private initializeMap(): void {
     this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
-      center: { lat: 48.8566, lng: 2.3522 }, // Default center (Paris)
+      center: { lat: 50.633333, lng:  3.066667 }, // Default center (Paris)
       zoom: 15,
     });
 

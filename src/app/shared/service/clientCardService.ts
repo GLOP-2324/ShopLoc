@@ -18,5 +18,8 @@ export class ClientCardService {
     // @ts-ignore
     return this.http.get(`${environment.BACKEND_URL}/client/${email}/card`);
   }
-
+  public getFidelityPoints(email: string) {
+    // @ts-ignore
+    return this.http.get(`${environment.BACKEND_URL}/client/${email}/fidelityPoints`);
+  }
 }
