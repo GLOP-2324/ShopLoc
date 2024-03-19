@@ -7,12 +7,12 @@
   <table id="example" datatable [dtOptions]="dtOptions" class="table table-striped" style="width:100%" *ngIf="dataRows.length>0">
     <thead>
     <tr>
-      <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      <th *ngFor="let header of tableHeaders">{{ header.label }}</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let row of dataRows; let i = index" (click)="navigateToForm(row)">
-      <td *ngFor="let header of tableHeaders">{{ row[header] }}</td>
+      <td *ngFor="let header of tableHeaders">{{ row[header.key] }}</td>
     </tr>
     </tbody>
   </table>
