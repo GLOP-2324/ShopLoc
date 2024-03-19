@@ -1,23 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
 import {NavigationEnd, Router} from "@angular/router";
-import {AccountService} from "../../shared/service/accountService";
 import {StoreService} from "../../shared/service/StoreService";
-import {ToastrService} from "ngx-toastr";
 import {Product} from "../../shared/model/Product";
-import {Store} from "../../shared/model/Store";
 import {SharedService} from "../../shared/service/SharedService";
+import {ClientService} from "../../shared/service/clientService";
+import {TableHeader} from "../../shared/model/TableHeader"
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.css']
 })
+
 export class DatatableComponent implements OnInit {
-  titreDatatable=""
+  titreDatatable = ""
   protected readonly localStorage = localStorage;
   currentRoute: string = ''
-  tableHeaders: string[] = [];
+  protected tableHeaders: TableHeader[] = [];
   products: any[] = [];
   dataRows: any[] = [];
   dtOptions: DataTables.Settings = {};
@@ -55,7 +54,8 @@ export class DatatableComponent implements OnInit {
 
   constructor(private router: Router,
               private storeService: StoreService,
-              private sharedService: SharedService
+              private sharedService: SharedService,
+              private clientService: ClientService
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -71,9 +71,15 @@ export class DatatableComponent implements OnInit {
       if (email) {
         this.storeService.findSToreByEmail(email).subscribe(
           (store: any) => {
-            this.tableHeaders=['libelle', 'price','description','points','benefitsActivated','stock'];
+            this.tableHeaders = [
+              {label: 'Produit', key: 'libelle'},
+              {label: 'Prix', key: 'price'},
+              {label: 'Description', key: 'description'},
+              {label: 'Points', key: 'points'},
+              {label: 'Avantage', key: 'benefitsActivated'},
+              {label: 'Stock', key: 'stock'}]
             // @ts-ignore
-            this.storeService.getProduct(store.id).subscribe((products:Product[]) => {
+            this.storeService.getProduct(store.id).subscribe((products: Product[]) => {
               this.dataRows = products;
             });
 
@@ -87,32 +93,43 @@ export class DatatableComponent implements OnInit {
     }
     if (currentRoute.startsWith('/commercant/type')) {
       this.titreDatatable = "Liste des types produits"
-      this.tableHeaders=['libelle'];
+      this.tableHeaders = [{label: 'Produit', key: 'libelle'}];
       // @ts-ignore
-      this.storeService.getTypeProduct().subscribe((products:any[]) => {
+      this.storeService.getTypeProduct().subscribe((products: any[]) => {
         console.log(products)
         this.dataRows = products;
       });
     }
     if (currentRoute.startsWith('/client')) {
       this.titreDatatable = "Liste des achats"
-      this.tableHeaders=['Date', 'Commercant', 'Produit','Prix']
+      this.tableHeaders = [
+        {label: 'Date', key: 'date'},
+        {label: 'Magasin', key: 'storeName'},
+        {label: 'Produit', key: 'productName'},
+        {label: 'Quantité', key: 'quantity'},
+        {label: 'Montant dépensé', key: 'moneySpent'}
+      ];
       // @ts-ignore
-      this.storeService.getTypeProduct().subscribe((products:any[]) => {
+      this.clientService.getHistoriqueAchat(localStorage.getItem("email")).subscribe((products: any[]) => {
+        console.log(products);
         this.dataRows = products;
       });
     }
     if (currentRoute.startsWith('/admin')) {
-      this.titreDatatable = "Liste des commercçants"
-      this.tableHeaders=['name', 'email']
+      this.titreDatatable = "Liste des commerçants"
+      this.tableHeaders = [
+        {label: 'Name', key: 'name'},
+        {label: 'Email', key: 'email'},
+      ]
       // @ts-ignore
-      this.storeService.getStore().subscribe((commercants:any[]) => {
-        console.log(commercants,'kk')
+      this.storeService.getStore().subscribe((commercants: any[]) => {
+        console.log(commercants, 'kk')
         this.dataRows = commercants;
       });
     }
-    }
-  navigateToForm(object:any) {
+  }
+
+  navigateToForm(object: any) {
     this.sharedService.setCurrentObject(object);
     console.log(object)
   }
