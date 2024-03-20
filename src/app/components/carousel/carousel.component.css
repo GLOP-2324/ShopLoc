@@ -101,3 +101,8 @@
   font-size: 14px;
   color: #ffc000;
 }
+.filled-heart {
+  color: red;
+  margin-bottom: 8px;
+}
+

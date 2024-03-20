@@ -14,3 +14,15 @@ a{
   border:1px solid #DE6262;
   color:#DE6262
 }
+.fidelityCard:hover {
+  background-color: #DE6262;
+  color: white;
+}
+.fidelityPoints{
+  text-decoration: underline;
+  color:#DE6262
+}
+.recharger{
+  background-color: #efa388;
+  color: #FFFFFF;
+}

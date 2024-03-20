@@ -22,11 +22,16 @@ export class CarouselComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.storeService.getStore().subscribe((data) => {
+    this.storeService.getStore().subscribe((data: any) => {
       this.store = data;
       this.groupItems();
       this.updateCartState();
-      this.filteredStoreSets = [...this.storeSets];
+      this.filteredStoreSets = this.storeSets.map(set =>
+        set.map((item:any) => ({
+          ...item,
+          isFavorite: this.isInWishlist(item.id)
+        }))
+      );
     });
 
     this.sharedService.getCurrentObject().subscribe((searchTerm: string) => {
@@ -38,11 +43,18 @@ export class CarouselComponent implements OnInit {
           this.store = data;
           this.groupItems();
           this.updateCartState();
-          this.filteredStoreSets = [...this.storeSets];
+          this.filteredStoreSets = this.storeSets.map(set =>
+            set.map((item:any) => ({
+              ...item,
+              isFavorite: this.isInWishlist(item.id)
+            }))
+          );
         });
       }
     });
   }
+
+
 
   updateCartState() {
     // @ts-ignore
@@ -82,4 +94,32 @@ export class CarouselComponent implements OnInit {
       this.storeSets.push(this.store.slice(i, i + 3));
     }
   }
+
+  toggleHeart(item: any) {
+    const wishlist: number[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+    const index = wishlist.indexOf(item.id);
+    if (index !== -1) {
+      wishlist.splice(index, 1);
+    } else {
+      wishlist.push(item.id);
+    }
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    item.isFavorite = wishlist.includes(item.id);
+    const heartIcon = document.getElementById(`heart-icon-${item.id}`);
+    if (heartIcon) {
+      if (item.isFavorite) {
+        heartIcon.classList.add('filled-heart');
+      } else {
+        heartIcon.classList.remove('filled-heart');
+      }
+    }
+    window.location.reload()
+  }
+
+  isInWishlist(itemId: number): boolean {
+    const wishlist: number[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    return wishlist.includes(itemId);
+  }
+
 }

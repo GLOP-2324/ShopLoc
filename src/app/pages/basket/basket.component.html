@@ -75,12 +75,12 @@
       <div class="modal-body">
         <app-client-card></app-client-card>
         <div>
-          <button class="btn-secondary" (click)="Reduction()">Utiliser les points de réduction</button>
+          <i class=" float-end cursor p-3 fidelityPoints" (click)="Reduction()">Utiliser les points de réduction</i>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary" (click)="recharger()" >Recharger</button>
+        <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn recharger" (click)="recharger()" >Recharger</button>
         <button type="button" class="btn btn-form-save" (click)="validateBasket()">Payer</button>
       </div>
     </div>

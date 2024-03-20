@@ -12,13 +12,15 @@ export class NavbarComponent {
   cartItems: any[] = [];
   protected readonly localStorage = localStorage;
   loggedInUser=false;
+  wishlistLength: number = 0;
   constructor(private router: Router,private cartService: CartService) {
     // @ts-ignore
     this.cartItems = this.cartService.getCartItems(localStorage.getItem("email"));
     if(localStorage.getItem("firstname")!==null&&localStorage.getItem("lastname")!==null){
       this.loggedInUser=true
     }
-
+    const wishlist: number[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    this.wishlistLength = wishlist.length;
   }
 
   login() {

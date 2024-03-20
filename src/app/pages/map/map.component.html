@@ -13,8 +13,8 @@
           <option value="DRIVING">Voiture</option>
           <option value="WALKING">À pied</option>
         </select>
-        <button class="btn btn-sm me-2 itineraire heightItemMap">Calculer l'itinéraire</button>
-        <button class="btn btn-sm demarrer heightItemMap">Démarrer</button>
+        <button class="btn btn-sm me-2 itineraire heightItemMap" (click)="calculateAndDisplayRoute()">Calculer l'itinéraire</button>
+        <button class="btn btn-sm demarrer heightItemMap"(click)="startNavigation()">Démarrer</button>
       </div>
     </div>
 

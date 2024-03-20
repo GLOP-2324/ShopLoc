@@ -77,9 +77,9 @@ const routes: Routes = [
     ]
   },
   { path: 'produitsBoutique/:id', component: ProductsComponent,
-    canActivate: [AuthGuard]},
+    canActivate: []},
   { path: 'produitsBoutique', component: ProductsComponent,
-    canActivate: [AuthGuard]
+    canActivate: []
   },
 
 ];

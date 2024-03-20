@@ -18,3 +18,11 @@
   vertical-align: top;
   margin-left: -10px;
 }
+#wishList{
+  font-size: 12px;
+  background: #000000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: 0px;
+}

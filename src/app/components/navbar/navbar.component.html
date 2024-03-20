@@ -15,7 +15,9 @@
                 <li class="nav-item cursor">
                     <a href="#" class="nav-link m-2 menu-item">
                         <i class="fa fa-heart"></i>
+
                         Wish List
+                      <span class='nbItemsBasket badge-warning' id='wishList' *ngIf="wishlistLength > 0">{{ wishlistLength }}</span>
                     </a>
                 </li>
                 <li class="nav-item cursor">

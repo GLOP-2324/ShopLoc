@@ -8,6 +8,10 @@
         <div class="row justify-content-center">
           <div *ngFor="let item of set" class="col-sm-4">
             <div class="thumb-wrapper">
+              <!-- Heart icon -->
+
+              <i class="fa fa-heart cursor  heart" id="heart-icon-{{ item.id }}" (click)="toggleHeart(item)" [ngClass]="{ 'filled-heart': item.isFavorite }"></i>
+              <!-- Image and content -->
               <div class="img-box">
                 <img [src]="'data:image/png;base64,' + item.image" class="img-fluid" alt="" width="150" height="350">
               </div>
