@@ -29,8 +29,10 @@
               </ng-container>
             </div>
           </ng-container>
-
-          <button type="submit" class="btn btn-form-save mt-3 float-end" *ngIf="route!=='/client/Card'" [disabled]="!form.valid">
+          <a type="submit" class=" btn btn-danger mt-3 float-start text-center justify-content-center m-auto" *ngIf="route!=='/client/Card' && deleteButton" (click)="deleteItem()">
+            <i class="fa fa-trash"></i>
+          </a>
+          <button type="submit" class=" btn btn-form-save mt-3 float-end" *ngIf="route!=='/client/Card'" >
             <i class="fa fa-save me-2"></i>
             Enregistrer
           </button>

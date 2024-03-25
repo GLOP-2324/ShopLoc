@@ -36,10 +36,12 @@ export class AccountLoginComponent {
         if (response != null) {
           localStorage.setItem("token", response.token);
           localStorage.setItem("firstname", response.firstname);
+          localStorage.setItem("firstname", response.firstname);
           localStorage.setItem("lastname", response.lastname);
           localStorage.setItem("roleId",response.roleId);
           localStorage.setItem("email", response.email);
-          // localStorage.setItem("status_vfp",response.status_vfp)
+          localStorage.setItem("vfp",response.vfp)
+          localStorage.setItem("avantage",response.avantage)
           console.log(localStorage)
           switch (response.roleId) {
             case 1:

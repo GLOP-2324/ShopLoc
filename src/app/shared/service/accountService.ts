@@ -19,4 +19,7 @@ export class AccountService {
   modifyPassword(account: Account) {
     return this.http.post(environment.BACKEND_URL + '/account/password', account);
   }
+  public deleteAccountStore(accountId: number) {
+    return this.http.delete(`${environment.BACKEND_URL}/store/${accountId}`);
+  }
 }

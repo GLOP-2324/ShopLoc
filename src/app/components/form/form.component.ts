@@ -15,6 +15,7 @@ import {SharedService} from "../../shared/service/SharedService";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  public deleteButton=false;
   modal: boolean | undefined;
   selectedFile: File | null = null;
   form: FormGroup = this.fb.group({});
@@ -44,19 +45,23 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.deleteButton=false;
     this.currentRoute = this.router.url;
     this.updateDynamicControls(this.currentRoute);
     this.initForm();
     this.sharedService.getCurrentObject().subscribe((currentObject) => {
       if (currentObject) {
+        if(currentObject.id && this.route !== "commercant/type"&& this.route !== "admin"){
+          this.deleteButton=true;
+        }
         this.updateFormWithObject(currentObject);
 
       }
     });
-
   }
+
   updateFormWithObject(object: any): void {
-    console.log('Value of benefitsActivated:', object.benefitsActivated);
+    console.log('Value of benefitsActivated:', object.email);
 
     // Mettre à jour le champ benefitsActivated
     const benefitsActivatedControl = this.form.get('benefitsActivated');
@@ -64,11 +69,18 @@ export class FormComponent implements OnInit {
       benefitsActivatedControl.setValue(object.benefitsActivated);
     }
 
+    // Vérifier si la clé "email" existe et la mettre à jour si nécessaire
+    if (object.hasOwnProperty('email')) {
+      const emailControl = this.form.get('email');
+      if (emailControl) {
+        emailControl.setValue(object.email);
+      }
+    }
+
     // Mettre à jour les autres champs
     if (object) {
       Object.keys(object).forEach((key) => {
-        // Ignorer le champ benefitsActivated car il a déjà été mis à jour
-        if (key !== 'benefitsActivated') {
+        if (key !== 'benefitsActivated' && key !== 'email') {
           const control = this.form.get(key);
 
           // Special handling for 'type'
@@ -80,13 +92,13 @@ export class FormComponent implements OnInit {
               control.setValue(selectedTypeObj.id);
             }
           } else if (control) {
-            // Set the value for other form controls
             control.setValue(object[key]);
           }
         }
       });
     }
   }
+
 
 
   private initForm() {
@@ -128,12 +140,12 @@ export class FormComponent implements OnInit {
       this.route = "admin"
       this.titreForm = "Ajout d'un commerçant"
       this.dynamicControls = [
-        { label: 'Name', formControlName: 'lastname', type: 'text' },
+        { label: 'Name', formControlName: 'name', type: 'text' },
         { label: 'Ville', formControlName: 'firstname', type: 'text' },
-        { label: 'Email', formControlName: 'email', type: 'email' },
+        { label: 'email', formControlName: 'email', type: 'text' },
         { label: 'Image', formControlName: 'image', type: 'file' },
         { label: 'Adresse', formControlName: 'address', type: 'text' },
-
+        { label: 'Id', formControlName: 'id', type: 'hidden' },
       ];
     } else if (currentRoute.startsWith('/commercant/produits')) {
       this.route = "commercant/produits"
@@ -188,13 +200,16 @@ export class FormComponent implements OnInit {
   onSubmit() {
     const formData = this.form.value;
     const newFormData = new FormData();
-    if (this.selectedFile) {
+    if (this.selectedFile!==null) {
       newFormData.append('image', this.selectedFile);
     }
     if (this.route == "admin") {
       var role = 2
+      if (formData.id !== null && formData.id !== undefined) {
+        newFormData.append('id', formData.id);
+      }
       newFormData.append('firstname', formData.firstname);
-      newFormData.append('lastname', formData.lastname);
+      newFormData.append('lastname', formData.name);
       newFormData.append('email', formData.email);
       newFormData.append('roleId', role.toString());
       newFormData.append('address', formData.address);
@@ -280,4 +295,26 @@ export class FormComponent implements OnInit {
   resetFormulaire(){
     this.form.reset();
   }
+
+  deleteItem(){
+    if (this.route == "commercant/produits"){
+      this.storeService.deleteProduct(this.form.value.id).subscribe((response: any) => {
+        console.log('Success:', response);
+        this.toastr.success("Le produit a été supprimé");
+        window.location.reload()
+        this.form.reset();
+
+      })
+    }
+    if (this.route == "admin"){
+      this.accountService.deleteAccountStore(this.form.value.id).subscribe((response: any) => {
+        console.log('Success:', response);
+        this.toastr.success("Le commercant a été supprimé");
+        window.location.reload()
+        this.form.reset();
+
+      })
+    }
+    }
+
 }

@@ -13,5 +13,8 @@ export class ClientService {
   public getHistoriqueAchat(clientEmail: string) {
     return this.http.get(`${environment.BACKEND_URL}/historique/${clientEmail}`);
   }
+  public chooseClientAdvantage(clientEmail: string,avantage:number) {
+    return this.http.put(`${environment.BACKEND_URL}/client/${clientEmail}`,avantage);
+  }
 
 }

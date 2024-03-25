@@ -34,4 +34,7 @@ export class StoreService {
   public getStore() {
     return this.http.get(environment.BACKEND_URL + '/store/');
   }
+  public deleteProduct(productId: number) {
+    return this.http.delete(`${environment.BACKEND_URL}/product/${productId}`);
+  }
 }
