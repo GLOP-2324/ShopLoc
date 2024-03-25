@@ -21,7 +21,8 @@ choose_parking() {
   // @ts-ignore
   this.clientService.chooseClientAdvantage(localStorage.getItem("email"), avantage).subscribe((response: any) => {
     console.log('Success:', response);
-    localStorage.getItem("avantage",response.)
+
+    localStorage.setItem("avantage",response.avantage.id)
     this.toastr.success("Le commercant a été supprimé");
     window.location.reload()
 
