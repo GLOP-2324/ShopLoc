@@ -13,14 +13,31 @@ export class CartService {
   addToCart(product: any, userEmail: string, quantity: number = 1) {
     const userCart = this.loadCartFromLocalStorage(userEmail);
     const existingProductIndex = userCart.findIndex((item) => item.id === product.id);
+
+    // Récupérer checkedItems du localStorage et le convertir en tableau
+    let checkedItems: any[] = [];
+    const checkedItemsString = localStorage.getItem('checkedItems');
+    if (checkedItemsString) {
+      checkedItems = JSON.parse(checkedItemsString);
+    }
+
+    // Vérifier si le produit est présent dans checkedItems
+    const checkedProductIndex = checkedItems.findIndex(item => item.id === product.id);
+
     if (existingProductIndex !== -1) {
       userCart[existingProductIndex].quantity += quantity;
     } else {
       userCart.push({ ...product, quantity });
     }
 
+    // Si le produit est également présent dans checkedItems, ajouter la quantité spécifiée
+    if (checkedProductIndex !== -1) {
+      checkedItems[checkedProductIndex].quantity += quantity;
+      localStorage.setItem('checkedItems', JSON.stringify(checkedItems)); // Mettre à jour checkedItems dans le localStorage
+    }
+
     this.updateCartItemCount(userCart);
-    this.addToCartForAchat(product,userEmail);
+    this.addToCartForAchat(product, userEmail);
     this.saveCartToLocalStorage(userCart, userEmail);
   }
 
@@ -44,9 +61,12 @@ export class CartService {
   }
 
   removeFromCart(product: any, userEmail: string) {
-    this.removeFromAchats(product,userEmail)
+    this.removeFromAchats(product, userEmail);
+
+
     const userCart = this.loadCartFromLocalStorage(userEmail);
     const index = userCart.findIndex((item) => item.id === product.id);
+
     if (index !== -1) {
       if (userCart[index].quantity > 1) {
         userCart[index].quantity--;
@@ -56,10 +76,42 @@ export class CartService {
 
       this.updateCartItemCount(userCart);
       this.saveCartToLocalStorage(userCart, userEmail);
-      window.location.reload()
+      window.location.reload();
+    }
+
+    // Récupérer checkedItems du localStorage et le convertir en tableau
+    let checkedItems: any[] = [];
+    const checkedItemsString = localStorage.getItem('checkedItems');
+    if (checkedItemsString) {
+      checkedItems = JSON.parse(checkedItemsString);
+    }
+
+    // Vérifier si le produit est présent dans checkedItems
+    const checkedProductIndex = checkedItems.findIndex(item => item.id === product.id);
+
+    // Si le produit est présent dans checkedItems, diminuer la quantité
+    if (checkedProductIndex !== -1) {
+      if (checkedItems[checkedProductIndex].quantity > 1) {
+        checkedItems[checkedProductIndex].quantity--;
+        localStorage.setItem('checkedItems', JSON.stringify(checkedItems)); // Mettre à jour checkedItems dans le localStorage
+      } else {
+        checkedItems.splice(checkedProductIndex, 1); // Supprimer le produit de checkedItems si la quantité est de 1
+        localStorage.setItem('checkedItems', JSON.stringify(checkedItems)); // Mettre à jour checkedItems dans le localStorage
+      }
     }
   }
 
+  removeFromCheckedItems(product: any) {
+    const userAchatsString = localStorage.getItem("checkedItems");
+    if (userAchatsString) {
+      const userAchats: any[] = JSON.parse(userAchatsString);
+      const index = userAchats.findIndex((item) => item.id === product.id);
+      if (index !== -1) {
+        userAchats.splice(index, 1);
+        localStorage.setItem("checkedItems", JSON.stringify(userAchats));
+      }
+    }
+  }
   removeFromAchats(product: any, userEmail: string) {
     const userAchats = this.loadAchatsFromLocalStorage(userEmail);
     const index = userAchats.findIndex((item) => item.id === product.id);

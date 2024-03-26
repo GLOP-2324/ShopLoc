@@ -144,3 +144,31 @@
   font-size: 1.25rem;
 }
 
+.information .buttonActive {
+  font: inherit;
+  line-height: 1;
+  background-color: #E36262;
+  border: 2px solid #E36262;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.information .buttonActive2 {
+  font: inherit;
+  line-height: 1;
+  background-color: #1fcac5;
+  border: 2px solid #1fcac5;
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}

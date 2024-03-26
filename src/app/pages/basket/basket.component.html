@@ -6,11 +6,16 @@
         <div *ngFor="let product of cartItems" class="col mt-2">
           <div class="card">
             <div class="card">
-              <div class="card-header">
+              <div class="card-header d-flex align-items-center justify-content-between">
                 <span>Avantage</span>
-                <span *ngIf="product.benefitsActivated" class="badge bg-danger ms-auto float-end ">{{ product.points }} Points</span>
+                <div class="form-check form-switch form-check-lg m-auto">
+                  <input class="form-check-input" type="checkbox" id="usePointsCheckbox"
+                         (change)="onCheckboxChange($event, product)" *ngIf="product.benefitsActivated"  [checked]="isChecked(product)">
+                </div>
+                <span *ngIf="product.benefitsActivated" class="badge bg-danger ms-auto float-end">{{ product.points }} Points</span>
               </div>
-            <div class="card-body">
+
+              <div class="card-body">
               <span class="badge bg-secondary ms-auto float-end m-1 rounded-circle" data-abc="true" href="#">{{ product.quantity }}</span>
               <div class="card-img-actions">
                 <img alt="" class="card-img-top img-fluid" [src]="'data:image/png;base64,' + product.image">
@@ -36,6 +41,7 @@
     </div>
 
   </div>
+
   <button type="button" class="btn btn-outline-secondary float-end m-2" data-bs-toggle="modal" data-bs-target="#exampleModal" *ngIf="cartItems.length>0">
     Payer par carte bancaire
   </button>
@@ -43,6 +49,9 @@
   <button type="button" class="btn fidelityCard float-end m-2" data-bs-toggle="modal" data-bs-target="#exampleModal2"*ngIf="cartItems.length>0">
     Payer par carte de fidelité
   </button>
+    <button type="button" (click)="validateBasketByFidelityPoints()" [disabled]="isButtonDisabled" class="btn btn-outline-success float-end m-2" *ngIf="cartItems.length>0">
+      Payer par les points de fidelité
+    </button>
 </div>
 
 <!-- Button trigger modal -->
@@ -74,9 +83,9 @@
       </div>
       <div class="modal-body">
         <app-client-card></app-client-card>
-        <div>
-          <i class=" float-end cursor p-3 fidelityPoints" (click)="Reduction()">Utiliser les points de réduction</i>
-        </div>
+<!--        <div>-->
+<!--          <i class=" float-end cursor p-3 fidelityPoints" (click)="Reduction()">Utiliser les points de réduction</i>-->
+<!--        </div>-->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary me-auto" data-bs-dismiss="modal">Fermer</button>
