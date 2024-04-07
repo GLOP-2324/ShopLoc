@@ -32,11 +32,8 @@ export class SidebarComponent {
       if (localStorage.getItem('roleId') == 2) {
         this.menuItems = [
           {path: '/commercant/dashboard', name: 'Dashboard', iconClass: 'fa fa-dashboard'},
-          {path: '/commercant/clients', name: 'Clients', iconClass: 'fa fa-user'},
           {path: '/commercant/types', name: 'Types', iconClass: 'fa fa-gear'},
           {path: '/commercant/produits', name: 'Produits', iconClass: 'fa fa-product-hunt'},
-          {path: '/commercant/analyses', name: 'Analyses', iconClass: 'fa fa-pie-chart'},
-          {path: '/commercant/commandes', name: 'Commandes', iconClass: 'fa fa-shopping-basket'}
 
         ];
       }
