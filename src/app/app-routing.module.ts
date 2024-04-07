@@ -22,6 +22,7 @@ import {ProfilComponent} from "./pages/vues/profil/profil.component";
 import {ClientCardComponent} from "./pages/vues/client/client-card/client-card.component";
 import {ClientAchatsComponent} from "./pages/vues/client/client-achats/client-achats.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {DashboardCommercantComponent} from "./dashboard-commercant/dashboard-commercant.component";
 
 
 const routes: Routes = [
@@ -45,7 +46,8 @@ const routes: Routes = [
     children: [
       { path: 'produits' , component: CommercantsProduitsComponent},
       { path: 'types' , component: CommercantTypeComponent },
-      { path: 'dashboard' , component: DashboardComponent },
+      { path: 'dashboard' , component: DashboardCommercantComponent },
+
     ]
   },
   {
@@ -59,6 +61,7 @@ const routes: Routes = [
     },
     children: [
       { path: 'Utilisateurs' , component: AdminUtilisateurComponent },
+      { path: 'dashboard' , component: DashboardComponent },
     ]
   },
   {

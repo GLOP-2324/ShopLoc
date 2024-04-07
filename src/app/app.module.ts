@@ -41,6 +41,7 @@ import { MapComponent } from './pages/map/map.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardCommercantComponent } from './dashboard-commercant/dashboard-commercant.component';
 
 
 
@@ -75,6 +76,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PaymentsComponent,
     FooterComponent,
     DashboardComponent,
+    DashboardCommercantComponent,
 
   ],
   imports: [
