@@ -30,7 +30,6 @@ export class AccountCreationComponent {
 
     createAccount(role: String) {
       const newFormData= new FormData();
-      alert('hello')
         this.accountToCreate = this.accountForm.getRawValue();
         if (role === 'Client') {
             this.accountToCreate.role=this.rightRole = 3;
