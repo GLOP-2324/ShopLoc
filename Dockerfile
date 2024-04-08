@@ -4,7 +4,7 @@ WORKDIR /app
 
 # add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
-
+npm install @types/jquery --save-dev
 # install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install 
