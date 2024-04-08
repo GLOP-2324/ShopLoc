@@ -1,18 +1,25 @@
 FROM node:20.8.1 AS build
-# set working directory
+# Set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
+# Add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
-npm install @types/jquery --save-dev
-# install and cache app dependencies
-COPY package.json /app/package.json
-RUN npm install
-# Install DataTables type definitions
-RUN npm install --save @types/datatables.net
+
+# Install Angular CLI globally
 RUN npm install -g @angular/cli@16.2.7
 
-# add app
+# Copy package.json and package-lock.json (if available)
+COPY package.json package-lock.json* /app/
+
+# Install app dependencies
+RUN npm install
+
+# If you need to install specific types globally, it's better to include them in package.json
+# This line is redundant if @types/jquery and @types/datatables.net are already in package.json
+# RUN npm install @types/datatables.net @types/jquery --save-dev
+
+# Add the rest of the app
 COPY . /app
-# start app
+
+# Start the app
 CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
